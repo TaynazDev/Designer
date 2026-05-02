@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prism Suite - Planning Docs Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0c0e;
+  --surface: #131316;
+  --surface2: #1a1a1f;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.11);
+  --glass-border: rgba(255,255,255,0.08);
+  --text: #eeecf4;
+  --text-2: rgba(238,236,244,0.6);
+  --muted: rgba(238,236,244,0.6);
+  --faint: rgba(238,236,244,0.3);
+  --grad: linear-gradient(135deg, #E8829A 0%, #b39dc0 50%, #7AAECC 100%);
+  --drop: #6AADDC;
+  --grind: #6DC98A;
+  --roast: #E8825A;
+  --mood: #C07BC4;
+  --vibes: #E8829A;
+  --designer: #7AAECC;
+  --social: #E8825A;
+  --vault: #6DC98A;
+  --geo: #5BBFB5;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(12,12,14,0.88);
+  backdrop-filter: blur(20px);
+  border-bottom: 0.5px solid var(--border);
+  padding: 0 40px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  transition: all .15s;
+  white-space: nowrap;
+}
+
+.nav-link:hover { color: var(--text); background: var(--surface2); }
+
+.nav-links {
+  display: flex;
+  gap: 2px;
+  list-style: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 65vw;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-links::-webkit-scrollbar { display: none; }
+
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 54px 24px 80px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: 100px;
+  border: 0.5px solid var(--border2);
+  background: var(--surface2);
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.bdot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--grad);
+}
+
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 6vw, 62px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin-bottom: 14px;
+}
+
+.grad {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.lead {
+  color: var(--muted);
+  max-width: 760px;
+  margin-bottom: 34px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform .15s, border-color .15s;
+  display: flex;
+  flex-direction: column;
+  min-height: 190px;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border2);
+}
+
+.card h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.tag {
+  font-size: 12px;
+  color: var(--faint);
+  letter-spacing: .04em;
+  margin-bottom: 12px;
+}
+
+.desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  flex: 1;
+}
+
+.foot {
+  margin-top: 16px;
+  font-size: 12px;
+  color: var(--faint);
+  letter-spacing: .04em;
+}
+
+.info {
+  margin-top: 30px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+}
+
+.info h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.info p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+@media (max-width: 980px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 700px) {
+  .grid { grid-template-columns: 1fr; }
+  .page { padding: 34px 18px 60px; }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="nav-brand">
+    <img src="prism logo dark mode.png" alt="Prism" style="height:24px;width:24px;object-fit:contain;border-radius:6px;">
+    PRISM SUITE
+  </a>
+  <ul class="nav-links">
+    <li><a href="prism-apps-plan.html" class="nav-link">Expansion Plan</a></li>
+    <li><a href="VibesAI_Plan.html" class="nav-link">VibesAI</a></li>
+    <li><a href="designer-plan.html" class="nav-link">Designer</a></li>
+    <li><a href="prism-social-plan.html" class="nav-link">Social</a></li>
+    <li><a href="prism-vault-plan.html" class="nav-link">Vault</a></li>
+    <li><a href="prism-geo-plan.html" class="nav-link">Geo</a></li>
+    <li><a href="working-apps.html" class="nav-link">Live Apps</a></li>
+    <li><a href="planning-docs.html" class="nav-link">Docs Hub</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <div class="badge"><span class="bdot"></span>Planning Docs Hub</div>
+  <h1><span class="grad">All Prism Plans</span><br>In one place.</h1>
+  <p class="lead">Quick access to every planning document with a short summary of what each one covers. Use this page as your single reference when navigating the Prism Suite roadmap.</p>
+
+  <div class="grid">
+    <a class="card" href="prism-apps-plan.html">
+      <h3 style="color:var(--drop)">Prism Apps Plan</h3>
+      <div class="tag">Drop · Grind · Roast · Mood</div>
+      <div class="desc">Master plan for the four core apps, including feature scopes, sequence, dependencies, and integration logic.</div>
+      <div class="foot">Open doc -></div>
+    </a>
+
+    <a class="card" href="VibesAI_Plan.html">
+      <h3 style="color:var(--vibes)">VibesAI Plan</h3>
+      <div class="tag">Vibe-coding · AI builder</div>
+      <div class="desc">Product and system plan for building and shipping from plain-language prompts with fast previews and deploy flow.</div>
+      <div class="foot">Open doc -></div>
+    </a>
+
+    <a class="card" href="designer-plan.html">
+      <h3 style="color:var(--designer)">Designer Plan</h3>
+      <div class="tag">AI self-improvement · Glow-up</div>
+      <div class="desc">Defines Designer modes, scoring, audit workflow, and roadmap for confidence-focused style and presence improvement.</div>
+      <div class="foot">Open doc -></div>
+    </a>
+
+    <a class="card" href="prism-social-plan.html">
+      <h3 style="color:var(--social)">Prism Social Plan</h3>
+      <div class="tag">For You feed · Create · Discover</div>
+      <div class="desc">Explains feed architecture, engagement loop, creator surfaces, and how Social amplifies every other Prism product.</div>
+      <div class="foot">Open doc -></div>
+    </a>
+
+    <a class="card" href="prism-vault-plan.html">
+      <h3 style="color:var(--vault)">Prism Vault Plan</h3>
+      <div class="tag">Budgeting · Bill splitting</div>
+      <div class="desc">Covers finance features, export/reporting, shared pots, monetization options, and planned suite integrations.</div>
+      <div class="foot">Open doc -></div>
+    </a>
+
+    <a class="card" href="prism-geo-plan.html">
+      <h3 style="color:var(--geo)">Prism Geo Plan</h3>
+      <div class="tag">Interactive map · Weather</div>
+      <div class="desc">Outlines map interactions, weather/time data stack, geolocation behavior, and progression toward suite-level usage.</div>
+      <div class="foot">Open doc -></div>
+    </a>
+  </div>
+
+  <div class="info">
+    <h2>How to use this hub</h2>
+    <p>Start with Prism Apps Plan for the core sequence, then open each specialist doc for implementation details. This page is intentionally lightweight and link-focused so you can jump fast between plans while keeping context.</p>
+  </div>
+</div>
+</body>
+</html>

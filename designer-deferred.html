@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Designer — Deferred Features</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0c0e;
+  --surface: #131316;
+  --surface2: #1a1a1f;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.11);
+  --text: #eeecf4;
+  --text2: rgba(238,236,244,0.6);
+  --text3: rgba(238,236,244,0.3);
+  --grad: linear-gradient(135deg, #E8829A 0%, #b39dc0 50%, #7AAECC 100%);
+  --pink: #E8829A;
+  --blue: #7AAECC;
+  --green: #6DC98A;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(12,12,14,0.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 0.5px solid var(--border);
+  padding: 0 40px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-brand {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-decoration: none;
+}
+.nav-back {
+  font-size: 13px;
+  color: var(--text3);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--text2); }
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 60px 24px 100px;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 0.5px solid var(--border2);
+  background: var(--surface2);
+  font-size: 12px;
+  color: var(--text3);
+  margin-bottom: 24px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.grad {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.lead {
+  font-size: 15px;
+  color: var(--text2);
+  max-width: 600px;
+  margin-bottom: 56px;
+  line-height: 1.65;
+}
+.section { margin-bottom: 48px; }
+.section-label {
+  font-size: 10px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 0.5px solid var(--border);
+}
+.items { display: flex; flex-direction: column; gap: 10px; }
+.item {
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 16px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: start;
+}
+.item-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.item-desc { font-size: 13px; color: var(--text2); line-height: 1.55; }
+.tag {
+  font-size: 11px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 0.5px solid;
+  white-space: nowrap;
+  margin-top: 2px;
+}
+.tag.post-mvp { color: var(--blue); border-color: rgba(122,174,204,0.3); background: rgba(122,174,204,0.07); }
+.tag.needs-design { color: var(--pink); border-color: rgba(232,130,154,0.3); background: rgba(232,130,154,0.07); }
+.tag.needs-data { color: var(--green); border-color: rgba(109,201,138,0.3); background: rgba(109,201,138,0.08); }
+.tag.complex { color: rgba(179,157,192,1); border-color: rgba(179,157,192,0.3); background: rgba(179,157,192,0.07); }
+.note {
+  margin-top: 40px;
+  padding: 16px 20px;
+  background: rgba(122,174,204,0.05);
+  border: 0.5px solid rgba(122,174,204,0.2);
+  border-radius: 14px;
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.6;
+}
+.note strong { color: var(--text); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <span class="nav-brand">Designer by Prism</span>
+  <a href="designer-app.html" class="nav-back">
+    ← Back to prototype
+  </a>
+</nav>
+
+<div class="page">
+
+  <div class="hero-badge">Deferred features</div>
+  <h1>Not in the<br><span class="grad">prototype yet.</span></h1>
+  <p class="lead">Everything below is planned, documented, or required for the real product — but not yet built into the interactive prototype. Tracked here so nothing gets lost.</p>
+
+  <!-- SCREENS NOT BUILT -->
+  <div class="section">
+    <div class="section-label">Screens not yet built</div>
+    <div class="items">
+      <div class="item">
+        <div>
+          <div class="item-title">Photo upload screen</div>
+          <div class="item-desc">Camera / gallery picker UI. Preview, crop, confirm. Required for photo vision analysis in Real mode and above. Privacy note shown on first use.</div>
+        </div>
+        <div class="tag needs-design">Needs design</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Score history chart</div>
+          <div class="item-desc">Line graph showing score movement across all sessions. Tap a point to see that session's audit summary. Date range filter. Linked from Profile → Score history.</div>
+        </div>
+        <div class="tag needs-design">Needs design</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Onboarding — goal selection</div>
+          <div class="item-desc">Tappable goal cards presented after name entry. Style, fitness, social presence, confidence, grooming. Multi-select. Used to seed the first intake prompt.</div>
+        </div>
+        <div class="tag" style="color:#6DC98A;border-color:rgba(109,201,138,0.3);background:rgba(109,201,138,0.08);">Done</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Intake answers editor</div>
+          <div class="item-desc">View and edit stored intake answers. Each Q&A shown as a card, editable inline. Saving triggers a re-score prompt.</div>
+        </div>
+        <div class="tag needs-design">Needs design</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Brutal mode confirmation gate</div>
+          <div class="item-desc">Modal shown before enabling Mode 05. Explicit warning, requires user to type "I understand" or tap a confirm button. Not reversible mid-session.</div>
+        </div>
+        <div class="tag needs-design">Needs design</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Shareable score card</div>
+          <div class="item-desc">"I just hit 74 in Beast mode" — generated image card for sharing. Score, mode, tier name, Prism branding. Tap-to-share from dashboard. Built-in virality mechanic.</div>
+        </div>
+        <div class="tag post-mvp">Post-MVP</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Notifications / reminder screen</div>
+          <div class="item-desc">Set check-in reminders. Streak display. Push notification opt-in flow.</div>
+        </div>
+        <div class="tag post-mvp">Post-MVP</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGIC NOT WIRED -->
+  <div class="section">
+    <div class="section-label">Logic not wired in prototype</div>
+    <div class="items">
+      <div class="item">
+        <div>
+          <div class="item-title">Real AI responses (Claude Sonnet 4.6)</div>
+          <div class="item-desc">Intake and check-in flows are scripted in the prototype. Real build uses Claude with mode-specific system prompts. Five system prompts total — one per mode. Tested independently.</div>
+        </div>
+        <div class="tag complex">Complex</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Photo vision analysis</div>
+          <div class="item-desc">Claude vision reads body shape, skin, hair, outfit, grooming, overall vibe. Output feeds into score and audit. Rate-limited — vision calls are expensive. Cost model required before launch.</div>
+        </div>
+        <div class="tag complex">Complex</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Score calculation engine</div>
+          <div class="item-desc">Claude returns category scores (style, grooming, vibe, social). Weighted average becomes overall score. Exponential difficulty curve — each point harder as you climb. Algorithm definition needed.</div>
+        </div>
+        <div class="tag complex">Complex</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Profile persistence (Supabase)</div>
+          <div class="item-desc">profiles, scores, check_ins, photo_analyses tables. Profile JSON stored and passed with every check-in prompt. Score history tracked row by row.</div>
+        </div>
+        <div class="tag needs-data">Needs backend</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Prism ID auth</div>
+          <div class="item-desc">Sign in / sign up shared across all Prism apps. No separate account per app. SSO-style within the suite. Supabase Auth or dedicated service TBD.</div>
+        </div>
+        <div class="tag needs-data">Needs backend</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Rate limiting (Upstash Redis)</div>
+          <div class="item-desc">Free tier: 3 AI sessions/day. Pro: unlimited. Vision calls tracked separately — counted and cost-monitored. Limits shown in UI when approaching cap.</div>
+        </div>
+        <div class="tag needs-data">Needs backend</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Mode-change re-score logic</div>
+          <div class="item-desc">Switching modes adjusts the difficulty weighting of historical scores retroactively or flags next check-in as a re-baseline. Behaviour needs definition.</div>
+        </div>
+        <div class="tag complex">Complex</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUITE INTEGRATIONS -->
+  <div class="section">
+    <div class="section-label">Suite integrations (post-MVP)</div>
+    <div class="items">
+      <div class="item">
+        <div>
+          <div class="item-title">Prism Mood → AI tone shift</div>
+          <div class="item-desc">When Mood score is low, Designer AI tone warms up regardless of mode. Don't critique someone who's already down. Requires Mood data access permission.</div>
+        </div>
+        <div class="tag post-mvp">Post-MVP</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Prism Grind → roadmap sync</div>
+          <div class="item-desc">Glow-up roadmap items pushed to Grind as active goals. Style goals become daily missions. Requires Grind write permission and shared goal schema.</div>
+        </div>
+        <div class="tag post-mvp">Post-MVP</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Prism Roast → check-in import</div>
+          <div class="item-desc">Roast audit results sent to Designer as a check-in prompt. Honest feedback from Roast feeds the full picture. Requires shared audit format between apps.</div>
+        </div>
+        <div class="tag post-mvp">Post-MVP</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Prism Social → score share</div>
+          <div class="item-desc">Score milestones shareable as posts in Prism Social. Score cards generated and posted. Viral loop mechanic. Requires Social write permission.</div>
+        </div>
+        <div class="tag post-mvp">Post-MVP</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MONETISATION -->
+  <div class="section">
+    <div class="section-label">Monetisation (not wired)</div>
+    <div class="items">
+      <div class="item">
+        <div>
+          <div class="item-title">Paywall / upgrade flow</div>
+          <div class="item-desc">Free users hit a gate after 3 sessions/day or when accessing photo analysis, Beast/Brutal modes, or full score history. Upgrade prompt shown at gate. Stripe or in-app purchase flow.</div>
+        </div>
+        <div class="tag needs-design">Needs design</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Designer Pro subscription management</div>
+          <div class="item-desc">Cancel, change billing, see renewal date. Linked from Profile → Subscription. Stripe customer portal or custom UI.</div>
+        </div>
+        <div class="tag post-mvp">Post-MVP</div>
+      </div>
+      <div class="item">
+        <div>
+          <div class="item-title">Prism Pass bundle</div>
+          <div class="item-desc">Suite-wide pass that unlocks Designer Pro plus all other Prism apps. One subscription, everything. Pricing and bundle logic TBD once other apps exist.</div>
+        </div>
+        <div class="tag post-mvp">Post-MVP</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Note:</strong> This document tracks what's known but not yet built. It is not a full backlog — implementation details and technical specs live in the planning doc. Items marked <strong>Post-MVP</strong> are explicitly out of scope for the first release. Items marked <strong>Needs design</strong> or <strong>Needs backend</strong> are required for MVP but not yet prototyped.
+  </div>
+
+</div>
+</body>
+</html>

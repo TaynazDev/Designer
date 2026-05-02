@@ -1,0 +1,2824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Designer by Prism</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET & ROOT ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #0c0c0e;
+  --surface:   #131316;
+  --surface2:  #1a1a1f;
+  --surface3:  #202027;
+  --border:    rgba(255,255,255,0.06);
+  --border2:   rgba(255,255,255,0.11);
+  --border3:   rgba(255,255,255,0.17);
+  --text:      #eeecf4;
+  --text2:     rgba(238,236,244,0.6);
+  --text3:     rgba(238,236,244,0.3);
+  --pink:      #E8829A;
+  --blue:      #7AAECC;
+  --grad:      linear-gradient(135deg, #E8829A 0%, #b39dc0 50%, #7AAECC 100%);
+  --grad-45:   linear-gradient(45deg, #E8829A, #b39dc0, #7AAECC);
+  --pink-glow: rgba(232,130,154,0.15);
+  --blue-glow: rgba(122,174,204,0.15);
+  --r-card:    18px;
+  --r-pill:    999px;
+  --safe-bot:  env(safe-area-inset-bottom, 0px);
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── PHONE SHELL ──────────────────────────────────────────── */
+.shell {
+  width: 100%;
+  height: 100%;
+  max-width: 430px;
+  max-height: 932px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* status bar */
+.status-bar {
+  height: 44px;
+  padding: 12px 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+  letter-spacing: 0.01em;
+}
+
+.status-time { color: var(--text); font-size: 14px; font-weight: 700; }
+.status-icons { display: flex; gap: 6px; align-items: center; }
+.status-icon { width: 16px; height: 10px; opacity: 0.8; }
+
+/* ─── SCREENS ──────────────────────────────────────────────── */
+.screen {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  transform: translateX(30px);
+}
+
+.screen.active {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(0);
+}
+
+.screen.out-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  pointer-events: none;
+}
+
+/* ─── SCROLLABLE CONTENT AREA ──────────────────────────────── */
+.scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.scroll-area::-webkit-scrollbar { display: none; }
+
+/* ─── BOTTOM NAV ───────────────────────────────────────────── */
+.bottom-nav {
+  height: 64px;
+  background: rgba(19,19,22,0.95);
+  backdrop-filter: blur(20px);
+  border-top: 0.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px;
+  padding-bottom: var(--safe-bot);
+  flex-shrink: 0;
+}
+
+.nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 0;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--text3);
+  transition: color 0.2s;
+  font-family: 'DM Sans', sans-serif;
+}
+.nav-item.active { color: var(--text); }
+.nav-item.active .nav-icon svg path,
+.nav-item.active .nav-icon svg circle,
+.nav-item.active .nav-icon svg rect { stroke: var(--text); }
+
+.nav-icon { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; }
+.nav-icon svg { width: 22px; height: 22px; }
+.nav-icon svg path, .nav-icon svg circle, .nav-icon svg rect {
+  stroke: var(--text3);
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.2s;
+}
+.nav-label { font-size: 10px; font-weight: 500; letter-spacing: 0.03em; }
+
+/* ─── UTILITY ──────────────────────────────────────────────── */
+.grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: var(--r-pill);
+  border: 0.5px solid var(--border2);
+  background: var(--surface2);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text2);
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 15px 24px;
+  border-radius: var(--r-pill);
+  border: none;
+  background: var(--grad);
+  color: #fff;
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.btn-primary:active { opacity: 0.85; transform: scale(0.98); }
+
+.btn-ghost {
+  width: 100%;
+  padding: 14px 24px;
+  border-radius: var(--r-pill);
+  border: 0.5px solid var(--border2);
+  background: transparent;
+  color: var(--text2);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--border3); color: var(--text); }
+
+.section-label {
+  font-size: 10px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 14px;
+}
+
+.glass {
+  background: rgba(255,255,255,0.03);
+  border: 0.5px solid var(--border);
+  border-radius: var(--r-card);
+  padding: 18px;
+}
+
+/* ─── SPLASH / LOGO SCREEN ─────────────────────────────────── */
+#screen-splash {
+  background: var(--bg);
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.splash-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 60px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.splash-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 22px;
+  background: var(--surface);
+  border: 0.5px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.splash-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--grad);
+  opacity: 0.12;
+}
+
+.splash-icon svg {
+  width: 34px;
+  height: 34px;
+  position: relative;
+  z-index: 1;
+}
+
+.splash-wordmark {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+
+.splash-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.splash-sub {
+  font-size: 14px;
+  color: var(--text2);
+  text-align: center;
+  max-width: 280px;
+  line-height: 1.5;
+  margin-top: -8px;
+}
+
+.splash-actions {
+  position: absolute;
+  bottom: 0;
+  left: 0; right: 0;
+  padding: 24px 28px calc(28px + var(--safe-bot));
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: fadeUp 0.7s 0.15s ease both;
+}
+
+/* ─── ONBOARDING ───────────────────────────────────────────── */
+#screen-onboard-1, #screen-onboard-2, #screen-onboard-3 {
+  background: var(--bg);
+}
+
+.onboard-progress {
+  padding: 52px 28px 0;
+  flex-shrink: 0;
+}
+.ob-track {
+  width: 100%;
+  height: 3px;
+  border-radius: 99px;
+  background: var(--border2);
+  overflow: hidden;
+  position: relative;
+}
+.ob-fill {
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #7AAECC 0%, #b39dc0 50%, #E8829A 100%);
+  background-size: 300% 100%;
+  background-position: left center;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.onboard-body {
+  flex: 1;
+  padding: 32px 28px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.onboard-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 16px;
+  font-family: 'Syne', sans-serif;
+}
+
+.onboard-h {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+
+.onboard-p {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.65;
+  max-width: 340px;
+}
+
+.onboard-visual {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0;
+  min-height: 0;
+}
+
+.onboard-actions {
+  padding: 0 28px calc(28px + var(--safe-bot));
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* onboard visual 1 — mode cards */
+.ob-modes-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.ob-mode-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  transition: border-color 0.2s;
+}
+.ob-mode-row.highlight {
+  border-color: rgba(122,174,204,0.3);
+  background: rgba(122,174,204,0.05);
+}
+.ob-mode-num {
+  font-size: 11px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  color: var(--text3);
+  width: 28px;
+  flex-shrink: 0;
+}
+.ob-mode-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  flex: 1;
+}
+.ob-mode-tag {
+  font-size: 11px;
+  color: var(--text3);
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 0.5px solid var(--border2);
+}
+
+/* onboard visual 2 — score ring */
+.ob-score-ring {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ob-score-ring svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  transform: rotate(-90deg);
+}
+.ob-score-inner {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.ob-score-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 52px;
+  font-weight: 800;
+  line-height: 1;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.ob-score-sub {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+
+/* onboard visual 3 — goal cards */
+.goal-card {
+  padding: 16px 14px;
+  border-radius: 14px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  user-select: none;
+}
+.goal-card.selected {
+  border-color: rgba(122,174,204,0.45);
+  background: rgba(122,174,204,0.07);
+}
+.goal-card-icon { font-size: 22px; line-height: 1; }
+.goal-card-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--text);
+}
+.goal-card.selected .goal-card-label { color: var(--blue); }
+
+/* gender toggle */
+.gender-toggle {
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+.gender-btn {
+  flex: 1;
+  padding: 13px 10px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  color: var(--muted);
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  letter-spacing: 0.04em;
+}
+.gender-btn.selected {
+  border-color: rgba(232,130,154,0.45);
+  background: rgba(232,130,154,0.08);
+  color: var(--pink);
+}
+
+/* vibe section on goals screen */
+.vibe-section {
+  margin-top: 18px;
+  width: 100%;
+}
+.vibe-section-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.vibe-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.vibe-chip {
+  padding: 7px 14px;
+  border-radius: 100px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  color: var(--muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, color 0.15s;
+  user-select: none;
+}
+.vibe-chip.selected {
+  border-color: rgba(232,130,154,0.45);
+  background: rgba(232,130,154,0.08);
+  color: var(--pink);
+}
+.vibe-custom-input {
+  margin-top: 10px;
+  width: 100%;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  padding: 11px 14px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+.vibe-custom-input:focus { border-color: rgba(232,130,154,0.35); }
+.vibe-custom-input::placeholder { color: var(--muted); }
+
+/* clickable links in chat bubbles */
+.msg-bubble a {
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-all;
+}
+
+/* onboard visual 4 — name input */
+.ob-input-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ob-input {
+  width: 100%;
+  background: var(--surface);
+  border: 0.5px solid var(--border2);
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.ob-input:focus { border-color: rgba(122,174,204,0.4); }
+.ob-input::placeholder { color: var(--text3); }
+.ob-input-label {
+  font-size: 12px;
+  color: var(--text3);
+  font-weight: 500;
+  padding-left: 4px;
+}
+
+/* ─── MODE SELECT ──────────────────────────────────────────── */
+#screen-mode-select {
+  background: var(--bg);
+}
+
+.mode-select-header {
+  padding: 52px 28px 20px;
+  flex-shrink: 0;
+}
+.mode-select-h {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.mode-select-sub {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.55;
+}
+
+.modes-list {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mode-card {
+  padding: 16px 18px;
+  border-radius: var(--r-card);
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.mode-card:active { transform: scale(0.99); }
+.mode-card.selected {
+  border-color: rgba(122,174,204,0.4);
+  background: rgba(122,174,204,0.06);
+}
+.mode-card.selected::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--grad);
+}
+.mode-card.beast.selected {
+  border-color: rgba(232,130,154,0.4);
+  background: rgba(232,130,154,0.06);
+}
+.mode-card.beast.selected::before {
+  background: linear-gradient(90deg, #E8829A, #b39dc0);
+}
+.mode-card.brutal {
+  border-style: dashed;
+  opacity: 0.6;
+}
+.mode-card.brutal.selected { opacity: 1; }
+
+.mode-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+.mode-card-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+.mode-card-num {
+  font-size: 11px;
+  color: var(--text3);
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.mode-card-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.mode-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.mode-card-tag {
+  font-size: 11px;
+  color: var(--text3);
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 0.5px solid var(--border2);
+}
+.mode-badge-experimental {
+  font-size: 9px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  border: 0.5px solid var(--border2);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.mode-check {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+.mode-card.selected .mode-check {
+  background: var(--blue);
+  border-color: var(--blue);
+}
+.mode-card.beast.selected .mode-check {
+  background: var(--pink);
+  border-color: var(--pink);
+}
+.mode-check svg { width: 10px; height: 10px; opacity: 0; transition: opacity 0.2s; }
+.mode-card.selected .mode-check svg { opacity: 1; }
+
+.mode-select-actions {
+  padding: 16px 20px calc(16px + var(--safe-bot));
+  flex-shrink: 0;
+}
+
+/* ─── INTAKE / CHAT ────────────────────────────────────────── */
+#screen-intake {
+  background: var(--bg);
+}
+
+.chat-header {
+  padding: 52px 20px 14px;
+  flex-shrink: 0;
+  border-bottom: 0.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chat-header-left { display: flex; flex-direction: column; gap: 2px; }
+.chat-header-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+}
+.chat-header-mode {
+  font-size: 12px;
+  color: var(--blue);
+  font-weight: 500;
+}
+
+.chat-header-score {
+  text-align: right;
+}
+.chat-score-label { font-size: 10px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; font-family: 'Syne', sans-serif; font-weight: 600; }
+.chat-score-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 20px 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.chat-messages::-webkit-scrollbar { display: none; }
+
+.msg {
+  display: flex;
+  flex-direction: column;
+  max-width: 88%;
+  animation: msgIn 0.3s ease both;
+}
+.msg.ai { align-self: flex-start; }
+.msg.user { align-self: flex-end; }
+
+.msg-bubble {
+  padding: 12px 16px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.msg.ai .msg-bubble {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 4px 18px 18px 18px;
+  color: var(--text);
+}
+.msg.user .msg-bubble {
+  background: var(--grad);
+  color: #fff;
+  border-radius: 18px 18px 4px 18px;
+  font-weight: 500;
+}
+
+.msg-label {
+  font-size: 10px;
+  color: var(--text3);
+  margin-bottom: 4px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.msg.user .msg-label { text-align: right; }
+
+.chat-quick-replies {
+  padding: 12px 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.qr-btn {
+  padding: 7px 14px;
+  border-radius: var(--r-pill);
+  border: 0.5px solid var(--border2);
+  background: var(--surface);
+  color: var(--text2);
+  font-size: 13px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+}
+.qr-btn:active { background: var(--surface2); }
+
+.chat-input-bar {
+  padding: 12px 16px calc(12px + var(--safe-bot));
+  border-top: 0.5px solid var(--border);
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+.chat-input-field {
+  flex: 1;
+  background: var(--surface);
+  border: 0.5px solid var(--border2);
+  border-radius: 22px;
+  padding: 10px 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  resize: none;
+  min-height: 42px;
+  max-height: 120px;
+  line-height: 1.5;
+  transition: border-color 0.2s;
+}
+.chat-input-field:focus { border-color: rgba(122,174,204,0.35); }
+.chat-input-field::placeholder { color: var(--text3); }
+
+.chat-send-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--grad);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: opacity 0.15s, transform 0.1s;
+}
+.chat-send-btn:active { opacity: 0.8; transform: scale(0.93); }
+.chat-send-btn svg { width: 18px; height: 18px; }
+.chat-send-btn svg path { stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* typing indicator */
+.typing-indicator { display: flex; gap: 4px; align-items: center; padding: 4px 0; }
+.typing-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--text3);
+  animation: typingBounce 1.2s infinite;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* ─── DASHBOARD (HOME) ─────────────────────────────────────── */
+#screen-home {
+  background: var(--bg);
+}
+
+.home-scroll {
+  padding: 52px 20px calc(20px + var(--safe-bot));
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.home-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.home-greeting { font-size: 13px; color: var(--text2); margin-bottom: 4px; }
+.home-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.home-mode-pill {
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+  font-size: 11px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 0.5px solid rgba(122,174,204,0.3);
+  background: rgba(122,174,204,0.08);
+  color: var(--blue);
+}
+
+/* score card */
+.score-card {
+  background: var(--surface);
+  border: 0.5px solid var(--border2);
+  border-radius: 22px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.score-card::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(122,174,204,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.score-ring-wrap {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.score-ring-wrap svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  transform: rotate(-90deg);
+}
+.score-ring-inner { text-align: center; position: relative; z-index: 1; }
+.score-big {
+  font-family: 'Syne', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  line-height: 1;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.score-denom { font-size: 12px; color: var(--text3); font-weight: 500; margin-top: 2px; }
+
+.score-details { flex: 1; min-width: 0; }
+.score-tier-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.score-tier-desc { font-size: 12px; color: var(--text2); line-height: 1.45; margin-bottom: 12px; }
+.score-since { font-size: 11px; color: var(--text3); }
+.score-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6DC98A;
+}
+
+/* checkin banner */
+.checkin-banner {
+  background: var(--surface);
+  border: 0.5px solid var(--border2);
+  border-radius: var(--r-card);
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.checkin-banner:active { border-color: var(--border3); }
+.checkin-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(232,130,154,0.1);
+  border: 0.5px solid rgba(232,130,154,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.checkin-text { flex: 1; }
+.checkin-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.checkin-sub { font-size: 12px; color: var(--text2); }
+.checkin-arrow { color: var(--text3); }
+
+/* roadmap strip */
+.roadmap-strip { display: flex; flex-direction: column; gap: 6px; }
+.roadmap-tier-group { display: flex; flex-direction: column; gap: 6px; }
+.roadmap-tier-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0 2px;
+}
+.roadmap-tier-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+}
+.roadmap-tier-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.roadmap-tier-header.tier-now   .roadmap-tier-dot  { background: #6DC98A; }
+.roadmap-tier-header.tier-now   .roadmap-tier-label { color: #6DC98A; }
+.roadmap-tier-header.tier-effort .roadmap-tier-dot { background: var(--blue); }
+.roadmap-tier-header.tier-effort .roadmap-tier-label { color: var(--blue); }
+.roadmap-tier-header.tier-time  .roadmap-tier-dot  { background: var(--pink); }
+.roadmap-tier-header.tier-time  .roadmap-tier-label { color: var(--pink); }
+.roadmap-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 14px;
+}
+.roadmap-num {
+  font-size: 11px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  color: var(--text3);
+  width: 20px;
+  flex-shrink: 0;
+}
+.roadmap-text { flex: 1; font-size: 13px; color: var(--text); line-height: 1.4; }
+.roadmap-cat {
+  font-size: 10px;
+  color: var(--text3);
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 0.5px solid var(--border2);
+  flex-shrink: 0;
+  text-transform: capitalize;
+}
+/* legacy tag (for any old data still using priority) */
+.roadmap-tag {
+  font-size: 11px;
+  color: var(--text3);
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 0.5px solid var(--border2);
+  flex-shrink: 0;
+}
+.roadmap-tag.high {
+  color: var(--pink);
+  border-color: rgba(232,130,154,0.25);
+  background: rgba(232,130,154,0.07);
+}
+
+/* category scores */
+.category-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.cat-card {
+  padding: 14px 14px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 14px;
+}
+.cat-label { font-size: 11px; color: var(--text2); margin-bottom: 6px; font-weight: 500; }
+.cat-score {
+  font-family: 'Syne', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.cat-bar-wrap {
+  height: 3px;
+  border-radius: 3px;
+  background: var(--surface2);
+  overflow: hidden;
+}
+.cat-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--grad);
+}
+
+/* ─── PROFILE SCREEN ───────────────────────────────────────── */
+#screen-profile {
+  background: var(--bg);
+}
+
+.profile-scroll {
+  padding: 52px 20px calc(20px + var(--safe-bot));
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: var(--surface2);
+  border: 0.5px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-color: var(--surface2);
+  flex-shrink: 0;
+}
+.profile-info-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+.profile-info-sub { font-size: 12px; color: var(--text2); }
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.pstat {
+  padding: 14px 12px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 14px;
+  text-align: center;
+}
+.pstat-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 4px;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.pstat-label { font-size: 11px; color: var(--text3); }
+
+.profile-mode-section { display: flex; flex-direction: column; gap: 10px; }
+.current-mode-card {
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 0.5px solid rgba(122,174,204,0.3);
+  border-radius: var(--r-card);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.current-mode-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--grad);
+  flex-shrink: 0;
+}
+.current-mode-info { flex: 1; }
+.current-mode-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; font-family: 'Syne', sans-serif; font-weight: 600; }
+.current-mode-name { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-top: 2px; }
+.current-mode-change { font-size: 12px; color: var(--blue); cursor: pointer; }
+
+.profile-section-card { display: flex; flex-direction: column; gap: 8px; }
+.profile-row {
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.profile-row:active { background: var(--surface2); }
+.profile-row-left { display: flex; flex-direction: column; gap: 2px; }
+.profile-row-label { font-size: 14px; font-weight: 500; }
+.profile-row-sub { font-size: 12px; color: var(--text3); }
+.profile-row-right { color: var(--text3); display: flex; align-items: center; gap: 6px; font-size: 12px; }
+
+/* ─── AUDIT RESULT ─────────────────────────────────────────── */
+#screen-audit {
+  background: var(--bg);
+}
+
+.audit-header {
+  padding: 52px 20px 16px;
+  flex-shrink: 0;
+  border-bottom: 0.5px solid var(--border);
+}
+.audit-eyebrow { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; font-family: 'Syne', sans-serif; font-weight: 600; margin-bottom: 8px; }
+.audit-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.audit-scroll {
+  padding: 20px 20px calc(20px + var(--safe-bot));
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.audit-score-hero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: var(--surface);
+  border: 0.5px solid var(--border2);
+  border-radius: 22px;
+  position: relative;
+  overflow: hidden;
+}
+.audit-score-hero::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 160px; height: 160px;
+  background: radial-gradient(circle, rgba(232,130,154,0.12) 0%, transparent 70%);
+}
+
+.audit-score-change {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #6DC98A;
+  font-weight: 600;
+}
+
+.audit-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.audit-block-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.audit-item {
+  padding: 14px 16px;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.audit-item-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+.audit-item-dot.good { background: #6DC98A; }
+.audit-item-dot.warn { background: var(--pink); }
+
+.audit-cta {
+  padding: 16px 18px;
+  background: rgba(122,174,204,0.06);
+  border: 0.5px solid rgba(122,174,204,0.25);
+  border-radius: var(--r-card);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+}
+.audit-cta-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(122,174,204,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ─── ANIMATIONS ───────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-5px); }
+}
+@keyframes ringIn {
+  from { stroke-dashoffset: 300; }
+}
+@keyframes spin {
+  to { transform: rotate(-90deg) rotate(360deg); }
+}
+
+/* ─── DESKTOP CENTERING ────────────────────────────────────── */
+@media (min-height: 933px) {
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #060607;
+  }
+  .shell {
+    border-radius: 48px;
+    border: 0.5px solid rgba(255,255,255,0.08);
+    box-shadow: 0 40px 120px rgba(0,0,0,0.7), 0 0 0 0.5px rgba(255,255,255,0.04);
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="shell" id="app">
+
+  <!-- ══════════════════════════════════════════════ SPLASH -->
+  <div class="screen active" id="screen-splash">
+    <div class="splash-logo">
+      <div class="splash-icon">
+        <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="iconGrad" x1="0" y1="0" x2="34" y2="34" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#E8829A"/>
+              <stop offset="50%" stop-color="#b39dc0"/>
+              <stop offset="100%" stop-color="#7AAECC"/>
+            </linearGradient>
+          </defs>
+          <!-- D letterform / diamond prism -->
+          <path d="M9 6 L9 28 L19 28 C25.627 28 31 22.627 31 16 C31 9.373 25.627 4 19 4 L9 4 Z" stroke="url(#iconGrad)" stroke-width="2" fill="none" stroke-linejoin="round"/>
+          <path d="M14 10 L19 10 C22.866 10 26 13.134 26 17 C26 20.866 22.866 24 19 24 L14 24 Z" fill="url(#iconGrad)" opacity="0.4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="splash-wordmark">Prism Suite</div>
+      </div>
+      <div class="splash-title"><span class="grad-text">Designer</span></div>
+      <p class="splash-sub">Become the version of yourself you actually want to be.</p>
+    </div>
+    <div class="splash-actions">
+      <button class="btn-primary" onclick="goTo('screen-onboard-1')">Get started</button>
+      <button class="btn-ghost" onclick="goTo('screen-home')">Sign in</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ ONBOARD 1: CONCEPT -->
+  <div class="screen" id="screen-onboard-1">
+    <div class="onboard-progress">
+      <div class="ob-track"><div class="ob-fill" style="width:25%"></div></div>
+    </div>
+    <div class="onboard-body">
+      <div class="onboard-tag">01 / 04</div>
+      <h2 class="onboard-h">Honest feedback.<br><span class="grad-text">Real change.</span></h2>
+      <p class="onboard-p">Designer isn't here to make you feel good. It's here to help you actually improve — your style, your vibe, your presence. On your terms.</p>
+      <div class="onboard-visual">
+        <div class="ob-modes-preview">
+          <div class="ob-mode-row">
+            <div class="ob-mode-num">01</div>
+            <div class="ob-mode-name">Relaxed</div>
+            <div class="ob-mode-tag">Easy wins</div>
+          </div>
+          <div class="ob-mode-row">
+            <div class="ob-mode-num">02</div>
+            <div class="ob-mode-name">Real</div>
+            <div class="ob-mode-tag">Balanced</div>
+          </div>
+          <div class="ob-mode-row highlight">
+            <div class="ob-mode-num">03</div>
+            <div class="ob-mode-name">Locked in</div>
+            <div class="ob-mode-tag">No coddling</div>
+          </div>
+          <div class="ob-mode-row">
+            <div class="ob-mode-num">04</div>
+            <div class="ob-mode-name">Beast</div>
+            <div class="ob-mode-tag">Little filter</div>
+          </div>
+          <div class="ob-mode-row" style="opacity:0.45; border-style:dashed;">
+            <div class="ob-mode-num">05</div>
+            <div class="ob-mode-name" style="color:var(--text2)">Brutal</div>
+            <div class="ob-mode-tag">Experimental</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="onboard-actions">
+      <button class="btn-primary" onclick="goTo('screen-onboard-2')">Continue</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ ONBOARD 2: SCORE -->
+  <div class="screen" id="screen-onboard-2">
+    <div class="onboard-progress">
+      <div class="ob-track"><div class="ob-fill" style="width:50%"></div></div>
+    </div>
+    <div class="onboard-body">
+      <div class="onboard-tag">02 / 04</div>
+      <h2 class="onboard-h">Your score.<br><span class="grad-text">Always tracked.</span></h2>
+      <p class="onboard-p">You'll get a score out of 100. The closer you get to the top, the harder each point becomes. In Brutal mode, 100 is impossible by design.</p>
+      <div class="onboard-visual">
+        <div class="ob-score-ring">
+          <svg viewBox="0 0 180 180">
+            <defs>
+              <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#E8829A"/>
+                <stop offset="50%" stop-color="#b39dc0"/>
+                <stop offset="100%" stop-color="#7AAECC"/>
+              </linearGradient>
+            </defs>
+            <circle cx="90" cy="90" r="76" stroke="rgba(255,255,255,0.06)" stroke-width="8" fill="none"/>
+            <circle cx="90" cy="90" r="76" stroke="url(#ringGrad)" stroke-width="8" fill="none"
+              stroke-linecap="round"
+              stroke-dasharray="477.5"
+              stroke-dashoffset="143"
+              style="transition: stroke-dashoffset 1s ease;"/>
+          </svg>
+          <div class="ob-score-inner">
+            <div class="ob-score-num">72</div>
+            <div class="ob-score-sub">/ 100</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="onboard-actions">
+      <button class="btn-primary" onclick="goTo('screen-onboard-3')">Continue</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ ONBOARD 3: NAME -->
+  <div class="screen" id="screen-onboard-3">
+    <div class="onboard-progress">
+      <div class="ob-track"><div class="ob-fill" style="width:75%"></div></div>
+    </div>
+    <div class="onboard-body">
+      <div class="onboard-tag">03 / 04</div>
+      <h2 class="onboard-h">First things first.<br><span class="grad-text">Who are we dressing?</span></h2>
+      <p class="onboard-p">No full name needed. A first name or whatever you go by is fine.</p>
+      <div class="onboard-visual" style="align-items:flex-start;padding-top:8px;">
+        <div class="ob-input-wrap">
+          <div class="ob-input-label">Your name</div>
+          <input class="ob-input" type="text" placeholder="e.g. Jordan" id="name-input" maxlength="30"/>
+          <div class="ob-input-label" style="margin-top:14px;">You identify as</div>
+          <div class="gender-toggle">
+            <button class="gender-btn" data-gender="male" onclick="selectGender(this)">&#9794; Male</button>
+            <button class="gender-btn" data-gender="female" onclick="selectGender(this)">&#9792; Female</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="onboard-actions">
+      <button class="btn-primary" onclick="saveNameAndContinue()">Continue</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ ONBOARD 4: GOALS -->
+  <div class="screen" id="screen-onboard-4">
+    <div class="onboard-progress">
+      <div class="ob-track"><div class="ob-fill" style="width:100%"></div></div>
+    </div>
+    <div class="onboard-body">
+      <div class="onboard-tag">04 / 04</div>
+      <h2 class="onboard-h">What do you<br>want to <span class="grad-text">change?</span></h2>
+      <p class="onboard-p">Pick everything that applies. Then set your vibe — Designer will push you toward it, or find the best version of it if it needs work.</p>
+      <div class="onboard-visual" style="align-items:flex-start;padding-top:4px;">
+        <div id="goal-cards" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;">
+          <div class="goal-card" data-goal="Style &amp; clothing" onclick="toggleGoal(this)">
+            <div class="goal-card-icon">👚</div>
+            <div class="goal-card-label">Style &amp; clothing</div>
+          </div>
+          <div class="goal-card" data-goal="Grooming &amp; skin" onclick="toggleGoal(this)">
+            <div class="goal-card-icon">✨</div>
+            <div class="goal-card-label">Grooming &amp; skin</div>
+          </div>
+          <div class="goal-card" data-goal="Fitness &amp; physique" onclick="toggleGoal(this)">
+            <div class="goal-card-icon">💪</div>
+            <div class="goal-card-label">Fitness &amp; physique</div>
+          </div>
+          <div class="goal-card" data-goal="Confidence &amp; energy" onclick="toggleGoal(this)">
+            <div class="goal-card-icon">⚡</div>
+            <div class="goal-card-label">Confidence &amp; energy</div>
+          </div>
+          <div class="goal-card" data-goal="Social presence" onclick="toggleGoal(this)">
+            <div class="goal-card-icon">📸</div>
+            <div class="goal-card-label">Social presence</div>
+          </div>
+          <div class="goal-card" data-goal="Overall glow-up" onclick="toggleGoal(this)">
+            <div class="goal-card-icon">🔥</div>
+            <div class="goal-card-label">Overall glow-up</div>
+          </div>
+        </div>
+
+        <!-- vibe selector -->
+        <div class="vibe-section">
+          <div class="vibe-section-label">Your vibe</div>
+          <div class="vibe-chips">
+            <div class="vibe-chip selected" data-vibe="Fresh &amp; Modern" onclick="selectVibe(this)">Fresh &amp; Modern</div>
+            <div class="vibe-chip" data-vibe="Streetwear" onclick="selectVibe(this)">Streetwear</div>
+            <div class="vibe-chip" data-vibe="Minimalist" onclick="selectVibe(this)">Minimalist</div>
+            <div class="vibe-chip" data-vibe="Business Casual" onclick="selectVibe(this)">Business Casual</div>
+            <div class="vibe-chip" data-vibe="Edgy / Alt" onclick="selectVibe(this)">Edgy / Alt</div>
+            <div class="vibe-chip" data-vibe="Vintage" onclick="selectVibe(this)">Vintage</div>
+            <div class="vibe-chip" data-vibe="Athletic" onclick="selectVibe(this)">Athletic</div>
+          </div>
+          <input class="vibe-custom-input" type="text" id="vibe-custom" maxlength="60"
+            placeholder="Or describe your own vibe…"
+            oninput="clearVibeChips()"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="onboard-actions">
+      <button class="btn-primary" onclick="saveAndContinue()">Choose my mode</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ MODE SELECT -->
+  <div class="screen" id="screen-mode-select">
+    <div class="scroll-area">
+      <div class="mode-select-header">
+        <div class="mode-select-h">Pick your <span class="grad-text">mode.</span></div>
+        <p class="mode-select-sub">This controls how honest Designer gets. You can change it later at any time — your score adjusts accordingly.</p>
+      </div>
+      <div class="modes-list" id="modes-list">
+
+        <div class="mode-card" data-mode="relaxed" onclick="selectMode(this)">
+          <div class="mode-card-top">
+            <span class="mode-card-num">Mode 01</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <div class="mode-check">
+                <svg viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="mode-card-name">Relaxed</div>
+          <div class="mode-card-desc">Light questions, filtered feedback. Good for dipping your toe in. Easy wins to get you started.</div>
+          <div class="mode-card-tags">
+            <div class="mode-card-tag">Filter: High</div>
+            <div class="mode-card-tag">Photo: Optional</div>
+            <div class="mode-card-tag">100: Reachable</div>
+          </div>
+        </div>
+
+        <div class="mode-card selected" data-mode="real" onclick="selectMode(this)">
+          <div class="mode-card-top">
+            <span class="mode-card-num">Mode 02</span>
+            <div class="mode-check">
+              <svg viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="mode-card-name">Real</div>
+          <div class="mode-card-desc">More context, more honest. AI starts building a real picture of you. No coddling, still somewhat filtered.</div>
+          <div class="mode-card-tags">
+            <div class="mode-card-tag">Filter: Medium</div>
+            <div class="mode-card-tag">Photo: Encouraged</div>
+            <div class="mode-card-tag">100: Hard</div>
+          </div>
+        </div>
+
+        <div class="mode-card" data-mode="locked" onclick="selectMode(this)">
+          <div class="mode-card-top">
+            <span class="mode-card-num">Mode 03</span>
+            <div class="mode-check">
+              <svg viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.6" stroke-linecap: round; stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="mode-card-name">Locked in</div>
+          <div class="mode-card-desc">Deep profile. Blunt truth. AI knows your goals and holds you to them. You asked for this.</div>
+          <div class="mode-card-tags">
+            <div class="mode-card-tag">Filter: Low</div>
+            <div class="mode-card-tag">Photo: Required once</div>
+            <div class="mode-card-tag">100: Very hard</div>
+          </div>
+        </div>
+
+        <div class="mode-card beast" data-mode="beast" onclick="selectMode(this)">
+          <div class="mode-card-top">
+            <span class="mode-card-num">Mode 04</span>
+            <div class="mode-check">
+              <svg viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+          <div class="mode-card-name">Beast</div>
+          <div class="mode-card-desc">AI knows everything. Little filter. Encourages you but will not spare your feelings. This is where real change happens.</div>
+          <div class="mode-card-tags">
+            <div class="mode-card-tag">Filter: Little</div>
+            <div class="mode-card-tag">Photo: Required</div>
+            <div class="mode-card-tag">100: Extremely hard</div>
+          </div>
+        </div>
+
+        <div class="mode-card brutal" data-mode="brutal" onclick="selectMode(this)">
+          <div class="mode-card-top">
+            <span class="mode-card-num">Mode 05</span>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <div class="mode-badge-experimental">Experimental</div>
+              <div class="mode-check">
+                <svg viewBox="0 0 10 8" fill="none"><path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="mode-card-name" style="color:var(--text2)">Brutal</div>
+          <div class="mode-card-desc">Filter is negative — AI actively looks for what's wrong and says it plainly. 100 is impossible by design.</div>
+          <div class="mode-card-tags">
+            <div class="mode-card-tag">Filter: Negative</div>
+            <div class="mode-card-tag">Photo: Required</div>
+            <div class="mode-card-tag">100: Impossible</div>
+          </div>
+        </div>
+
+        <div style="height:8px;"></div>
+      </div>
+    </div>
+    <div class="mode-select-actions">
+      <button class="btn-primary" onclick="goToIntake()">Start my intake →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ INTAKE / CHAT -->
+  <div class="screen" id="screen-intake">
+    <div class="chat-header">
+      <div class="chat-header-left">
+        <div class="chat-header-title">Intake</div>
+        <div class="chat-header-mode" id="intake-mode-label">Real mode</div>
+      </div>
+      <div class="chat-header-score">
+        <div class="chat-score-label">Score</div>
+        <div class="chat-score-num">—</div>
+      </div>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <!-- Messages injected by JS -->
+    </div>
+    <div class="chat-quick-replies" id="quick-replies"></div>
+    <div class="chat-input-bar">
+      <textarea class="chat-input-field" id="chat-field" placeholder="Type your answer…" rows="1" onInput="autoResize(this)" onkeydown="handleChatKey(event)"></textarea>
+      <button class="chat-send-btn" onclick="sendChatMsg()">
+        <svg viewBox="0 0 18 18"><path d="M15 9L3 3l2.5 6L3 15l12-6z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ HOME / DASHBOARD -->
+  <div class="screen" id="screen-home">
+    <div class="scroll-area home-scroll">
+
+      <div class="home-header">
+        <div>
+          <div class="home-greeting">Good evening,</div>
+          <div class="home-name" id="home-name">Jordan</div>
+        </div>
+        <div class="home-mode-pill" id="home-mode-pill">Real</div>
+      </div>
+
+      <!-- Score card -->
+      <div>
+        <div class="section-label">Your score</div>
+        <div class="score-card">
+          <div class="score-ring-wrap">
+            <svg viewBox="0 0 100 100">
+              <defs>
+                <linearGradient id="scoreGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#E8829A"/>
+                  <stop offset="50%" stop-color="#b39dc0"/>
+                  <stop offset="100%" stop-color="#7AAECC"/>
+                </linearGradient>
+              </defs>
+              <circle cx="50" cy="50" r="44" stroke="rgba(255,255,255,0.06)" stroke-width="6" fill="none"/>
+              <circle id="score-ring" cx="50" cy="50" r="44" stroke="url(#scoreGrad)" stroke-width="6" fill="none"
+                stroke-linecap="round"
+                stroke-dasharray="276.46"
+                stroke-dashoffset="76.8"/>
+            </svg>
+            <div class="score-ring-inner">
+              <div class="score-big" id="score-num">72</div>
+              <div class="score-denom">/100</div>
+            </div>
+          </div>
+          <div class="score-details">
+            <div class="score-tier-name">Locked in</div>
+            <div class="score-tier-desc">Diminishing returns are kicking in. Every point from here is a grind.</div>
+            <div class="score-since">
+              <span class="score-delta">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 10V2M6 2L3 5M6 2L9 5" stroke="#6DC98A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                +4 this week
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Check-in banner -->
+      <div class="checkin-banner" onclick="goTo('screen-intake')">
+        <div class="checkin-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 3v7l4 2" stroke="#E8829A" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="10" cy="10" r="8" stroke="#E8829A" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <div class="checkin-text">
+          <div class="checkin-title">Time for a check-in</div>
+          <div class="checkin-sub">Last session was 3 days ago</div>
+        </div>
+        <div class="checkin-arrow">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <!-- Category breakdown -->
+      <div>
+        <div class="section-label">Category breakdown</div>
+        <div class="category-grid" id="category-grid">
+          <div class="cat-card">
+            <div class="cat-label">Style</div>
+            <div class="cat-score grad-text">78</div>
+            <div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:78%"></div></div>
+          </div>
+          <div class="cat-card">
+            <div class="cat-label">Grooming</div>
+            <div class="cat-score grad-text">65</div>
+            <div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:65%"></div></div>
+          </div>
+          <div class="cat-card">
+            <div class="cat-label">Personality</div>
+            <div class="cat-score grad-text">74</div>
+            <div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:74%"></div></div>
+          </div>
+          <div class="cat-card">
+            <div class="cat-label">Fitness</div>
+            <div class="cat-score grad-text">58</div>
+            <div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:58%"></div></div>
+          </div>
+          <div class="cat-card" style="grid-column: 1 / -1;">
+            <div class="cat-label">Social presence</div>
+            <div class="cat-score grad-text">69</div>
+            <div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:69%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Glow-up roadmap -->
+      <div>
+        <div class="section-label">Glow-up roadmap</div>
+        <div class="roadmap-strip" id="roadmap-strip">
+          <div class="roadmap-tier-group">
+            <div class="roadmap-tier-header tier-now">
+              <div class="roadmap-tier-dot"></div>
+              <div class="roadmap-tier-label">Do Now — free &amp; instant</div>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-num">01</div>
+              <div class="roadmap-text">Work on posture and how you carry yourself in photos</div>
+              <div class="roadmap-cat">personality</div>
+            </div>
+          </div>
+          <div class="roadmap-tier-group">
+            <div class="roadmap-tier-header tier-effort">
+              <div class="roadmap-tier-dot"></div>
+              <div class="roadmap-tier-label">Some Effort — needs a little spend</div>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-num">02</div>
+              <div class="roadmap-text">Fix the haircut — current length is fighting your face shape</div>
+              <div class="roadmap-cat">grooming</div>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-num">03</div>
+              <div class="roadmap-text">Start a consistent skincare routine — morning and evening</div>
+              <div class="roadmap-cat">grooming</div>
+            </div>
+          </div>
+          <div class="roadmap-tier-group">
+            <div class="roadmap-tier-header tier-time">
+              <div class="roadmap-tier-dot"></div>
+              <div class="roadmap-tier-label">Takes Time — needs weeks or months</div>
+            </div>
+            <div class="roadmap-item">
+              <div class="roadmap-num">04</div>
+              <div class="roadmap-text">Upgrade your basics — better fitting neutral pieces</div>
+              <div class="roadmap-cat">style</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- Bottom nav injected here -->
+    <div class="bottom-nav" id="home-nav">
+      <button class="nav-item active" onclick="navTo('home')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><path d="M3 9.5L11 3l8 6.5V19a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M8 20v-8h6v8"/></svg></div>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-item" onclick="navTo('intake')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <span class="nav-label">Chat</span>
+      </button>
+      <button class="nav-item" onclick="navTo('audit')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M7 7h5M7 15h3"/></svg></div>
+        <span class="nav-label">Audit</span>
+      </button>
+      <button class="nav-item" onclick="navTo('profile')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><circle cx="11" cy="7" r="4"/><path d="M3 20c0-4.418 3.582-8 8-8s8 3.582 8 8"/></svg></div>
+        <span class="nav-label">Profile</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ AUDIT RESULT -->
+  <div class="screen" id="screen-audit">
+    <div class="audit-header">
+      <div class="audit-eyebrow">Full audit</div>
+      <div class="audit-title">Your picture, <span class="grad-text">honestly.</span></div>
+    </div>
+    <div class="scroll-area audit-scroll">
+
+      <div class="audit-score-hero">
+        <div class="score-ring-wrap" style="width:88px;height:88px;">
+          <svg viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="auditGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#E8829A"/>
+                <stop offset="100%" stop-color="#7AAECC"/>
+              </linearGradient>
+            </defs>
+            <circle cx="50" cy="50" r="44" stroke="rgba(255,255,255,0.06)" stroke-width="6" fill="none"/>
+            <circle cx="50" cy="50" r="44" stroke="url(#auditGrad)" stroke-width="6" fill="none"
+              stroke-linecap="round"
+              stroke-dasharray="276.46"
+              stroke-dashoffset="76.8"/>
+          </svg>
+          <div class="score-ring-inner">
+            <div class="score-big" style="font-size:28px;">72</div>
+            <div class="score-denom">/100</div>
+          </div>
+        </div>
+        <div>
+          <div class="score-tier-name">Locked in</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:4px;line-height:1.45;max-width:200px;">Based on your intake, photo analysis, and mode settings.</div>
+          <div class="audit-score-change">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 10V2M6 2L3 5M6 2L9 5" stroke="#6DC98A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Up from 68 last session
+          </div>
+        </div>
+      </div>
+
+      <div class="audit-block">
+        <div class="audit-block-title">What's working</div>
+        <div class="audit-item">
+          <div class="audit-item-dot good"></div>
+          <span>Your clothing choices are intentional — you've got a clear aesthetic direction and you're mostly hitting it.</span>
+        </div>
+        <div class="audit-item">
+          <div class="audit-item-dot good"></div>
+          <span>Strong eye contact in photos. You don't look awkward in front of a camera, which is rarer than you think.</span>
+        </div>
+        <div class="audit-item">
+          <div class="audit-item-dot good"></div>
+          <span>Your grooming baseline is solid. Clean, maintained. Not what's holding you back.</span>
+        </div>
+      </div>
+
+      <div class="audit-block">
+        <div class="audit-block-title">What's not</div>
+        <div class="audit-item">
+          <div class="audit-item-dot warn"></div>
+          <span>The haircut is genuinely hurting your score. Current length and shape isn't doing your face any favours. This is priority one.</span>
+        </div>
+        <div class="audit-item">
+          <div class="audit-item-dot warn"></div>
+          <span>Fit is inconsistent — some pieces work, others are slightly too loose in the wrong places. Doesn't read as intentional.</span>
+        </div>
+        <div class="audit-item">
+          <div class="audit-item-dot warn"></div>
+          <span>Social presence is your weakest category. The profile photos don't match the quality of how you actually present in person.</span>
+        </div>
+      </div>
+
+      <div class="audit-cta" onclick="goTo('screen-intake')">
+        <div class="audit-cta-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M10 3v7l4 2" stroke="#7AAECC" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="10" cy="10" r="8" stroke="#7AAECC" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <div style="flex:1;">
+          <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:2px;">Book a check-in</div>
+          <div style="font-size:12px;color:var(--text2);">Update your profile and move your score</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="var(--text3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+    </div>
+    <!-- Bottom nav -->
+    <div class="bottom-nav">
+      <button class="nav-item" onclick="navTo('home')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><path d="M3 9.5L11 3l8 6.5V19a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M8 20v-8h6v8"/></svg></div>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-item" onclick="navTo('intake')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <span class="nav-label">Chat</span>
+      </button>
+      <button class="nav-item active" onclick="navTo('audit')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M7 7h5M7 15h3"/></svg></div>
+        <span class="nav-label">Audit</span>
+      </button>
+      <button class="nav-item" onclick="navTo('profile')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><circle cx="11" cy="7" r="4"/><path d="M3 20c0-4.418 3.582-8 8-8s8 3.582 8 8"/></svg></div>
+        <span class="nav-label">Profile</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ PROFILE -->
+  <div class="screen" id="screen-profile">
+    <div class="scroll-area profile-scroll">
+
+      <div class="profile-header">
+        <div class="profile-avatar">J</div>
+        <div>
+          <div class="profile-info-name" id="profile-name">Jordan</div>
+          <div class="profile-info-sub">Prism ID · Member since May 2026</div>
+        </div>
+      </div>
+
+      <div class="profile-stats">
+        <div class="pstat">
+          <div class="pstat-val">72</div>
+          <div class="pstat-label">Current score</div>
+        </div>
+        <div class="pstat">
+          <div class="pstat-val">8</div>
+          <div class="pstat-label">Check-ins</div>
+        </div>
+        <div class="pstat">
+          <div class="pstat-val">+14</div>
+          <div class="pstat-label">Total gain</div>
+        </div>
+      </div>
+
+      <div class="profile-mode-section">
+        <div class="section-label">Active mode</div>
+        <div class="current-mode-card">
+          <div class="current-mode-dot"></div>
+          <div class="current-mode-info">
+            <div class="current-mode-label">Mode 02</div>
+            <div class="current-mode-name" id="profile-mode-name">Real</div>
+          </div>
+          <div class="current-mode-change" onclick="goTo('screen-mode-select')">Change →</div>
+        </div>
+      </div>
+
+      <div class="profile-section-card">
+        <div class="section-label">Your profile</div>
+        <div class="profile-row">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Intake answers</div>
+            <div class="profile-row-sub">Last updated 3 days ago</div>
+          </div>
+          <div class="profile-row-right">
+            Edit
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <div class="profile-row">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Photos</div>
+            <div class="profile-row-sub">2 uploaded</div>
+          </div>
+          <div class="profile-row-right">
+            Manage
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <div class="profile-row">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Score history</div>
+            <div class="profile-row-sub">58 → 72 over 8 sessions</div>
+          </div>
+          <div class="profile-row-right">
+            View
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-section-card">
+        <div class="section-label">Settings</div>
+        <div class="profile-row" onclick="showChangeApiKey()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">API key</div>
+            <div class="profile-row-sub" id="api-key-preview">Not set</div>
+          </div>
+          <div class="profile-row-right">
+            Change
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <div class="profile-row" onclick="confirmResetProfile()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label" style="color:var(--pink);">Reset profile</div>
+            <div class="profile-row-sub">Clear score, audit and chat history</div>
+          </div>
+          <div class="profile-row-right">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-section-card">
+        <div class="section-label">Suite connections</div>
+        <div class="profile-row">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Prism Grind</div>
+            <div class="profile-row-sub">Send roadmap items as goals</div>
+          </div>
+          <div class="profile-row-right" style="color:var(--text3)">Off</div>
+        </div>
+        <div class="profile-row">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Prism Mood</div>
+            <div class="profile-row-sub">Adjust AI tone with mood data</div>
+          </div>
+          <div class="profile-row-right" style="color:#6DC98A">On</div>
+        </div>
+        <div class="profile-row">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Prism Roast</div>
+            <div class="profile-row-sub">Import roast results as check-in</div>
+          </div>
+          <div class="profile-row-right" style="color:var(--text3)">Off</div>
+        </div>
+      </div>
+
+      <div style="height: 8px;"></div>
+
+    </div>
+    <!-- Bottom nav -->
+    <div class="bottom-nav">
+      <button class="nav-item" onclick="navTo('home')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><path d="M3 9.5L11 3l8 6.5V19a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M8 20v-8h6v8"/></svg></div>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-item" onclick="navTo('intake')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <span class="nav-label">Chat</span>
+      </button>
+      <button class="nav-item" onclick="navTo('audit')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M7 7h5M7 15h3"/></svg></div>
+        <span class="nav-label">Audit</span>
+      </button>
+      <button class="nav-item active" onclick="navTo('profile')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><circle cx="11" cy="7" r="4"/><path d="M3 20c0-4.418 3.582-8 8-8s8 3.582 8 8"/></svg></div>
+        <span class="nav-label">Profile</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ API SETUP -->
+  <div class="screen" id="screen-api-setup">
+    <div class="scroll-area">
+      <div style="padding:80px 28px 32px;display:flex;flex-direction:column;gap:24px;">
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:16px;">One time setup</div>
+          <h2 style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin-bottom:12px;">Add your <span class="grad-text">API key.</span></h2>
+          <p style="font-size:14px;color:var(--text2);line-height:1.65;">Designer uses AI for everything. Paste your OpenRouter or Gemini API key — it's stored only on this device, never sent anywhere else.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div class="ob-input-label">API key</div>
+          <input class="ob-input" type="password" id="api-key-input" placeholder="sk-or-... or AIza..." oninput="detectApiType(this.value)"/>
+          <div id="api-type-badge" style="display:none;padding:4px 12px;border-radius:999px;font-size:12px;font-family:'Syne',sans-serif;font-weight:600;letter-spacing:0.04em;align-self:flex-start;border:0.5px solid;"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div class="ob-input-label">Get a free key</div>
+          <a href="https://openrouter.ai/keys" target="_blank" style="padding:14px 16px;background:var(--surface);border:0.5px solid var(--border);border-radius:14px;text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;">
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;margin-bottom:2px;">OpenRouter</div>
+              <div style="font-size:12px;color:var(--text3);">openrouter.ai/keys · starts with sk-or-</div>
+            </div>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="var(--text3)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="https://aistudio.google.com/apikey" target="_blank" style="padding:14px 16px;background:var(--surface);border:0.5px solid var(--border);border-radius:14px;text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;">
+            <div style="flex:1;">
+              <div style="font-size:13px;font-weight:600;margin-bottom:2px;">Google Gemini</div>
+              <div style="font-size:12px;color:var(--text3);">aistudio.google.com · starts with AIza</div>
+            </div>
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="var(--text3)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <div style="font-size:12px;color:var(--text3);line-height:1.6;padding:12px 14px;background:var(--surface);border-radius:12px;border:0.5px solid var(--border);">
+          Your key is saved in your browser's local storage and sent only directly to the AI provider when you use the app.
+        </div>
+      </div>
+    </div>
+    <div style="padding:0 28px calc(28px + var(--safe-bot));flex-shrink:0;">
+      <button class="btn-primary" onclick="saveApiKey()">Save and continue</button>
+    </div>
+  </div>
+
+</div><!-- /shell -->
+
+<script>
+// ─── CONSTANTS ───────────────────────────────────────────────────
+const modeLabels = { relaxed: 'Relaxed', real: 'Real', locked: 'Locked in', beast: 'Beast', brutal: 'Brutal' };
+const modeNums   = { relaxed: '01', real: '02', locked: '03', beast: '04', brutal: '05' };
+
+const TIER_INFO = [
+  { max: 40,  name: 'Getting started',   desc: 'Easy gains ahead. Keep going.' },
+  { max: 65,  name: 'Building momentum', desc: 'Progress is slowing. Feedback sharpens from here.' },
+  { max: 85,  name: 'Locked in',         desc: 'Diminishing returns are kicking in. Every point is a grind.' },
+  { max: 99,  name: 'Elite territory',   desc: 'Each point from here is serious work.' },
+  { max: 100, name: 'Unreachable',       desc: '100 is impossible by design in this mode.' }
+];
+
+const TOPIC_GUIDE = `
+You must cover ALL of these topics during the conversation, in roughly this order. Spend 1–2 exchanges (one question, one answer) per topic then move on — do not dwell:
+1. Current style / clothing — what they actually wear day to day
+2. Grooming — hair, skin, personal care routine
+3. Fitness / body — how they feel about their physique and what they're doing about it
+4. Vibe / energy / personality — how they come across to others, their confidence level
+5. Social presence — online profiles, photos, how they present themselves digitally
+6. Goals — what they actually want to change most urgently
+
+STYLE DIRECTION:
+The user has declared a preferred vibe. Take it seriously but evaluate it honestly:
+- If their stated vibe genuinely suits them and their lifestyle, validate it and push them further into it.
+- If it won't work for them as-is (e.g. it clashes with their body type, budget, lifestyle, or current level), do NOT just reject it. Instead, find the middle ground — a version of their desired aesthetic that actually works. Explain why and what to keep vs. what to adjust.
+- Never tell someone their taste is wrong without offering a better direction that still honours what they're going for.
+
+PINTEREST REFERENCES:
+When recommending specific styles, outfits, or looks, always include 1–2 Pinterest search links formatted as markdown links, like:
+[Pinterest: minimalist men outfits 2025](https://pinterest.com/search/pins/?q=minimalist+men+outfits+2025)
+Generate the URL by replacing spaces with + in the search query. Always include the person's gender and current year (2026) in the search query. These links help the user visualise the direction you're pushing them toward.
+
+After covering all topics, end with a short closing line like "That's everything I need." to signal you're done. Never ask two questions at once. Keep each response to 2–3 sentences max.`;
+
+const MODE_SYSTEM_PROMPTS = {
+  relaxed: `You are Designer, an AI personal style and self-improvement coach inside the Prism app. You're in RELAXED mode — be a warm, encouraging older sibling. Lead with positives, frame things constructively, celebrate small wins. Never make the user feel bad.${TOPIC_GUIDE}`,
+  real:    `You are Designer, an AI personal style and self-improvement coach inside the Prism app. You're in REAL mode — be an honest friend. Balanced and direct but not cruel. Give genuine, actionable feedback without coddling.${TOPIC_GUIDE}`,
+  locked:  `You are Designer, an AI personal style and self-improvement coach inside the Prism app. You're in LOCKED IN mode — be a direct, no-nonsense coach. Skip the softening. Tell the truth plainly. The user asked for this.${TOPIC_GUIDE}`,
+  beast:   `You are Designer, an AI personal style and self-improvement coach inside the Prism app. You're in BEAST mode — little filter, high standards. Push hard. Do not spare their feelings — that's what they signed up for. Be specific about what isn't working.${TOPIC_GUIDE}`,
+  brutal:  `You are Designer, an AI personal style and self-improvement coach inside the Prism app. You're in BRUTAL mode (experimental). Actively look for what's wrong and say it plainly. Pull no punches. The user explicitly chose this.${TOPIC_GUIDE}`
+};
+
+// ─── STATE ───────────────────────────────────────────────────────
+let state = {
+  apiKey: '', apiType: '',
+  name: '', mode: 'real', modeLabel: 'Real',
+  gender: '',         // 'male' | 'female'
+  vibe: 'Fresh & Modern', // selected style vibe
+  goals: [],          // selected goal strings from onboarding
+  profile: null,      // { score, categories, tier, strengths, weaknesses, roadmap, prevScore }
+  checkins: 0,
+  scoreStart: null,
+  chatHistory: [],    // [{role, content}]
+  isProcessing: false
+};
+
+// ─── LOCAL STORAGE ────────────────────────────────────────────────
+function saveState() {
+  localStorage.setItem('ds_api_key',    state.apiKey);
+  localStorage.setItem('ds_api_type',   state.apiType);
+  localStorage.setItem('ds_name',       state.name);
+  localStorage.setItem('ds_mode',       state.mode);
+  localStorage.setItem('ds_gender',     state.gender);
+  localStorage.setItem('ds_vibe',       state.vibe);
+  localStorage.setItem('ds_goals',      JSON.stringify(state.goals));
+  localStorage.setItem('ds_checkins',   String(state.checkins));
+  if (state.scoreStart !== null) localStorage.setItem('ds_score_start', String(state.scoreStart));
+  if (state.profile) localStorage.setItem('ds_profile', JSON.stringify(state.profile));
+}
+
+function loadState() {
+  state.apiKey    = localStorage.getItem('ds_api_key')   || '';
+  state.apiType   = localStorage.getItem('ds_api_type')  || '';
+  state.name      = localStorage.getItem('ds_name')      || '';
+  state.mode      = localStorage.getItem('ds_mode')      || 'real';
+  state.modeLabel = modeLabels[state.mode] || 'Real';
+  state.gender    = localStorage.getItem('ds_gender')    || '';
+  state.vibe      = localStorage.getItem('ds_vibe')      || 'Fresh & Modern';
+  state.checkins  = parseInt(localStorage.getItem('ds_checkins') || '0');
+  const gs = localStorage.getItem('ds_goals');
+  if (gs) { try { state.goals = JSON.parse(gs); } catch(e) { state.goals = []; } }
+  const ss = localStorage.getItem('ds_score_start');
+  state.scoreStart = ss !== null ? parseInt(ss) : null;
+  const p = localStorage.getItem('ds_profile');
+  if (p) { try { state.profile = JSON.parse(p); } catch(e) { state.profile = null; } }
+}
+
+function resetProfile() {
+  ['ds_profile','ds_checkins','ds_score_start'].forEach(k => localStorage.removeItem(k));
+  state.profile = null; state.checkins = 0; state.scoreStart = null;
+}
+
+// ─── API KEY SETUP ────────────────────────────────────────────────
+function detectApiType(val) {
+  const badge = document.getElementById('api-type-badge');
+  val = val.trim();
+  if (!val) { badge.style.display = 'none'; return; }
+  let label = '', color = '';
+  if (val.startsWith('AIza')) {
+    label = 'Gemini detected'; color = '#4285F4';
+  } else if (val.startsWith('sk-')) {
+    label = 'OpenRouter detected'; color = 'var(--blue)';
+  } else { badge.style.display = 'none'; return; }
+  Object.assign(badge.style, { display: 'inline-flex', color, borderColor: color + '44', background: color + '11' });
+  badge.textContent = label;
+}
+
+function saveApiKey() {
+  const val = document.getElementById('api-key-input').value.trim();
+  if (!val) return;
+  state.apiKey  = val;
+  state.apiType = val.startsWith('AIza') ? 'gemini' : 'openrouter';
+  saveState();
+  updateApiPreview();
+  if (state.name && state.profile) { populateDashboard(); goTo('screen-home'); }
+  else goTo('screen-splash');
+}
+
+function showChangeApiKey() {
+  const input = document.getElementById('api-key-input');
+  if (input) input.value = state.apiKey;
+  goTo('screen-api-setup');
+}
+
+function updateApiPreview() {
+  const el = document.getElementById('api-key-preview');
+  if (!el) return;
+  if (!state.apiKey) { el.textContent = 'Not set'; return; }
+  const type = state.apiType === 'gemini' ? 'Gemini' : 'OpenRouter';
+  el.textContent = `${type} · ${state.apiKey.slice(0, 8)}…`;
+}
+
+function confirmResetProfile() {
+  if (confirm('Reset your score, audit and chat history? Your API key and name will be kept.')) {
+    resetProfile();
+    saveState();
+    goTo('screen-splash');
+  }
+}
+
+// ─── AI API CALLS ─────────────────────────────────────────────────
+async function callAI(messages, systemOverride) {
+  const sys = systemOverride || MODE_SYSTEM_PROMPTS[state.mode] || MODE_SYSTEM_PROMPTS.real;
+  if (state.apiType === 'gemini') return callGemini(messages, sys);
+  return callOpenRouter(messages, sys, 400);
+}
+
+async function callOpenRouter(messages, systemPrompt, maxTokens) {
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${state.apiKey}`,
+      'Content-Type': 'application/json',
+      'HTTP-Referer': window.location.origin,
+      'X-Title': 'Designer by Prism'
+    },
+    body: JSON.stringify({
+      model: 'openai/gpt-4o-mini',
+      messages: [{ role: 'system', content: systemPrompt }, ...messages],
+      max_tokens: maxTokens || 400
+    })
+  });
+  if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e?.error?.message || `API error ${res.status}`); }
+  const data = await res.json();
+  return data.choices[0].message.content.trim();
+}
+
+async function callGemini(messages, systemPrompt) {
+  // Ensure alternating turns starting with user
+  const contents = [];
+  for (const m of messages) {
+    contents.push({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] });
+  }
+  if (contents.length && contents[0].role === 'model') contents.unshift({ role: 'user', parts: [{ text: '(begin)' }] });
+
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${state.apiKey}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: systemPrompt }] },
+        contents,
+        generationConfig: { maxOutputTokens: 400 }
+      })
+    }
+  );
+  if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e?.error?.message || `API error ${res.status}`); }
+  const data = await res.json();
+  return data.candidates[0].content.parts[0].text.trim();
+}
+
+async function generateProfile() {
+  const convo = state.chatHistory.map(m => `${m.role === 'user' ? 'User' : 'Designer'}: ${m.content}`).join('\n');
+  const prevNote = state.profile ? `Previous score was ${state.profile.score}. This is a check-in session.` : 'This is the first intake.';
+  const prompt = `Based on this conversation, generate a JSON profile object. Return ONLY valid JSON — no markdown, no explanation.
+
+Conversation:
+${convo}
+
+${prevNote}
+Mode: ${state.mode} (affects scoring harshness)
+
+Required JSON structure:
+{
+  "score": <integer 0-100>,
+  "categories": {
+    "style":       <0-100>,
+    "grooming":    <0-100>,
+    "fitness":     <0-100>,
+    "personality": <0-100>,
+    "social":      <0-100>
+  },
+  "strengths": [<2-3 specific strength strings>],
+  "weaknesses": [<2-3 specific weakness strings>],
+  "roadmap": [
+    {
+      "tier": "now",
+      "category": "<style|grooming|fitness|personality|social>",
+      "action": "<specific action the user can do today for free, e.g. posture, eye contact, confidence habits, daily habits>"
+    },
+    ...<more \"now\" items if applicable>,
+    {
+      "tier": "effort",
+      "category": "<category>",
+      "action": "<action needing some money or planning, e.g. haircut, skincare products, basic clothing pieces, routine>"
+    },
+    ...<more \"effort\" items if applicable>,
+    {
+      "tier": "time",
+      "category": "<category>",
+      "action": "<action needing weeks or months of sustained effort, e.g. physique/fitness transformation, full wardrobe overhaul>"
+    },
+    ...<more \"time\" items if applicable>
+  ]
+}
+
+Roadmap rules:
+- You decide how many items go in each tier based on the user’s actual profile. Someone very bad at personality might have 3 \"now\" items. Someone already fit might have 0 \"time\" items for fitness.
+- Order tiers: now → effort → time. Within each tier, order by highest impact first.
+- Restructure completely from any previous roadmap if the priorities have changed.
+- Keep each action specific and actionable, not vague.
+- Category \"personality\" covers: how they carry themselves, body language, posture, eye contact, energy, confidence, social habits.`;
+
+  const jsonSys = 'You are a JSON generator. Return only valid JSON with no additional text.';
+  const reply = await callAI([{ role: 'user', content: prompt }], jsonSys);
+  return extractJSON(reply);
+}
+
+function extractJSON(text) {
+  const block = text.match(/```(?:json)?\s*([\s\S]*?)```/);
+  if (block) { try { return JSON.parse(block[1].trim()); } catch(e) {} }
+  const obj = text.match(/\{[\s\S]*\}/);
+  if (obj) { try { return JSON.parse(obj[0]); } catch(e) {} }
+  throw new Error('Could not parse profile data from AI response.');
+}
+
+// ─── NAVIGATION ───────────────────────────────────────────────────
+function goTo(screenId) {
+  const current = document.querySelector('.screen.active');
+  const next = document.getElementById(screenId);
+  if (!next || current === next) return;
+  current.classList.remove('active');
+  current.classList.add('out-left');
+  setTimeout(() => current.classList.remove('out-left'), 400);
+  next.style.transform = 'translateX(30px)';
+  next.style.opacity = '0';
+  next.classList.add('active');
+  requestAnimationFrame(() => requestAnimationFrame(() => { next.style.transform = ''; next.style.opacity = ''; }));
+}
+
+function navTo(tab) {
+  if (tab === 'intake') { startChat(false); return; }
+  const map = { home: 'screen-home', audit: 'screen-audit', profile: 'screen-profile' };
+  goTo(map[tab]);
+}
+
+// ─── ONBOARDING ───────────────────────────────────────────────────
+function selectGender(btn) {
+  document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  state.gender = btn.dataset.gender;
+}
+
+function saveNameAndContinue() {
+  const nameVal = document.getElementById('name-input').value.trim();
+  if (nameVal) { state.name = nameVal; }
+  // gender already set via selectGender()
+  goTo('screen-onboard-4');
+}
+
+function toggleGoal(card) {
+  card.classList.toggle('selected');
+}
+
+function selectVibe(chip) {
+  document.querySelectorAll('.vibe-chip').forEach(c => c.classList.remove('selected'));
+  chip.classList.add('selected');
+  state.vibe = chip.dataset.vibe;
+  document.getElementById('vibe-custom').value = '';
+}
+
+function clearVibeChips() {
+  document.querySelectorAll('.vibe-chip').forEach(c => c.classList.remove('selected'));
+}
+
+function saveAndContinue() {
+  // collect selected goals
+  state.goals = Array.from(document.querySelectorAll('.goal-card.selected')).map(c => c.dataset.goal);
+  // vibe: custom input overrides chip selection
+  const customVibe = document.getElementById('vibe-custom').value.trim();
+  if (customVibe) state.vibe = customVibe;
+  // else state.vibe already set by selectVibe() or default
+  if (state.name) updateNameUI();
+  saveState();
+  goTo('screen-mode-select');
+}
+
+function updateNameUI() {
+  document.getElementById('home-name').textContent     = state.name;
+  document.getElementById('profile-name').textContent  = state.name;
+  const av = document.querySelector('.profile-avatar');
+  if (av) av.textContent = state.name.charAt(0).toUpperCase();
+}
+
+// ─── MODE SELECT ─────────────────────────────────────────────────
+function selectMode(card) {
+  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  state.mode = card.dataset.mode;
+  state.modeLabel = modeLabels[state.mode];
+}
+
+function goToIntake() {
+  state.modeLabel = modeLabels[state.mode];
+  document.getElementById('home-mode-pill').textContent   = state.modeLabel;
+  document.getElementById('profile-mode-name').textContent = state.modeLabel;
+  saveState();
+  startChat(true);
+}
+
+// ─── CHAT ─────────────────────────────────────────────────────────
+function startChat(isFirstIntake) {
+  state.chatHistory = [];
+  state.isProcessing = false;
+  document.getElementById('chat-messages').innerHTML = '';
+  document.getElementById('quick-replies').innerHTML = '';
+  document.getElementById('intake-mode-label').textContent = state.modeLabel + ' mode';
+  goTo('screen-intake');
+
+  const goalsNote = state.goals.length
+    ? `Their stated priorities are: ${state.goals.join(', ')}.`
+    : '';
+  const genderNote = state.gender ? `They identify as ${state.gender}.` : '';
+  const vibeNote = `Their desired style vibe is: "${state.vibe}". Evaluate whether this vibe actually suits them based on what they tell you. If it does, champion it. If it needs adjusting, find the middle ground and explain it. Include Pinterest links when suggesting specific directions.`;
+
+  const seed = isFirstIntake
+    ? `This is a first intake with a new user named ${state.name} in ${state.mode} mode. ${genderNote} ${vibeNote} ${goalsNote} Greet them in one sentence as Designer, then immediately ask your first question — start with their current style (what they actually wear day to day, not what they want). Work through all required topics one at a time.`
+    : `This is a check-in with ${state.name} in ${state.mode} mode. ${genderNote} Their current score is ${state.profile?.score ?? '?'}. Previous roadmap priorities: ${state.profile?.roadmap?.slice(0,2).map(r => r.action).join('; ') ?? 'none'}. ${vibeNote} ${goalsNote} Welcome them back in one sentence, then work through all required topics to update their profile — ask what's changed on each one.`;
+
+  setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 450);
+}
+
+async function aiRespond(messages, isInit) {
+  if (state.isProcessing) return;
+  state.isProcessing = true;
+  const typingEl = addMsg('ai', null, true);
+  try {
+    const reply = await callAI(messages);
+    typingEl.remove();
+    addMsg('ai', reply);
+    if (!isInit) state.chatHistory.push({ role: 'assistant', content: reply });
+    else         state.chatHistory.push({ role: 'assistant', content: reply });
+
+    const userCount = state.chatHistory.filter(m => m.role === 'user').length;
+    const lastAI = state.chatHistory.filter(m => m.role === 'assistant').pop()?.content || '';
+    const isDone = lastAI.toLowerCase().includes("that's everything i need") || lastAI.toLowerCase().includes("that's all i need") || lastAI.toLowerCase().includes('enough to build');
+    showReplies((userCount >= 6 || isDone) ? ['Build my profile →'] : []);
+  } catch (err) {
+    typingEl.remove();
+    addMsg('ai', `Something went wrong: ${err.message}. Check your API key in Profile → Settings.`);
+  }
+  state.isProcessing = false;
+}
+
+function addMsg(who, text, typing = false) {
+  const msgs = document.getElementById('chat-messages');
+  const wrap = document.createElement('div');
+  wrap.className = `msg ${who}`;
+  if (who === 'ai' && !typing) {
+    const lbl = document.createElement('div');
+    lbl.className = 'msg-label';
+    lbl.textContent = 'DESIGNER';
+    wrap.appendChild(lbl);
+  }
+  const bubble = document.createElement('div');
+  bubble.className = 'msg-bubble';
+  if (typing) {
+    bubble.innerHTML = '<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+  } else {
+    // Render markdown links [label](url) as clickable <a> tags; escape everything else
+    const escaped = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const linked = escaped.replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,
+      '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    bubble.innerHTML = linked.replace(/\n/g, '<br>');
+  }
+  wrap.appendChild(bubble);
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+  return wrap;
+}
+
+function showReplies(replies) {
+  const qr = document.getElementById('quick-replies');
+  qr.innerHTML = '';
+  replies.forEach(r => {
+    const btn = document.createElement('button');
+    btn.className = 'qr-btn';
+    btn.textContent = r;
+    if (r === 'Build my profile →') {
+      Object.assign(btn.style, { background: 'rgba(122,174,204,0.1)', borderColor: 'rgba(122,174,204,0.35)', color: 'var(--blue)' });
+      btn.onclick = buildProfile;
+    } else { btn.onclick = () => sendUserMsg(r); }
+    qr.appendChild(btn);
+  });
+}
+
+function sendUserMsg(text) {
+  if (state.isProcessing) return;
+  document.getElementById('quick-replies').innerHTML = '';
+  addMsg('user', text);
+  state.chatHistory.push({ role: 'user', content: text });
+  aiRespond(state.chatHistory, false);
+}
+
+function sendChatMsg() {
+  const field = document.getElementById('chat-field');
+  const text = field.value.trim();
+  if (!text || state.isProcessing) return;
+  field.value = ''; field.style.height = '';
+  sendUserMsg(text);
+}
+
+function handleChatKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatMsg(); }
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+}
+
+// ─── PROFILE GENERATION ───────────────────────────────────────────
+async function buildProfile() {
+  if (state.isProcessing) return;
+  state.isProcessing = true;
+  document.getElementById('quick-replies').innerHTML = '';
+  const typingEl = addMsg('ai', null, true);
+  try {
+    const profileData = await generateProfile();
+    typingEl.remove();
+    const prevScore = state.profile?.score ?? null;
+    state.profile = { ...profileData, prevScore };
+    state.checkins++;
+    if (state.scoreStart === null) state.scoreStart = profileData.score;
+    saveState();
+    addMsg('ai', `Done. Your score is ${profileData.score}. Heading to your dashboard now.`);
+    setTimeout(() => { populateDashboard(); goTo('screen-home'); }, 1800);
+  } catch (err) {
+    typingEl.remove();
+    addMsg('ai', `Couldn't generate your profile: ${err.message}`);
+  }
+  state.isProcessing = false;
+}
+
+// ─── DASHBOARD ────────────────────────────────────────────────────
+function getTier(score) {
+  for (const t of TIER_INFO) { if (score <= t.max) return t; }
+  return TIER_INFO[TIER_INFO.length - 1];
+}
+
+function scoreToOffset(score) {
+  const C = 276.46; // 2π × 44
+  return C - (score / 100) * C;
+}
+
+function tierStyle(t) {
+  if (t === 'now')    return { label: 'Do Now',       cls: 'tier-now' };
+  if (t === 'effort') return { label: 'Some Effort',  cls: 'tier-effort' };
+  if (t === 'time')   return { label: 'Takes Time',   cls: 'tier-time' };
+  // legacy priority field fallback
+  if (t === 'high')   return { label: 'High',         cls: 'tier-time' };
+  if (t === 'medium') return { label: 'Medium',       cls: 'tier-effort' };
+  return { label: 'Low', cls: 'tier-now' };
+}
+
+function buildRoadmapHTML(roadmap) {
+  if (!roadmap || !roadmap.length) return '';
+  const TIER_ORDER = ['now', 'effort', 'time'];
+  const TIER_META = {
+    now:    { label: 'Do Now — free &amp; instant',          cls: 'tier-now' },
+    effort: { label: 'Some Effort — needs a little spend',   cls: 'tier-effort' },
+    time:   { label: 'Takes Time — needs weeks or months',   cls: 'tier-time' }
+  };
+  // group by tier (normalise legacy priority → tier)
+  const normalise = item => ({
+    ...item,
+    tier: item.tier || (item.priority === 'high' ? 'time' : item.priority === 'medium' ? 'effort' : 'now')
+  });
+  const grouped = {};
+  roadmap.map(normalise).forEach(item => {
+    const t = TIER_ORDER.includes(item.tier) ? item.tier : 'effort';
+    if (!grouped[t]) grouped[t] = [];
+    grouped[t].push(item);
+  });
+  let n = 1;
+  return TIER_ORDER.filter(t => grouped[t]?.length).map(t => {
+    const meta = TIER_META[t];
+    const items = grouped[t].map(item =>
+      `<div class="roadmap-item"><div class="roadmap-num">${String(n++).padStart(2,'0')}</div><div class="roadmap-text">${item.action}</div><div class="roadmap-cat">${item.category || ''}</div></div>`
+    ).join('');
+    return `<div class="roadmap-tier-group"><div class="roadmap-tier-header ${meta.cls}"><div class="roadmap-tier-dot"></div><div class="roadmap-tier-label">${meta.label}</div></div>${items}</div>`;
+  }).join('');
+}
+
+function priorityStyle(p) {
+  if (p === 'high')   return 'color:var(--pink);border-color:rgba(232,130,154,0.25);background:rgba(232,130,154,0.07)';
+  if (p === 'medium') return 'color:var(--blue);border-color:rgba(122,174,204,0.25);background:rgba(122,174,204,0.07)';
+  return 'color:var(--text3);border-color:var(--border2)';
+}
+
+function populateDashboard() {
+  const p = state.profile;
+  if (!p) return;
+  const tier = getTier(p.score);
+
+  // ── home
+  document.getElementById('home-name').textContent    = state.name || '';
+  document.getElementById('home-mode-pill').textContent = state.modeLabel;
+  document.getElementById('score-num').textContent    = p.score;
+  const ring = document.getElementById('score-ring');
+  if (ring) ring.setAttribute('stroke-dashoffset', scoreToOffset(p.score));
+  const tn = document.querySelector('#screen-home .score-tier-name');
+  const td = document.querySelector('#screen-home .score-tier-desc');
+  if (tn) tn.textContent = tier.name;
+  if (td) td.textContent = tier.desc;
+
+  const deltaEl = document.querySelector('#screen-home .score-delta');
+  if (deltaEl) {
+    if (p.prevScore !== null) {
+      const diff = p.score - p.prevScore;
+      const col  = diff >= 0 ? '#6DC98A' : 'var(--pink)';
+      const arrow = diff >= 0 ? 'M6 10V2M6 2L3 5M6 2L9 5' : 'M6 2v8M6 10L3 7M6 10L9 7';
+      deltaEl.style.color = col;
+      deltaEl.innerHTML = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="${arrow}" stroke="${col}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> ${diff >= 0 ? '+' : ''}${diff} this session`;
+    } else { deltaEl.textContent = 'First session'; deltaEl.style.color = 'var(--text3)'; }
+  }
+
+  const catGrid = document.querySelector('#screen-home .category-grid');
+  if (catGrid && p.categories) {
+    const cats = [
+      { label: 'Style',          key: 'style' },
+      { label: 'Grooming',       key: 'grooming' },
+      { label: 'Personality',    key: 'personality' },
+      { label: 'Fitness',        key: 'fitness' },
+      { label: 'Social presence',key: 'social' }
+    ];
+    catGrid.innerHTML = cats.map((c, i) => {
+      const v = p.categories[c.key] ?? 0;
+      const span = (i === cats.length - 1 && cats.length % 2 !== 0) ? ' style="grid-column:1/-1"' : '';
+      return `<div class="cat-card"${span}><div class="cat-label">${c.label}</div><div class="cat-score grad-text">${v}</div><div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:${v}%"></div></div></div>`;
+    }).join('');
+  }
+
+  const roadmapEl = document.querySelector('#screen-home .roadmap-strip');
+  if (roadmapEl && p.roadmap) {
+    roadmapEl.innerHTML = buildRoadmapHTML(p.roadmap);
+  }
+
+  // ── audit
+  const auditScoreNum = document.querySelector('#screen-audit .score-big');
+  if (auditScoreNum) auditScoreNum.textContent = p.score;
+  document.querySelectorAll('#screen-audit circle[stroke-linecap]').forEach(c =>
+    c.setAttribute('stroke-dashoffset', scoreToOffset(p.score))
+  );
+  const atn = document.querySelector('#screen-audit .score-tier-name');
+  if (atn) atn.textContent = tier.name;
+  const auditChange = document.querySelector('#screen-audit .audit-score-change');
+  if (auditChange) {
+    if (p.prevScore !== null) {
+      const diff = p.score - p.prevScore;
+      const col  = diff >= 0 ? '#6DC98A' : 'var(--pink)';
+      const arrow = diff >= 0 ? 'M6 10V2M6 2L3 5M6 2L9 5' : 'M6 2v8M6 10L3 7M6 10L9 7';
+      auditChange.style.color = col;
+      auditChange.innerHTML = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="${arrow}" stroke="${col}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg> ${diff >= 0 ? 'Up' : 'Down'} ${Math.abs(diff)} from last session`;
+    } else { auditChange.textContent = 'First session'; auditChange.style.color = 'var(--text3)'; }
+  }
+  const auditBlocks = document.querySelectorAll('#screen-audit .audit-block');
+  if (auditBlocks[0] && p.strengths) {
+    auditBlocks[0].innerHTML = `<div class="audit-block-title">What's working</div>` +
+      p.strengths.map(s => `<div class="audit-item"><div class="audit-item-dot good"></div><span>${s}</span></div>`).join('');
+  }
+  if (auditBlocks[1] && p.weaknesses) {
+    auditBlocks[1].innerHTML = `<div class="audit-block-title">What's not</div>` +
+      p.weaknesses.map(w => `<div class="audit-item"><div class="audit-item-dot warn"></div><span>${w}</span></div>`).join('');
+  }
+
+  // ── profile
+  updateNameUI();
+  document.getElementById('profile-mode-name').textContent = state.modeLabel;
+  const mn = document.querySelector('#screen-profile .current-mode-label');
+  if (mn) mn.textContent = 'Mode ' + (modeNums[state.mode] || '02');
+  const pstats = document.querySelectorAll('#screen-profile .pstat-val');
+  if (pstats[0]) pstats[0].textContent = p.score;
+  if (pstats[1]) pstats[1].textContent = state.checkins;
+  if (pstats[2]) {
+    const gain = state.scoreStart !== null ? p.score - state.scoreStart : 0;
+    pstats[2].textContent = (gain >= 0 ? '+' : '') + gain;
+  }
+  updateApiPreview();
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  loadState();
+
+  const updateTime = () => {
+    const now = new Date();
+    const h = now.getHours().toString().padStart(2,'0');
+    const m = now.getMinutes().toString().padStart(2,'0');
+    document.querySelectorAll('.status-time').forEach(el => el.textContent = `${h}:${m}`);
+  };
+  updateTime();
+  setInterval(updateTime, 10000);
+
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  if (state.profile && state.name) { populateDashboard(); goTo('screen-home'); return; }
+  // has key but no profile — show splash
+});
+</script>
+</body>
+</html>

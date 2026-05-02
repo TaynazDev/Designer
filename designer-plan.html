@@ -1,0 +1,1120 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Designer by Prism — App Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d0f;
+    --bg2: #111114;
+    --bg3: #18181c;
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.08);
+    --glass-border-hover: rgba(255,255,255,0.14);
+    --text: #f0f0f2;
+    --text-2: #9999a8;
+    --text-3: #55556a;
+    --pink: #E8829A;
+    --blue: #7AAECC;
+    --grad: linear-gradient(135deg, #E8829A, #7AAECC);
+    --grad-subtle: linear-gradient(135deg, rgba(232,130,154,0.15), rgba(122,174,204,0.15));
+  }
+ 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+ 
+  h1, h2, h3, h4, .nav-brand {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+ 
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(13,13,15,0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+ 
+  .nav-brand {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+ 
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+  }
+ 
+  .nav-links a {
+    font-size: 13px;
+    color: var(--text-2);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+ 
+  .nav-links a:hover { color: var(--text); }
+ 
+  /* HERO */
+  .hero {
+    padding: 140px 2rem 80px;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+ 
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 2rem;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+ 
+  .hero-eyebrow span {
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--grad);
+  }
+ 
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 50px;
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+ 
+  .hero h1 .grad {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+ 
+  .hero-desc {
+    font-size: 18px;
+    color: var(--text-2);
+    max-width: 560px;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+  }
+ 
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+ 
+  .meta-pill {
+    font-size: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--glass-border);
+    background: var(--glass);
+    color: var(--text-2);
+    letter-spacing: 0.02em;
+  }
+ 
+  .meta-pill.accent {
+    border-color: rgba(232,130,154,0.3);
+    background: rgba(232,130,154,0.08);
+    color: var(--pink);
+  }
+ 
+  /* SECTION */
+  section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem 80px;
+  }
+ 
+  .section-label {
+    font-size: 11px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--glass-border);
+  }
+ 
+  /* GLASS CARD */
+  .glass-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: border-color 0.2s;
+  }
+ 
+  .glass-card:hover {
+    border-color: var(--glass-border-hover);
+  }
+ 
+  /* MODES GRID */
+  .modes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 1.5rem;
+  }
+ 
+  .mode-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    padding: 1.25rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+ 
+  .mode-card:hover {
+    border-color: var(--glass-border-hover);
+    transform: translateY(-2px);
+  }
+ 
+  .mode-card.beast {
+    border-color: rgba(232,130,154,0.25);
+    background: rgba(232,130,154,0.05);
+  }
+ 
+  .mode-card.brutal {
+    border-color: rgba(255,255,255,0.04);
+    background: rgba(255,255,255,0.02);
+    opacity: 0.85;
+  }
+ 
+  .mode-number {
+    font-size: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 8px;
+  }
+ 
+  .mode-name {
+    font-size: 18px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+ 
+  .mode-card.beast .mode-name {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+ 
+  .mode-desc {
+    font-size: 12px;
+    color: var(--text-2);
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+ 
+  .mode-tags {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+ 
+  .mode-tag {
+    font-size: 11px;
+    color: var(--text-3);
+    font-family: 'Space Grotesk', sans-serif;
+  }
+ 
+  .mode-tag span {
+    color: var(--text-2);
+  }
+ 
+  .experimental-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text-3);
+    margin-bottom: 8px;
+    width: fit-content;
+  }
+ 
+  .experimental-badge::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--text-3);
+  }
+ 
+  /* SCORE SYSTEM */
+  .score-visual {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+  }
+ 
+  .score-bar-wrap {
+    position: relative;
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 99px;
+    margin: 1rem 0;
+    overflow: hidden;
+  }
+ 
+  .score-bar-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    border-radius: 99px;
+    background: var(--grad);
+  }
+ 
+  .score-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-3);
+    font-family: 'Space Grotesk', sans-serif;
+  }
+ 
+  .score-tiers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+    margin-top: 1.25rem;
+  }
+ 
+  .score-tier {
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--glass-border);
+  }
+ 
+  .score-tier-range {
+    font-size: 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+ 
+  .score-tier-label {
+    font-size: 11px;
+    color: var(--text-3);
+  }
+ 
+  .score-tier-diff {
+    font-size: 10px;
+    color: var(--text-3);
+    margin-top: 4px;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+ 
+  /* FEATURES */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 12px;
+    margin-top: 1.5rem;
+  }
+ 
+  .feature-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+ 
+  .feature-card:hover { border-color: var(--glass-border-hover); }
+ 
+  .feature-num {
+    font-size: 11px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--text-3);
+    margin-bottom: 10px;
+  }
+ 
+  .feature-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+ 
+  .feature-desc {
+    font-size: 13px;
+    color: var(--text-2);
+    line-height: 1.6;
+  }
+ 
+  /* TECH STACK */
+  .stack-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    font-size: 14px;
+  }
+ 
+  .stack-table tr {
+    border-bottom: 1px solid var(--glass-border);
+  }
+ 
+  .stack-table tr:last-child { border-bottom: none; }
+ 
+  .stack-table td {
+    padding: 14px 0;
+    vertical-align: top;
+  }
+ 
+  .stack-table td:first-child {
+    width: 120px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding-right: 1rem;
+  }
+ 
+  .stack-table td:nth-child(2) {
+    width: 140px;
+    color: var(--pink);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding-right: 1rem;
+  }
+ 
+  .stack-table td:last-child {
+    color: var(--text-2);
+    font-size: 13px;
+  }
+ 
+  /* ROADMAP */
+  .roadmap {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: 1.5rem;
+    position: relative;
+  }
+ 
+  .roadmap::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 36px;
+    bottom: 36px;
+    width: 1px;
+    background: var(--glass-border);
+  }
+ 
+  .roadmap-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+  }
+ 
+  .roadmap-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg3);
+    border: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    color: var(--text-3);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+  }
+ 
+  .roadmap-dot.active {
+    background: var(--grad-subtle);
+    border-color: rgba(232,130,154,0.3);
+    color: var(--pink);
+  }
+ 
+  .roadmap-content h4 {
+    font-size: 14px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+ 
+  .roadmap-content p {
+    font-size: 13px;
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+ 
+  /* OPEN QUESTIONS */
+  .questions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 1.5rem;
+  }
+ 
+  .question-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 1rem 1.25rem;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+  }
+ 
+  .q-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(122,174,204,0.1);
+    border: 1px solid rgba(122,174,204,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--blue);
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+ 
+  .question-item p {
+    font-size: 13px;
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+ 
+  .question-item strong {
+    color: var(--text);
+    font-weight: 500;
+    display: block;
+    margin-bottom: 2px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+  }
+ 
+  /* MONETISATION */
+  .mono-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 1.5rem;
+  }
+ 
+  .mono-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    padding: 1.5rem;
+  }
+ 
+  .mono-card.featured {
+    border-color: rgba(232,130,154,0.25);
+    background: rgba(232,130,154,0.05);
+  }
+ 
+  .mono-tier {
+    font-size: 13px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+ 
+  .mono-card.featured .mono-tier {
+    background: var(--grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+ 
+  .mono-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+ 
+  .mono-items li {
+    font-size: 12px;
+    color: var(--text-2);
+    padding-left: 14px;
+    position: relative;
+  }
+ 
+  .mono-items li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-3);
+  }
+ 
+  /* DIVIDER */
+  hr {
+    border: none;
+    border-top: 1px solid var(--glass-border);
+    margin: 0 2rem 80px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+ 
+  /* GLOW ORBS */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(120px);
+    opacity: 0.12;
+  }
+ 
+  .orb-1 {
+    width: 500px;
+    height: 500px;
+    background: var(--pink);
+    top: -200px;
+    right: -100px;
+  }
+ 
+  .orb-2 {
+    width: 400px;
+    height: 400px;
+    background: var(--blue);
+    bottom: 0;
+    left: -100px;
+  }
+ 
+  /* CONNECTIONS */
+  .connections-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 1.5rem;
+  }
+ 
+  .connection-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1.25rem;
+  }
+ 
+  .connection-app {
+    font-size: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    color: var(--pink);
+    margin-bottom: 6px;
+  }
+ 
+  .connection-desc {
+    font-size: 12px;
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+ 
+  /* PHOTO ANALYSIS */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px;
+    margin-top: 1.5rem;
+  }
+ 
+  .photo-tag {
+    padding: 10px 14px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    font-size: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    color: var(--text-2);
+    text-align: center;
+  }
+ 
+  .main-content { position: relative; z-index: 1; }
+</style>
+</head>
+<body>
+ 
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+ 
+<nav>
+  <div class="nav-brand">Prism Suite</div>
+  <ul class="nav-links">
+    <li><a href="#">Overview</a></li>
+    <li><a href="#">Modes</a></li>
+    <li><a href="#">Features</a></li>
+    <li><a href="#">Roadmap</a></li>
+  </ul>
+</nav>
+ 
+<div class="main-content">
+ 
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <span></span>
+      Prism Suite — App Plan
+    </div>
+    <h1><span class="grad">Designer</span><br>by Prism</h1>
+    <p class="hero-desc">
+      An AI that understands you, then tells you exactly how to become the version of yourself you actually want to be. Honest. Specific. No fluff.
+    </p>
+    <div class="meta-row">
+      <div class="meta-pill accent">Planning</div>
+      <div class="meta-pill">Gen Z · Gen Alpha</div>
+      <div class="meta-pill">AI Self-Improvement</div>
+      <div class="meta-pill">Claude Sonnet 4.6</div>
+      <div class="meta-pill">Web · iOS</div>
+    </div>
+  </div>
+ 
+  <!-- MODES -->
+  <section id="modes">
+    <div class="section-label">Mode system</div>
+ 
+    <div class="glass-card">
+      <p style="color: var(--text-2); font-size: 14px; line-height: 1.6; max-width: 640px;">
+        The depth of what Designer knows about you — and how honest it gets — scales with your mode. 
+        Score is <strong style="color: var(--text); font-weight: 500;">always on and always tracked</strong> across all modes. As your score rises, 100 gets exponentially harder to reach.
+      </p>
+ 
+      <div class="modes-grid">
+ 
+        <!-- RELAXED -->
+        <div class="mode-card">
+          <div class="mode-number">Mode 01</div>
+          <div class="mode-name">Relaxed</div>
+          <div class="mode-desc">Light questions, filtered feedback. Good for dipping your toe in. Easy wins to get you started.</div>
+          <div class="mode-tags">
+            <div class="mode-tag">Filter <span>High</span></div>
+            <div class="mode-tag">Photo <span>Optional</span></div>
+            <div class="mode-tag">Score <span>On — tracked</span></div>
+            <div class="mode-tag">100 difficulty <span>Reachable</span></div>
+          </div>
+        </div>
+ 
+        <!-- REAL -->
+        <div class="mode-card">
+          <div class="mode-number">Mode 02</div>
+          <div class="mode-name">Real</div>
+          <div class="mode-desc">More context, more honest. AI starts building a real picture of you. No coddling, still somewhat filtered.</div>
+          <div class="mode-tags">
+            <div class="mode-tag">Filter <span>Medium</span></div>
+            <div class="mode-tag">Photo <span>Encouraged</span></div>
+            <div class="mode-tag">Score <span>On — tracked</span></div>
+            <div class="mode-tag">100 difficulty <span>Hard</span></div>
+          </div>
+        </div>
+ 
+        <!-- LOCKED IN -->
+        <div class="mode-card">
+          <div class="mode-number">Mode 03</div>
+          <div class="mode-name">Locked in</div>
+          <div class="mode-desc">Deep profile. Blunt truth. AI knows your goals and holds you to them. You asked for this.</div>
+          <div class="mode-tags">
+            <div class="mode-tag">Filter <span>Low</span></div>
+            <div class="mode-tag">Photo <span>Required once</span></div>
+            <div class="mode-tag">Score <span>On — tracked</span></div>
+            <div class="mode-tag">100 difficulty <span>Very hard</span></div>
+          </div>
+        </div>
+ 
+        <!-- BEAST -->
+        <div class="mode-card beast">
+          <div class="mode-number">Mode 04</div>
+          <div class="mode-name">Beast</div>
+          <div class="mode-desc">AI knows everything. Little filter. Encourages you but will not spare your feelings. This is where real change happens.</div>
+          <div class="mode-tags">
+            <div class="mode-tag">Filter <span>Little</span></div>
+            <div class="mode-tag">Photo <span>Required</span></div>
+            <div class="mode-tag">Score <span>On — tracked</span></div>
+            <div class="mode-tag">100 difficulty <span>Extremely hard</span></div>
+          </div>
+        </div>
+ 
+        <!-- BRUTAL -->
+        <div class="mode-card brutal">
+          <div class="experimental-badge">Experimental</div>
+          <div class="mode-number">Mode 05</div>
+          <div class="mode-name" style="color: var(--text-2);">Brutal</div>
+          <div class="mode-desc">Filter is negative — AI actively looks for what's wrong and says it plainly. Still encourages, but pulls no punches. 100 is impossible by design.</div>
+          <div class="mode-tags">
+            <div class="mode-tag">Filter <span>Negative</span></div>
+            <div class="mode-tag">Photo <span>Required</span></div>
+            <div class="mode-tag">Score <span>On — tracked</span></div>
+            <div class="mode-tag">100 difficulty <span>Impossible</span></div>
+          </div>
+        </div>
+ 
+      </div>
+    </div>
+  </section>
+ 
+  <!-- SCORE SYSTEM -->
+  <section>
+    <div class="section-label">Score system</div>
+ 
+    <div class="score-visual">
+      <p style="font-size: 13px; color: var(--text-2); margin-bottom: 1rem;">
+        Score is always visible, always tracked. As your number climbs, each point becomes harder to earn — the ceiling compresses. In Brutal mode, 100 is mathematically unreachable.
+      </p>
+      <div class="score-bar-wrap">
+        <div class="score-bar-fill" style="width: 72%"></div>
+      </div>
+      <div class="score-labels">
+        <span>0</span>
+        <span>25</span>
+        <span>50</span>
+        <span>75</span>
+        <span>100</span>
+      </div>
+      <div class="score-tiers">
+        <div class="score-tier">
+          <div class="score-tier-range" style="color: var(--text-2);">0–40</div>
+          <div class="score-tier-label">Getting started</div>
+          <div class="score-tier-diff">Easy gains, fast progress</div>
+        </div>
+        <div class="score-tier">
+          <div class="score-tier-range" style="color: var(--blue);">41–65</div>
+          <div class="score-tier-label">Building momentum</div>
+          <div class="score-tier-diff">Progress slows, feedback sharpens</div>
+        </div>
+        <div class="score-tier">
+          <div class="score-tier-range" style="color: var(--pink);">66–85</div>
+          <div class="score-tier-label">Locked in</div>
+          <div class="score-tier-diff">Diminishing returns kick in</div>
+        </div>
+        <div class="score-tier">
+          <div class="score-tier-range" style="background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">86–99</div>
+          <div class="score-tier-label">Elite territory</div>
+          <div class="score-tier-diff">Each point is a grind</div>
+        </div>
+        <div class="score-tier">
+          <div class="score-tier-range" style="color: var(--text-3);">100</div>
+          <div class="score-tier-label">Brutal mode only</div>
+          <div class="score-tier-diff">Impossible by design</div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- CORE FEATURES -->
+  <section id="features">
+    <div class="section-label">Core features</div>
+    <div class="features-grid">
+ 
+      <div class="feature-card">
+        <div class="feature-num">01</div>
+        <div class="feature-title">Conversational intake</div>
+        <div class="feature-desc">Tell AI how you want to be understood — or let it ask. Questions scale in depth with your mode. You're always in control of what you share.</div>
+      </div>
+ 
+      <div class="feature-card">
+        <div class="feature-num">02</div>
+        <div class="feature-title">Photo analysis</div>
+        <div class="feature-desc">Upload a photo. AI gives honest, specific feedback on body shape, skin condition, hair, outfit, and overall style. Filtered in Relaxed. Raw in Beast.</div>
+      </div>
+ 
+      <div class="feature-card">
+        <div class="feature-num">03</div>
+        <div class="feature-title">The audit</div>
+        <div class="feature-desc">Your full picture. Style, social presence, personality, vibe. What's working. What isn't. Exactly what to change. Specific, not generic — think YouTube glow-up energy.</div>
+      </div>
+ 
+      <div class="feature-card">
+        <div class="feature-num">04</div>
+        <div class="feature-title">Ongoing check-ins</div>
+        <div class="feature-desc">Designer remembers you. As you level up, the AI updates your profile and adjusts advice. Come back, update it, watch your score move.</div>
+      </div>
+ 
+      <div class="feature-card">
+        <div class="feature-num">05</div>
+        <div class="feature-title">Vibe profile</div>
+        <div class="feature-desc">AI builds a profile of how you come across — not just how you look. Personality, energy, social presence. The full picture of what makes you, you — and what doesn't.</div>
+      </div>
+ 
+      <div class="feature-card">
+        <div class="feature-num">06</div>
+        <div class="feature-title">Glow-up roadmap</div>
+        <div class="feature-desc">Based on your audit, AI generates a prioritised action list. Not vague motivation — concrete changes. What to fix first, what to fix next.</div>
+      </div>
+ 
+    </div>
+  </section>
+ 
+  <!-- PHOTO ANALYSIS DETAIL -->
+  <section>
+    <div class="section-label">Photo analysis — what AI reads</div>
+    <div class="glass-card">
+      <p style="font-size: 13px; color: var(--text-2); margin-bottom: 1rem;">Vision analysis covers all of the following. Feedback tone scales with mode — high filter in Relaxed, little filter in Beast, negative filter in Brutal.</p>
+      <div class="photo-grid">
+        <div class="photo-tag">Body shape</div>
+        <div class="photo-tag">Figure</div>
+        <div class="photo-tag">Skin condition</div>
+        <div class="photo-tag">Hair</div>
+        <div class="photo-tag">Outfit / style</div>
+        <div class="photo-tag">Fit of clothing</div>
+        <div class="photo-tag">Grooming</div>
+        <div class="photo-tag">Overall vibe</div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- AI SYSTEM -->
+  <section>
+    <div class="section-label">AI system design</div>
+    <div class="glass-card">
+      <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <div>
+          <div class="feature-title" style="margin-bottom: 6px;">Intake prompt — on first use</div>
+          <div class="feature-desc">Structured prompt to Claude with: mode level, user's self-description, photo analysis output, and stated goals. Claude returns a full profile JSON — category scores, top strengths, top weaknesses, prioritised action list. Stored and referenced for every future check-in.</div>
+        </div>
+        <div style="border-top: 1px solid var(--glass-border); padding-top: 1.5rem;">
+          <div class="feature-title" style="margin-bottom: 6px;">Check-in prompt — on return</div>
+          <div class="feature-desc">Pull stored profile + previous scores + any new photos or updates from the user. Ask Claude: "Given this person's profile and what has changed, what's their updated score and what should they focus on next?" Returns delta score, updated advice, and encouragement calibrated to mode.</div>
+        </div>
+        <div style="border-top: 1px solid var(--glass-border); padding-top: 1.5rem;">
+          <div class="feature-title" style="margin-bottom: 6px;">Mode tone system — five system prompts</div>
+          <div class="feature-desc">One system prompt per mode. Relaxed = warm older sibling, lots of encouragement, leads with positives. Real = honest friend, balanced. Locked in = direct coach. Beast = little filter, high standards, pushes hard. Brutal = actively critical, looks for what's wrong, encourages but never softens the truth. Each is tested independently before launch.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- TECH STACK -->
+  <section>
+    <div class="section-label">Tech stack</div>
+    <div class="glass-card">
+      <table class="stack-table">
+        <tr>
+          <td>Frontend</td>
+          <td>Next.js</td>
+          <td>Web-first. WKWebView shell for iOS. Share as much code as possible across platforms.</td>
+        </tr>
+        <tr>
+          <td>AI</td>
+          <td>Claude Sonnet 4.6</td>
+          <td>Vision for photo analysis, text for conversational intake and audit generation. Stream the audit output — watching it generate is part of the experience.</td>
+        </tr>
+        <tr>
+          <td>Database</td>
+          <td>Supabase</td>
+          <td>profiles, scores, check_ins, photo_analyses tables. Score history for tracking over time.</td>
+        </tr>
+        <tr>
+          <td>Auth</td>
+          <td>Prism ID</td>
+          <td>Same login as all Prism apps. No separate account creation.</td>
+        </tr>
+        <tr>
+          <td>Storage</td>
+          <td>Supabase Storage</td>
+          <td>User photos in private buckets. Never used for model training. Deleted on account removal.</td>
+        </tr>
+        <tr>
+          <td>Rate limiting</td>
+          <td>Upstash Redis</td>
+          <td>Free: 3 AI sessions/day. Pro: unlimited. Vision calls are expensive — cost model before launch.</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+ 
+  <!-- SUITE CONNECTIONS -->
+  <section>
+    <div class="section-label">Suite connections</div>
+    <div class="connections-grid">
+      <div class="connection-card">
+        <div class="connection-app">Prism Mood</div>
+        <div class="connection-desc">Low mood score shifts AI tone to warmer and more encouraging regardless of chosen mode. Don't critique someone who's already down.</div>
+      </div>
+      <div class="connection-card">
+        <div class="connection-app">Prism Grind</div>
+        <div class="connection-desc">Glow-up roadmap items can be sent to Grind as active goals. Style goals become daily missions.</div>
+      </div>
+      <div class="connection-card">
+        <div class="connection-app">Prism Roast</div>
+        <div class="connection-desc">Roast can audit your style or social presence and send results to Designer as a check-in prompt. Honest feedback meets the full picture.</div>
+      </div>
+      <div class="connection-card">
+        <div class="connection-app">Prism Social</div>
+        <div class="connection-desc">Share your score milestone or glow-up progress as a post. Shareable score cards — "I just hit 74 in Beast mode." Built-in virality.</div>
+      </div>
+    </div>
+    <p style="font-size: 12px; color: var(--text-3); margin-top: 1rem;">Note: Apps are currently standalone. Suite integration is planned but not required for MVP.</p>
+  </section>
+ 
+  <!-- MONETISATION -->
+  <section>
+    <div class="section-label" style="display: flex; align-items: center; gap: 12px;">Monetisation <span style="font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; border: 1px solid rgba(122,174,204,0.25); background: rgba(122,174,204,0.07); color: var(--blue); font-family: 'Space Grotesk', sans-serif;">Maybe</span></div>
+    <div class="mono-grid">
+      <div class="mono-card">
+        <div class="mono-tier">Free</div>
+        <ul class="mono-items">
+          <li>3 AI sessions per day</li>
+          <li>Text intake only</li>
+          <li>Relaxed and Real modes</li>
+          <li>Basic score tracking</li>
+          <li>Enough to feel the value</li>
+        </ul>
+      </div>
+      <div class="mono-card featured">
+        <div class="mono-tier">Designer Pro</div>
+        <ul class="mono-items">
+          <li>Unlimited AI sessions</li>
+          <li>Photo vision analysis</li>
+          <li>All modes including Beast</li>
+          <li>Full score history</li>
+          <li>Glow-up roadmap</li>
+          <li>Priority AI queue</li>
+        </ul>
+      </div>
+      <div class="mono-card">
+        <div class="mono-tier">Prism Pass</div>
+        <ul class="mono-items">
+          <li>Designer Pro included</li>
+          <li>All Prism apps unlocked</li>
+          <li>Brutal mode access</li>
+          <li>Suite integrations active</li>
+          <li>One subscription, everything</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- ROADMAP -->
+  <section id="roadmap">
+    <div class="section-label">Roadmap</div>
+    <div class="roadmap">
+      <div class="roadmap-item">
+        <div class="roadmap-dot active">1</div>
+        <div class="roadmap-content">
+          <h4>MVP — text intake + audit</h4>
+          <p>Conversational intake, Claude audit generation, score display, Relaxed and Real modes. Web only. Get the core loop right — honest AI feedback that actually helps.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot">2</div>
+        <div class="roadmap-content">
+          <h4>Photo analysis + Beast mode</h4>
+          <p>Vision input live. Photo analysis across all visual dimensions. Beast mode unlocked. Score tracking over time. Glow-up roadmap generation.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot">3</div>
+        <div class="roadmap-content">
+          <h4>Ongoing check-ins + monetisation</h4>
+          <p>AI remembers you across sessions. Score history and progression curve. Designer Pro paywall. Rate limiting and cost controls.</p>
+        </div>
+      </div>
+      <div class="roadmap-item">
+        <div class="roadmap-dot">4</div>
+        <div class="roadmap-content">
+          <h4>iOS + Brutal mode + suite</h4>
+          <p>iOS app. Brutal mode goes live (experimental gate). Social sharing of score milestones. Prism Pass integration. Grind and Mood connections.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- OPEN QUESTIONS -->
+  <section>
+    <div class="section-label">Open questions</div>
+    <div class="questions-list">
+      <div class="question-item">
+        <div class="q-icon">?</div>
+        <p><strong>Photo privacy and safety</strong> User photos for AI analysis are sensitive. Explicit policy needed: not stored long-term, not used for training, deleted on request. Must be clear in onboarding before any photo is uploaded.</p>
+      </div>
+      <div class="question-item">
+        <div class="q-icon">?</div>
+        <p><strong>Brutal mode safety review</strong> A mode with negative filter that critiques appearance needs careful testing before launch. Define where the AI draws the line — honest critique vs harmful content. Review required before shipping.</p>
+      </div>
+      <div class="question-item">
+        <div class="q-icon">?</div>
+        <p><strong>Score gaming</strong> Users could game intake questions to inflate their score. Consider locking score adjustments to photo check-ins or time-gating score changes to once per week.</p>
+      </div>
+      <div class="question-item">
+        <div class="q-icon">?</div>
+        <p><strong>API cost model</strong> Vision calls + long audit prompts per user session could get expensive fast. Model the cost per session at each mode level before setting free tier limits.</p>
+      </div>
+      <div class="question-item">
+        <div class="q-icon">?</div>
+        <p><strong>Body image considerations</strong> App analyses appearance. Needs thoughtful UX guardrails — no language that encourages harmful comparisons, and a clear stance that the goal is confidence not perfection.</p>
+      </div>
+    </div>
+  </section>
+ 
+</div>
+ 
+</body>
+</html>
