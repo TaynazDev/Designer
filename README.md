@@ -2,7 +2,7 @@
 
 Designer is a single-file HTML prototype for an AI personal style and self-improvement app in the Prism Suite.
 
-Live demo: https://taynazdev.github.io/Dedsigner
+Live demo: https://taynazdev.github.io/Designer
 
 ## What it does
 
