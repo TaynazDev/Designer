@@ -1816,6 +1816,116 @@ html, body {
     display: block;
   }
 }
+
+/* ─── SCORE HISTORY SCREEN ─────────────────────────────────── */
+#screen-score-history { background: var(--bg); }
+.score-hist-header { padding: 52px 24px 16px; display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+.score-hist-back { width: 36px; height: 36px; border-radius: 50%; background: var(--surface); border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: border-color 0.2s; }
+.score-hist-back:hover { border-color: var(--border3); }
+.score-hist-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: -0.01em; }
+.score-hist-chart-card { margin: 0 16px 12px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 20px; padding: 20px 16px; }
+.score-hist-chart { width: 100%; height: 140px; display: block; overflow: visible; }
+.score-hist-list { padding: 0 16px; display: flex; flex-direction: column; gap: 8px; }
+.score-hist-row { padding: 13px 16px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 14px; display: flex; align-items: center; gap: 12px; }
+.score-hist-num { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; width: 48px; flex-shrink: 0; }
+.score-hist-info { flex: 1; }
+.score-hist-date { font-size: 12px; color: var(--text3); }
+.score-hist-mode { font-size: 12px; color: var(--text2); margin-top: 1px; }
+.score-hist-delta { font-size: 13px; font-weight: 700; font-family: 'Syne', sans-serif; padding: 3px 10px; border-radius: 999px; }
+.score-hist-delta.up { color: #6DC98A; background: rgba(109,201,138,0.1); }
+.score-hist-delta.down { color: var(--pink); background: rgba(232,130,154,0.1); }
+.score-hist-delta.same { color: var(--text3); background: var(--surface2); }
+
+/* ─── REMINDERS SCREEN ─────────────────────────────────────── */
+#screen-reminders { background: var(--bg); }
+.remind-header { padding: 52px 24px 24px; flex-shrink: 0; display: flex; align-items: center; gap: 16px; }
+.remind-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: -0.01em; }
+.remind-body { padding: 0 16px; display: flex; flex-direction: column; gap: 10px; }
+.remind-card { padding: 16px 18px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 16px; display: flex; align-items: flex-start; gap: 14px; }
+.remind-card-info { flex: 1; }
+.remind-card-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+.remind-card-desc { font-size: 12px; color: var(--text2); line-height: 1.45; }
+.remind-toggle { position: relative; width: 42px; height: 24px; flex-shrink: 0; margin-top: 2px; }
+.remind-toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+.remind-toggle-track { position: absolute; inset: 0; border-radius: 999px; background: var(--surface2); border: 0.5px solid var(--border2); cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+.remind-toggle input:checked + .remind-toggle-track { background: var(--blue); border-color: transparent; }
+.remind-toggle-track::after { content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: rgba(255,255,255,0.4); transition: transform 0.2s, background 0.2s; }
+.remind-toggle input:checked + .remind-toggle-track::after { transform: translateX(18px); background: #fff; }
+.remind-note { margin: 12px 16px 0; padding: 12px 14px; background: rgba(122,174,204,0.05); border: 0.5px solid rgba(122,174,204,0.2); border-radius: 12px; font-size: 12px; color: var(--text2); line-height: 1.55; }
+
+/* ─── PHOTOS MODAL ─────────────────────────────────────────── */
+.photos-modal { position: fixed; inset: 0; z-index: 700; display: flex; align-items: flex-end; pointer-events: none; opacity: 0; transition: opacity 0.25s; }
+.photos-modal.show { opacity: 1; pointer-events: all; }
+.photos-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+.photos-modal-sheet { position: relative; z-index: 1; width: 100%; max-width: 430px; margin: 0 auto; background: var(--surface); border-radius: 24px 24px 0 0; padding: 24px 20px calc(24px + var(--safe-bot)); border-top: 0.5px solid var(--border2); max-height: 85vh; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
+.photos-modal-top { display: flex; align-items: center; justify-content: space-between; }
+.photos-modal-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; }
+.photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.photo-thumb { aspect-ratio: 1; border-radius: 12px; background: var(--surface2); border: 0.5px solid var(--border); overflow: hidden; position: relative; }
+.photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-thumb-score { position: absolute; bottom: 5px; right: 5px; background: rgba(12,12,14,0.8); border-radius: 999px; font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; color: var(--text); padding: 2px 7px; }
+.photo-thumb-del { position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border-radius: 50%; background: rgba(12,12,14,0.75); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; line-height: 1; color: var(--text2); }
+.photo-upload-btn { aspect-ratio: 1; border-radius: 12px; background: var(--surface2); border: 1px dashed var(--border2); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; transition: border-color 0.2s; border: none; }
+.photo-upload-btn:hover { border-color: var(--border3); }
+.photo-upload-btn span { font-size: 10px; color: var(--text3); font-weight: 600; letter-spacing: 0.04em; font-family: 'Syne', sans-serif; }
+.photo-compare-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.photo-compare-side { display: flex; flex-direction: column; gap: 6px; text-align: center; }
+.photo-compare-img { width: 100%; aspect-ratio: 3/4; border-radius: 14px; object-fit: cover; background: var(--surface2); border: 0.5px solid var(--border); display: block; }
+.photo-compare-label { font-size: 11px; color: var(--text3); line-height: 1.4; }
+.photo-section-label { font-size: 10px; font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 6px; }
+
+/* ─── SHARE CARD MODAL ─────────────────────────────────────── */
+.share-modal { position: fixed; inset: 0; z-index: 700; display: flex; align-items: flex-end; pointer-events: none; opacity: 0; transition: opacity 0.25s; }
+.share-modal.show { opacity: 1; pointer-events: all; }
+.share-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+.share-modal-sheet { position: relative; z-index: 1; width: 100%; max-width: 430px; margin: 0 auto; background: var(--surface); border-radius: 24px 24px 0 0; padding: 24px 20px calc(24px + var(--safe-bot)); border-top: 0.5px solid var(--border2); display: flex; flex-direction: column; gap: 16px; }
+.share-top { display: flex; align-items: center; justify-content: space-between; }
+.share-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; }
+.share-card { border-radius: 20px; padding: 28px 24px; position: relative; overflow: hidden; background: linear-gradient(135deg, #0c0c0e 0%, #1a1a1f 100%); border: 0.5px solid rgba(255,255,255,0.12); display: flex; flex-direction: column; gap: 10px; }
+.share-card::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(232,130,154,0.18) 0%, transparent 70%); pointer-events: none; }
+.share-card-brand { font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text3); }
+.share-card-score { font-family: 'Syne', sans-serif; font-size: 72px; font-weight: 800; line-height: 1; letter-spacing: -0.04em; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.share-card-tier { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; }
+.share-card-meta { font-size: 12px; color: var(--text3); }
+.share-hint { font-size: 12px; color: var(--text3); text-align: center; padding: 10px 12px; background: var(--surface2); border-radius: 10px; }
+
+/* ─── BRUTAL CONFIRM MODAL ─────────────────────────────────── */
+.brutal-modal { position: fixed; inset: 0; z-index: 800; display: flex; align-items: flex-end; pointer-events: none; opacity: 0; transition: opacity 0.25s; }
+.brutal-modal.show { opacity: 1; pointer-events: all; }
+.brutal-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.7); }
+.brutal-modal-sheet { position: relative; z-index: 1; width: 100%; max-width: 430px; margin: 0 auto; background: var(--surface); border-radius: 24px 24px 0 0; padding: 28px 24px calc(28px + var(--safe-bot)); border-top: 0.5px solid rgba(232,130,154,0.35); display: flex; flex-direction: column; gap: 16px; }
+.brutal-modal-icon { width: 52px; height: 52px; border-radius: 16px; background: rgba(232,130,154,0.08); border: 0.5px solid rgba(232,130,154,0.25); display: flex; align-items: center; justify-content: center; font-size: 24px; }
+.brutal-modal-title { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--pink); }
+.brutal-modal-body { font-size: 14px; color: var(--text2); line-height: 1.65; }
+.brutal-confirm-btn { width: 100%; padding: 15px; border-radius: 999px; background: rgba(232,130,154,0.1); border: 1px solid rgba(232,130,154,0.4); color: var(--pink); font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+.brutal-confirm-btn:hover { background: rgba(232,130,154,0.18); }
+
+/* ─── SCORE UNLOCK OVERLAY ─────────────────────────────────── */
+.score-unlock-overlay { position: fixed; inset: 0; z-index: 900; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; opacity: 0; transition: opacity 0.4s; background: var(--bg); }
+.score-unlock-overlay.show { opacity: 1; pointer-events: all; }
+.score-unlock-inner { text-align: center; padding: 40px 32px; }
+.score-unlock-badge { font-size: 56px; margin-bottom: 16px; animation: unlockPop 0.5s 0.2s cubic-bezier(0.34,1.56,0.64,1) both; }
+.score-unlock-score { font-family: 'Syne', sans-serif; font-size: 88px; font-weight: 800; line-height: 1; letter-spacing: -0.05em; background: var(--grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: unlockPop 0.6s 0.1s cubic-bezier(0.34,1.56,0.64,1) both; }
+.score-unlock-tier { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -0.01em; margin-top: 8px; margin-bottom: 6px; }
+.score-unlock-sub { font-size: 14px; color: var(--text2); max-width: 280px; line-height: 1.55; margin: 0 auto; }
+.score-unlock-dismiss { margin-top: 36px; font-size: 13px; color: var(--text3); cursor: pointer; letter-spacing: 0.04em; }
+@keyframes unlockPop { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: scale(1); } }
+
+/* ─── INTAKE ANSWERS MODAL ─────────────────────────────────── */
+.intake-modal { position: fixed; inset: 0; z-index: 700; display: flex; align-items: flex-end; pointer-events: none; opacity: 0; transition: opacity 0.25s; }
+.intake-modal.show { opacity: 1; pointer-events: all; }
+.intake-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
+.intake-modal-sheet { position: relative; z-index: 1; width: 100%; max-width: 430px; margin: 0 auto; background: var(--surface); border-radius: 24px 24px 0 0; padding: 24px 20px calc(24px + var(--safe-bot)); border-top: 0.5px solid var(--border2); max-height: 80vh; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
+.intake-modal-top { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.intake-modal-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; }
+.intake-qa-list { display: flex; flex-direction: column; gap: 10px; }
+.intake-qa-item { padding: 13px 15px; background: var(--surface2); border: 0.5px solid var(--border); border-radius: 13px; }
+.intake-qa-role { font-size: 10px; font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 5px; }
+.intake-qa-role.ai { color: var(--blue); }
+.intake-qa-text { font-size: 13px; color: var(--text2); line-height: 1.55; }
+.intake-qa-empty { font-size: 14px; color: var(--text3); text-align: center; padding: 24px 0; }
+.intake-new-btn { width: 100%; padding: 13px; background: rgba(122,174,204,0.08); border: 0.5px solid rgba(122,174,204,0.3); border-radius: 12px; color: var(--blue); font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+.intake-new-btn:hover { background: rgba(122,174,204,0.14); }
 </style>
 </head>
 <body>
@@ -2102,7 +2212,7 @@ html, body {
           </div>
         </div>
 
-        <div class="mode-card brutal" data-mode="brutal" onclick="selectMode(this)">
+        <div class="mode-card brutal" data-mode="brutal" onclick="handleBrutalCardClick(this)">
           <div class="mode-card-top">
             <span class="mode-card-num">Mode 05</span>
             <div style="display:flex;gap:8px;align-items:center;">
@@ -2216,6 +2326,9 @@ html, body {
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 10V2M6 2L3 5M6 2L9 5" stroke="#6DC98A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 +4 this week
               </span>
+            </div>
+            <div style="margin-top:10px;">
+              <button onclick="openShareModal()" style="font-size:12px;background:none;border:0.5px solid var(--border2);border-radius:999px;color:var(--text3);padding:4px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.color='var(--text)';this.style.borderColor='var(--border3)'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border2)'">Share score ↗</button>
             </div>
           </div>
         </div>
@@ -2484,30 +2597,30 @@ html, body {
 
       <div class="profile-section-card">
         <div class="section-label">Your profile</div>
-        <div class="profile-row">
+        <div class="profile-row" onclick="openIntakeModal()" style="cursor:pointer;">
           <div class="profile-row-left">
             <div class="profile-row-label">Intake answers</div>
-            <div class="profile-row-sub">Last updated 3 days ago</div>
+            <div class="profile-row-sub" id="intake-row-sub">No sessions yet</div>
           </div>
           <div class="profile-row-right">
-            Edit
+            View
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
-        <div class="profile-row">
+        <div class="profile-row" onclick="openPhotosModal()" style="cursor:pointer;">
           <div class="profile-row-left">
             <div class="profile-row-label">Photos</div>
-            <div class="profile-row-sub">2 uploaded</div>
+            <div class="profile-row-sub" id="photos-row-sub">No photos yet</div>
           </div>
           <div class="profile-row-right">
             Manage
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
-        <div class="profile-row">
+        <div class="profile-row" onclick="openScoreHistory()" style="cursor:pointer;">
           <div class="profile-row-left">
             <div class="profile-row-label">Score history</div>
-            <div class="profile-row-sub">58 → 72 over 8 sessions</div>
+            <div class="profile-row-sub" id="score-hist-row-sub">No sessions yet</div>
           </div>
           <div class="profile-row-right">
             View
@@ -2544,6 +2657,16 @@ html, body {
           </div>
           <div class="profile-row-right">
             Open
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        <div class="profile-row" onclick="goTo('screen-reminders')" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Reminders</div>
+            <div class="profile-row-sub" id="remind-row-sub">Off</div>
+          </div>
+          <div class="profile-row-right">
+            Set up
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
@@ -2640,6 +2763,71 @@ html, body {
     </div>
   </div>
 
+  <!-- ══════════════════════════════════════════════ SCORE HISTORY -->
+  <div class="screen" id="screen-score-history">
+    <div class="score-hist-header">
+      <button class="score-hist-back" onclick="goTo('screen-profile')" aria-label="Back">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="score-hist-title">Score history</div>
+    </div>
+    <div class="scroll-area" style="padding-bottom:24px;">
+      <div class="score-hist-chart-card">
+        <svg class="score-hist-chart" id="score-hist-svg" viewBox="0 0 320 140" preserveAspectRatio="none"></svg>
+      </div>
+      <div class="score-hist-list" id="score-hist-list">
+        <div style="font-size:14px;color:var(--text3);text-align:center;padding:32px 0;">No sessions yet. Complete your first check-in to start tracking.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ REMINDERS -->
+  <div class="screen" id="screen-reminders">
+    <div class="remind-header">
+      <button class="score-hist-back" onclick="goTo('screen-profile')" aria-label="Back">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="remind-title">Reminders</div>
+    </div>
+    <div class="scroll-area" style="padding-bottom:24px;">
+      <div class="remind-body">
+        <div class="remind-card">
+          <div class="remind-card-info">
+            <div class="remind-card-title">Daily nudge</div>
+            <div class="remind-card-desc">Reminds you once per day to log something — an outfit win, a habit done, anything.</div>
+          </div>
+          <label class="remind-toggle">
+            <input type="checkbox" id="remind-daily" onchange="saveReminderSettings()">
+            <div class="remind-toggle-track"></div>
+          </label>
+        </div>
+        <div class="remind-card">
+          <div class="remind-card-info">
+            <div class="remind-card-title">Weekly check-in</div>
+            <div class="remind-card-desc">Ping every 7 days to run a proper check-in and move your score.</div>
+          </div>
+          <label class="remind-toggle">
+            <input type="checkbox" id="remind-weekly" onchange="saveReminderSettings()">
+            <div class="remind-toggle-track"></div>
+          </label>
+        </div>
+        <div class="remind-card">
+          <div class="remind-card-info">
+            <div class="remind-card-title">Streak alert</div>
+            <div class="remind-card-desc">Alert when a streak is about to break. Pauses instead of resetting if you miss one day.</div>
+          </div>
+          <label class="remind-toggle">
+            <input type="checkbox" id="remind-streak" onchange="saveReminderSettings()">
+            <div class="remind-toggle-track"></div>
+          </label>
+        </div>
+      </div>
+      <div class="remind-note">
+        Reminders use your browser's notification API. You'll need to grant permission when you enable your first one. Settings are saved on this device only.
+      </div>
+    </div>
+  </div>
+
 </div><!-- /shell -->
 
 <!-- CATEGORY DETAIL MODAL -->
@@ -2689,6 +2877,80 @@ html, body {
     </div>
 
     <textarea id="transfer-text" class="transfer-text" placeholder="Your transfer document appears here…"></textarea>
+  </div>
+</div>
+
+<!-- PHOTOS MODAL -->
+<div class="photos-modal" id="photos-modal" aria-hidden="true">
+  <div class="photos-modal-backdrop" onclick="closePhotosModal()"></div>
+  <div class="photos-modal-sheet" role="dialog" aria-modal="true">
+    <div class="photos-modal-top">
+      <div class="photos-modal-title">Your photos</div>
+      <button class="cat-modal-close" onclick="closePhotosModal()" aria-label="Close photos">×</button>
+    </div>
+    <div class="photo-grid" id="photo-grid"><!-- injected --></div>
+    <div id="photo-compare-section" style="display:none;">
+      <div class="photo-section-label">Progress comparison</div>
+      <div class="photo-compare-wrap" id="photo-compare-wrap"></div>
+    </div>
+    <input type="file" id="photo-file-input" accept="image/*" style="display:none;" onchange="handlePhotoUpload(this)">
+  </div>
+</div>
+
+<!-- SHARE MODAL -->
+<div class="share-modal" id="share-modal" aria-hidden="true">
+  <div class="share-modal-backdrop" onclick="closeShareModal()"></div>
+  <div class="share-modal-sheet" role="dialog" aria-modal="true">
+    <div class="share-top">
+      <div class="share-title">Share your score</div>
+      <button class="cat-modal-close" onclick="closeShareModal()" aria-label="Close share">×</button>
+    </div>
+    <div class="share-card" id="share-card">
+      <div class="share-card-brand">Designer by Prism</div>
+      <div class="share-card-score" id="share-card-score">—</div>
+      <div>
+        <div class="share-card-tier" id="share-card-tier">—</div>
+        <div class="share-card-meta" id="share-card-meta">—</div>
+      </div>
+    </div>
+    <div class="share-hint">📱 Hold down on the card to save as an image on mobile. On desktop, right-click → Save image as.</div>
+    <button class="btn-ghost" onclick="closeShareModal()">Done</button>
+  </div>
+</div>
+
+<!-- BRUTAL CONFIRM MODAL -->
+<div class="brutal-modal" id="brutal-modal" aria-hidden="true">
+  <div class="brutal-modal-backdrop" onclick="closeBrutalConfirm()"></div>
+  <div class="brutal-modal-sheet" role="dialog" aria-modal="true">
+    <div class="brutal-modal-icon">⚠️</div>
+    <div class="brutal-modal-title">Brutal mode</div>
+    <div class="brutal-modal-body">This mode has a negative filter. Designer will actively look for what's wrong and say it plainly — no softening, no encouragement. 100 is impossible by design.<br><br>This is experimental and can be very harsh. Only continue if you actually want completely unfiltered feedback.</div>
+    <button class="brutal-confirm-btn" onclick="confirmBrutalMode()">I understand — activate Brutal</button>
+    <button class="btn-ghost" onclick="closeBrutalConfirm()">Cancel</button>
+  </div>
+</div>
+
+<!-- SCORE UNLOCK OVERLAY -->
+<div class="score-unlock-overlay" id="score-unlock-overlay" aria-hidden="true" onclick="dismissUnlockOverlay()">
+  <div class="score-unlock-inner">
+    <div class="score-unlock-badge" id="unlock-badge">🔒</div>
+    <div class="score-unlock-score" id="unlock-score">70</div>
+    <div class="score-unlock-tier" id="unlock-tier">Locked in</div>
+    <div class="score-unlock-sub" id="unlock-sub">You crossed a new threshold. Keep going.</div>
+    <div class="score-unlock-dismiss">Tap to continue →</div>
+  </div>
+</div>
+
+<!-- INTAKE ANSWERS MODAL -->
+<div class="intake-modal" id="intake-modal" aria-hidden="true">
+  <div class="intake-modal-backdrop" onclick="closeIntakeModal()"></div>
+  <div class="intake-modal-sheet" role="dialog" aria-modal="true">
+    <div class="intake-modal-top">
+      <div class="intake-modal-title">Intake answers</div>
+      <button class="cat-modal-close" onclick="closeIntakeModal()" aria-label="Close intake">×</button>
+    </div>
+    <div class="intake-qa-list" id="intake-qa-list"><!-- injected --></div>
+    <button class="intake-new-btn" onclick="closeIntakeModal(); openChatTab();">Start a new check-in →</button>
   </div>
 </div>
 
@@ -2752,7 +3014,10 @@ let state = {
   scoreStart: null,
   chatHistory: [],    // [{role, content}]
   chatType: 'chat',   // 'intake' | 'chat'
-  isProcessing: false
+  isProcessing: false,
+  photos: [],         // [{data: base64, date: ISO, score: number|null}]
+  scoreHistory: [],   // [{score, mode, modeLabel, date: ISO}]
+  reminderSettings: { daily: false, weekly: false, streak: false }
 };
 
 // ─── LOCAL STORAGE ────────────────────────────────────────────────
@@ -2771,6 +3036,9 @@ function saveState() {
   else localStorage.removeItem('ds_score_start');
   if (state.profile) localStorage.setItem('ds_profile', JSON.stringify(state.profile));
   else localStorage.removeItem('ds_profile');
+  localStorage.setItem('ds_photos', JSON.stringify(state.photos || []));
+  localStorage.setItem('ds_score_history', JSON.stringify(state.scoreHistory || []));
+  localStorage.setItem('ds_remind', JSON.stringify(state.reminderSettings || {}));
 }
 
 function loadState() {
@@ -2791,6 +3059,12 @@ function loadState() {
   state.scoreStart = ss !== null ? parseInt(ss) : null;
   const p = localStorage.getItem('ds_profile');
   if (p) { try { state.profile = JSON.parse(p); } catch(e) { state.profile = null; } }
+  const ph = localStorage.getItem('ds_photos');
+  if (ph) { try { state.photos = JSON.parse(ph); } catch(e) { state.photos = []; } }
+  const sh = localStorage.getItem('ds_score_history');
+  if (sh) { try { state.scoreHistory = JSON.parse(sh); } catch(e) { state.scoreHistory = []; } }
+  const rs = localStorage.getItem('ds_remind');
+  if (rs) { try { state.reminderSettings = JSON.parse(rs); } catch(e) { state.reminderSettings = { daily: false, weekly: false, streak: false }; } }
 }
 
 function resetProfile() {
@@ -3058,6 +3332,13 @@ function selectMode(card) {
   state.modeLabel = modeLabels[state.mode];
 }
 
+function handleBrutalCardClick(card) {
+  // Show confirmation gate before activating brutal mode
+  const modal = document.getElementById('brutal-modal');
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden', 'false');
+}
+
 function goToIntake() {
   state.modeLabel = modeLabels[state.mode];
   document.getElementById('home-mode-pill').textContent   = state.modeLabel;
@@ -3222,9 +3503,16 @@ async function buildProfile() {
     state.profile = { ...profileData, prevScore };
     state.checkins++;
     if (state.scoreStart === null) state.scoreStart = profileData.score;
+    // Record score history entry
+    if (!state.scoreHistory) state.scoreHistory = [];
+    state.scoreHistory.push({ score: profileData.score, mode: state.mode, modeLabel: state.modeLabel, date: new Date().toISOString() });
     saveState();
     addMsg('ai', `Done. Your score is ${profileData.score}. Heading to your dashboard now.`);
-    setTimeout(() => { populateDashboard(); goTo('screen-home'); }, 1800);
+    setTimeout(() => {
+      populateDashboard();
+      goTo('screen-home');
+      checkAndShowUnlock(profileData.score, prevScore);
+    }, 1800);
   } catch (err) {
     typingEl.remove();
     addMsg('ai', `Couldn't generate your profile: ${err.message}`);
@@ -3607,16 +3895,35 @@ function populateDashboard() {
     pstats[2].textContent = (gain >= 0 ? '+' : '') + gain;
   }
   updateApiPreview();
+  // Update profile sub-labels
+  const intakeSub = document.getElementById('intake-row-sub');
+  if (intakeSub) intakeSub.textContent = state.chatHistory.length ? `${state.checkins} session${state.checkins !== 1 ? 's' : ''} recorded` : 'No sessions yet';
+  const photosSub = document.getElementById('photos-row-sub');
+  if (photosSub) { const n = (state.photos || []).length; photosSub.textContent = n ? `${n} photo${n !== 1 ? 's' : ''} uploaded` : 'No photos yet'; }
+  const histSub = document.getElementById('score-hist-row-sub');
+  if (histSub) {
+    const hist = state.scoreHistory || [];
+    histSub.textContent = hist.length ? `${hist[0].score} → ${hist[hist.length-1].score} over ${hist.length} session${hist.length !== 1 ? 's' : ''}` : 'No sessions yet';
+  }
+  updateReminderRowSub();
 }
 
 // ─── INIT ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   loadState();
   updateNameGenderContinueState();
+  loadReminderToggles();
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeCategoryDetail();
-    if (e.key === 'Escape') closeTransferModal();
+    if (e.key === 'Escape') {
+      closeCategoryDetail();
+      closeTransferModal();
+      closePhotosModal();
+      closeShareModal();
+      closeBrutalConfirm();
+      closeIntakeModal();
+      dismissUnlockOverlay();
+    }
   });
 
   const updateTime = () => {
@@ -3635,6 +3942,295 @@ document.addEventListener('DOMContentLoaded', () => {
   if (state.profile && state.name) { populateDashboard(); goTo('screen-home'); return; }
   // has key but no profile — show splash
 });
+
+// ─── SCORE HISTORY ────────────────────────────────────────────────
+function openScoreHistory() {
+  renderScoreHistoryScreen();
+  goTo('screen-score-history');
+}
+
+function renderScoreHistoryScreen() {
+  const list = document.getElementById('score-hist-list');
+  const svg  = document.getElementById('score-hist-svg');
+  const history = state.scoreHistory || [];
+  if (!history.length) {
+    list.innerHTML = '<div style="font-size:14px;color:var(--text3);text-align:center;padding:32px 0;">No sessions yet. Complete your first check-in to start tracking.</div>';
+    if (svg) svg.innerHTML = '';
+    return;
+  }
+  // SVG line chart
+  if (svg) {
+    const W = 320, H = 140, PAD = 20;
+    const scores = history.map(h => h.score);
+    const minS = Math.max(0,  Math.min(...scores) - 8);
+    const maxS = Math.min(100, Math.max(...scores) + 8);
+    const range = maxS - minS || 1;
+    const pts = history.map((h, i) => {
+      const x = PAD + (i / Math.max(history.length - 1, 1)) * (W - PAD * 2);
+      const y = H - PAD - ((h.score - minS) / range) * (H - PAD * 2);
+      return [x.toFixed(1), y.toFixed(1)];
+    });
+    const lineD = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p.join(',')).join(' ');
+    const areaD = lineD + ` L${pts[pts.length-1][0]},${H-PAD} L${pts[0][0]},${H-PAD} Z`;
+    svg.innerHTML = `
+      <defs>
+        <linearGradient id="hGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#E8829A" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#E8829A" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="hLine" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#E8829A"/>
+          <stop offset="50%" stop-color="#b39dc0"/>
+          <stop offset="100%" stop-color="#7AAECC"/>
+        </linearGradient>
+      </defs>
+      <path d="${areaD}" fill="url(#hGrad)"/>
+      <path d="${lineD}" fill="none" stroke="url(#hLine)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      ${pts.map(p => `<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="#E8829A" stroke="#0c0c0e" stroke-width="2"/>`).join('')}
+    `;
+  }
+  // Session list (newest first)
+  list.innerHTML = [...history].reverse().map((h, ri) => {
+    const i = history.length - 1 - ri;
+    const prev = i > 0 ? history[i-1].score : null;
+    const delta = prev !== null ? h.score - prev : null;
+    const cls = delta === null ? 'same' : delta > 0 ? 'up' : delta < 0 ? 'down' : 'same';
+    const txt = delta === null ? 'First' : delta > 0 ? `+${delta}` : `${delta}`;
+    const d = new Date(h.date);
+    const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    return `<div class="score-hist-row">
+      <div class="score-hist-num">${h.score}</div>
+      <div class="score-hist-info">
+        <div class="score-hist-date">${dateStr} · Session ${i+1}</div>
+        <div class="score-hist-mode">${h.modeLabel || h.mode} mode</div>
+      </div>
+      <div class="score-hist-delta ${cls}">${txt}</div>
+    </div>`;
+  }).join('');
+}
+
+// ─── PHOTOS ───────────────────────────────────────────────────────
+function openPhotosModal() {
+  renderPhotoGrid();
+  const modal = document.getElementById('photos-modal');
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+function closePhotosModal() {
+  const modal = document.getElementById('photos-modal');
+  if (!modal) return;
+  modal.classList.remove('show');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+function renderPhotoGrid() {
+  const grid = document.getElementById('photo-grid');
+  if (!grid) return;
+  const photos = state.photos || [];
+  const thumbsHTML = photos.map((p, i) =>
+    `<div class="photo-thumb">
+      <img src="${p.data}" alt="Photo ${i+1}" loading="lazy">
+      ${p.score !== null ? `<div class="photo-thumb-score">${p.score}</div>` : ''}
+      <button class="photo-thumb-del" onclick="deletePhoto(${i})" aria-label="Delete photo">×</button>
+    </div>`
+  ).join('');
+  const uploadBtn = `<button class="photo-upload-btn" onclick="document.getElementById('photo-file-input').click()" aria-label="Add photo">
+    <svg viewBox="0 0 24 24" fill="none" width="24" height="24"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    <span>ADD PHOTO</span>
+  </button>`;
+  grid.innerHTML = thumbsHTML + uploadBtn;
+  // Progress comparison section
+  const compareSection = document.getElementById('photo-compare-section');
+  if (photos.length >= 2) {
+    compareSection.style.display = 'block';
+    renderPhotoCompare(photos);
+  } else {
+    compareSection.style.display = 'none';
+  }
+  // Update profile row label
+  const sub = document.getElementById('photos-row-sub');
+  if (sub) sub.textContent = photos.length ? `${photos.length} photo${photos.length !== 1 ? 's' : ''} uploaded` : 'No photos yet';
+}
+
+function renderPhotoCompare(photos) {
+  const wrap = document.getElementById('photo-compare-wrap');
+  if (!wrap) return;
+  const first = photos[0];
+  const last  = photos[photos.length - 1];
+  const fmt = iso => new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  wrap.innerHTML = `
+    <div class="photo-compare-side">
+      <img class="photo-compare-img" src="${first.data}" alt="Before">
+      <div class="photo-compare-label">${fmt(first.date)}${first.score !== null ? `<br>Score ${first.score}` : ''}</div>
+    </div>
+    <div class="photo-compare-side">
+      <img class="photo-compare-img" src="${last.data}" alt="Now">
+      <div class="photo-compare-label">${fmt(last.date)}${last.score !== null ? `<br>Score ${last.score}` : ''}</div>
+    </div>`;
+}
+
+function deletePhoto(index) {
+  if (!confirm('Remove this photo?')) return;
+  state.photos.splice(index, 1);
+  saveState();
+  renderPhotoGrid();
+}
+
+function handlePhotoUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) {
+    alert('Photo must be under 5 MB. Try compressing it first.');
+    input.value = '';
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    if (!state.photos) state.photos = [];
+    state.photos.push({ data: e.target.result, date: new Date().toISOString(), score: state.profile?.score ?? null });
+    saveState();
+    renderPhotoGrid();
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
+}
+
+// ─── SHARE CARD ───────────────────────────────────────────────────
+function openShareModal() {
+  const score  = state.profile?.score ?? '—';
+  const tier   = state.profile?.tier  ?? getTier(state.profile?.score || 0)?.name ?? '—';
+  const modeL  = state.modeLabel || 'Real';
+  document.getElementById('share-card-score').textContent = score;
+  document.getElementById('share-card-tier').textContent  = tier;
+  document.getElementById('share-card-meta').textContent  = `${modeL} mode · ${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`;
+  const modal = document.getElementById('share-modal');
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+function closeShareModal() {
+  const modal = document.getElementById('share-modal');
+  if (!modal) return;
+  modal.classList.remove('show');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+// ─── BRUTAL CONFIRM GATE ─────────────────────────────────────────
+function confirmBrutalMode() {
+  closeBrutalConfirm();
+  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
+  const brutalCard = document.querySelector('.mode-card[data-mode="brutal"]');
+  if (brutalCard) brutalCard.classList.add('selected');
+  state.mode = 'brutal';
+  state.modeLabel = modeLabels['brutal'];
+}
+
+function closeBrutalConfirm() {
+  const modal = document.getElementById('brutal-modal');
+  if (!modal) return;
+  modal.classList.remove('show');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+// ─── SCORE UNLOCK OVERLAY ────────────────────────────────────────
+const UNLOCK_THRESHOLDS = [
+  { score: 50, badge: '🏁', sub: 'You hit the halfway mark. Real progress from here.' },
+  { score: 65, badge: '📈', sub: 'Past the "building" phase. Every point is harder from here.' },
+  { score: 70, badge: '🔒', sub: 'Locked in territory. Most people never grind this far.' },
+  { score: 80, badge: '💎', sub: 'Elite territory. This is serious work.' },
+  { score: 90, badge: '👑', sub: 'You are in the top tier. This is extremely rare.' }
+];
+
+function checkAndShowUnlock(newScore, prevScore) {
+  if (prevScore === null) return; // skip first session
+  for (const t of UNLOCK_THRESHOLDS) {
+    if (newScore >= t.score && prevScore < t.score) {
+      const tier = getTier(newScore);
+      setTimeout(() => showUnlockOverlay(newScore, tier.name, t.badge, t.sub), 800);
+      return;
+    }
+  }
+}
+
+function showUnlockOverlay(score, tierName, badge, sub) {
+  document.getElementById('unlock-badge').textContent = badge;
+  document.getElementById('unlock-score').textContent = score;
+  document.getElementById('unlock-tier').textContent  = tierName;
+  document.getElementById('unlock-sub').textContent   = sub;
+  const overlay = document.getElementById('score-unlock-overlay');
+  overlay.classList.add('show');
+  overlay.setAttribute('aria-hidden', 'false');
+}
+
+function dismissUnlockOverlay() {
+  const overlay = document.getElementById('score-unlock-overlay');
+  if (!overlay) return;
+  overlay.classList.remove('show');
+  overlay.setAttribute('aria-hidden', 'true');
+}
+
+// ─── INTAKE ANSWERS MODAL ────────────────────────────────────────
+function openIntakeModal() {
+  const list    = document.getElementById('intake-qa-list');
+  const history = state.chatHistory || [];
+  if (!history.length) {
+    list.innerHTML = '<div class="intake-qa-empty">No check-in conversations recorded yet. Start a chat to begin.</div>';
+  } else {
+    const recent = history.slice(-20);
+    list.innerHTML = recent.map(m => {
+      const safe = m.content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+      const isAI = m.role === 'assistant';
+      return `<div class="intake-qa-item">
+        <div class="intake-qa-role${isAI ? ' ai' : ''}">${isAI ? 'DESIGNER' : 'YOU'}</div>
+        <div class="intake-qa-text">${safe}</div>
+      </div>`;
+    }).join('');
+  }
+  const modal = document.getElementById('intake-modal');
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden', 'false');
+  // Scroll to bottom after render
+  setTimeout(() => { const sheet = modal.querySelector('.intake-modal-sheet'); if (sheet) sheet.scrollTop = sheet.scrollHeight; }, 50);
+}
+
+function closeIntakeModal() {
+  const modal = document.getElementById('intake-modal');
+  if (!modal) return;
+  modal.classList.remove('show');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+// ─── REMINDERS ───────────────────────────────────────────────────
+function saveReminderSettings() {
+  const daily  = document.getElementById('remind-daily')?.checked  || false;
+  const weekly = document.getElementById('remind-weekly')?.checked || false;
+  const streak = document.getElementById('remind-streak')?.checked || false;
+  state.reminderSettings = { daily, weekly, streak };
+  saveState();
+  updateReminderRowSub();
+  if ((daily || weekly || streak) && 'Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+}
+
+function updateReminderRowSub() {
+  const rs = state.reminderSettings || {};
+  const active = [rs.daily && 'Daily', rs.weekly && 'Weekly', rs.streak && 'Streak'].filter(Boolean);
+  const sub = document.getElementById('remind-row-sub');
+  if (sub) sub.textContent = active.length ? active.join(', ') : 'Off';
+}
+
+function loadReminderToggles() {
+  const rs = state.reminderSettings || {};
+  const d = document.getElementById('remind-daily');
+  const w = document.getElementById('remind-weekly');
+  const s = document.getElementById('remind-streak');
+  if (d) d.checked = !!rs.daily;
+  if (w) w.checked = !!rs.weekly;
+  if (s) s.checked = !!rs.streak;
+  updateReminderRowSub();
+}
 </script>
 </body>
 </html>
