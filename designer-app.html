@@ -1323,6 +1323,194 @@ html, body {
   padding: 12px;
 }
 
+/* utility modal family */
+.util-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1500;
+  display: none;
+}
+.util-modal.show { display: block; }
+.util-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.62);
+}
+.util-modal-sheet {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  max-height: 78vh;
+  overflow: auto;
+  background: var(--surface);
+  border: 0.5px solid var(--border2);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.58);
+}
+
+.small-note {
+  font-size: 12px;
+  color: var(--text3);
+  line-height: 1.5;
+}
+
+.simple-input {
+  width: 100%;
+  background: var(--surface2);
+  border: 0.5px solid var(--border2);
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  outline: none;
+}
+
+.simple-btn {
+  border: 0.5px solid var(--border2);
+  border-radius: 10px;
+  background: var(--surface2);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 9px 11px;
+  cursor: pointer;
+}
+.simple-btn.primary {
+  border-color: rgba(122,174,204,0.35);
+  color: var(--blue);
+}
+
+.daily-prompt-card {
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(122,174,204,0.06);
+  border: 0.5px solid rgba(122,174,204,0.22);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.daily-prompt-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+}
+.daily-prompt-row {
+  display: flex;
+  gap: 8px;
+}
+
+.streak-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 0.5px solid rgba(109,201,138,0.35);
+  background: rgba(109,201,138,0.08);
+  font-size: 11px;
+  font-weight: 600;
+  color: #6DC98A;
+}
+
+.roadmap-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border2);
+  background: transparent;
+  color: transparent;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.roadmap-check.done {
+  border-color: #6DC98A;
+  color: #6DC98A;
+  background: rgba(109,201,138,0.08);
+}
+.roadmap-item.done .roadmap-text {
+  color: var(--text2);
+  text-decoration: line-through;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+.photo-grid img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 0.5px solid var(--border);
+}
+
+.comparison-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 10px;
+}
+.comparison-wrap .pane {
+  background: var(--surface2);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  padding: 6px;
+}
+.comparison-wrap .pane img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.chart-wrap {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  background: #0f1013;
+  border: 0.5px solid var(--border);
+}
+
+.celebration {
+  position: fixed;
+  inset: 0;
+  z-index: 1700;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.72);
+  backdrop-filter: blur(2px);
+}
+.celebration.show { display: flex; }
+.celebration-card {
+  width: min(360px, calc(100% - 32px));
+  padding: 22px 20px;
+  border-radius: 20px;
+  background: var(--surface);
+  border: 0.5px solid var(--border2);
+  text-align: center;
+}
+.celebration-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
 /* ─── PROFILE SCREEN ───────────────────────────────────────── */
 #screen-profile {
   background: var(--bg);
@@ -1666,7 +1854,7 @@ html, body {
     </div>
     <div class="splash-actions">
       <button class="btn-primary" onclick="goTo('screen-onboard-1')">Get started</button>
-      <button class="btn-ghost" onclick="goTo('screen-home')">Sign in</button>
+      <button class="btn-ghost" onclick="openTransferModal()">Sign in (import)</button>
     </div>
   </div>
 
@@ -2448,6 +2636,7 @@ html, body {
     </div>
     <div style="padding:0 28px calc(28px + var(--safe-bot));flex-shrink:0;">
       <button class="btn-primary" onclick="saveApiKey()">Save and continue</button>
+      <button class="btn-ghost" style="margin-top:10px;" onclick="openTransferModal()">Import account</button>
     </div>
   </div>
 
@@ -2885,6 +3074,15 @@ function openChatTab() {
   goTo('screen-intake');
 
   if (!state.chatHistory.length) {
+    // If user already has a profile, do not force another intake/check-in immediately.
+    // Let them start when they want to.
+    if (state.profile) {
+      document.getElementById('chat-messages').innerHTML = '';
+      document.getElementById('quick-replies').innerHTML = '';
+      addMsg('ai', `You're signed in as ${state.name || 'your profile'}. Start a check-in whenever you're ready.`);
+      return;
+    }
+    // No profile yet: start intake flow.
     startChat(false);
     return;
   }
@@ -3256,7 +3454,21 @@ function parseTransferPayload(raw) {
   const marked = raw.match(/BEGIN DESIGNER TRANSFER JSON\s*([\s\S]*?)\s*END DESIGNER TRANSFER JSON/);
   const fenced = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
   const body = marked ? marked[1].trim() : (fenced ? fenced[1].trim() : raw.trim());
-  return JSON.parse(body);
+
+  // Try direct parse first.
+  try { return JSON.parse(body); } catch (e) {}
+
+  // Fallback: grab the first JSON object-looking block and parse it.
+  const objFromBody = body.match(/\{[\s\S]*\}/);
+  if (objFromBody) {
+    try { return JSON.parse(objFromBody[0]); } catch (e) {}
+  }
+  const objFromRaw = raw.match(/\{[\s\S]*\}/);
+  if (objFromRaw) {
+    try { return JSON.parse(objFromRaw[0]); } catch (e) {}
+  }
+
+  throw new Error('No valid JSON payload found in transfer document.');
 }
 
 function importTransferDoc() {
@@ -3272,6 +3484,10 @@ function importTransferDoc() {
   }
 
   const d = parsed.data || parsed;
+  if (!d || typeof d !== 'object') {
+    alert('Transfer document is missing account data.');
+    return;
+  }
   state.apiKey = d.apiKey || '';
   state.apiType = d.apiType || (state.apiKey.startsWith('AIza') ? 'gemini' : (state.apiKey ? 'openrouter' : ''));
   state.name = d.name || '';
@@ -3291,7 +3507,9 @@ function importTransferDoc() {
   if (state.profile) populateDashboard();
   updateApiPreview();
   alert('Imported. Your Designer profile has been restored on this device.');
-  goTo(state.profile ? 'screen-home' : 'screen-splash');
+  if (state.profile && state.name) goTo('screen-home');
+  else if (state.apiKey) goTo('screen-splash');
+  else goTo('screen-api-setup');
   closeTransferModal();
 }
 
