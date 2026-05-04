@@ -869,7 +869,7 @@ html, body {
 .qr-btn:active { background: var(--surface2); }
 
 .chat-input-bar {
-  padding: 12px 16px calc(12px + var(--safe-bot));
+  padding: 12px 16px 12px;
   border-top: 0.5px solid var(--border);
   display: flex;
   gap: 10px;
@@ -1962,6 +1962,24 @@ html, body {
       <textarea class="chat-input-field" id="chat-field" placeholder="Type your answer…" rows="1" onInput="autoResize(this)" onkeydown="handleChatKey(event)"></textarea>
       <button class="chat-send-btn" onclick="sendChatMsg()">
         <svg viewBox="0 0 18 18"><path d="M15 9L3 3l2.5 6L3 15l12-6z"/></svg>
+      </button>
+    </div>
+    <div class="bottom-nav">
+      <button class="nav-item" onclick="navTo('home')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><path d="M3 9.5L11 3l8 6.5V19a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M8 20v-8h6v8"/></svg></div>
+        <span class="nav-label">Home</span>
+      </button>
+      <button class="nav-item active" onclick="navTo('intake')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+        <span class="nav-label">Chat</span>
+      </button>
+      <button class="nav-item" onclick="navTo('audit')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M7 7h5M7 15h3"/></svg></div>
+        <span class="nav-label">Audit</span>
+      </button>
+      <button class="nav-item" onclick="navTo('profile')">
+        <div class="nav-icon"><svg viewBox="0 0 22 22"><circle cx="11" cy="7" r="4"/><path d="M3 20c0-4.418 3.582-8 8-8s8 3.582 8 8"/></svg></div>
+        <span class="nav-label">Profile</span>
       </button>
     </div>
   </div>
