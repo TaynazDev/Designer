@@ -2721,9 +2721,14 @@ The user has declared a preferred vibe. Take it seriously but evaluate it honest
 - Never tell someone their taste is wrong without offering a better direction that still honours what they're going for.
 
 PINTEREST REFERENCES:
-When recommending specific styles, outfits, or looks, always include 1–2 Pinterest search links formatted as markdown links, like:
+When recommending specific styles, outfits, or looks, sometimes include 1–2 Pinterest search links formatted as markdown links, like:
 [Pinterest: minimalist men outfits 2026](https://pinterest.com/search/pins/?q=minimalist+men+outfits+2026)
 Generate the URL by replacing spaces with + in the search query. Always include the person's gender and current year (2026) in the search query.
+
+COACHING BEHAVIOR (ALWAYS):
+- Be helper-first, not blame-first. Prefer language like "How can I help you improve this today?" over "What are you doing to fix this?"
+- In every response, include at least one concrete exercise, drill, or actionable micro-task the user can do immediately.
+- When possible, provide short practice structure: what to do, how long, and what result to look for.
 
 After covering all topics, end with a short closing line like "That's everything I need." to signal you're done. Never ask two questions at once. Keep each response to 2–3 sentences max.`;
 
@@ -3108,8 +3113,8 @@ function startChat(isFirstIntake) {
   const vibeNote = `Their desired style vibe is: "${state.vibe}". Evaluate whether this vibe actually suits them based on what they tell you. If it does, champion it. If it needs adjusting, find the middle ground and explain it. Include Pinterest links when suggesting specific directions.`;
 
   const seed = isFirstIntake
-    ? `This is a first intake with a new user named ${state.name} in ${state.mode} mode. ${genderNote} ${vibeNote} ${goalsNote} Greet them in one sentence as Designer, then immediately ask your first question — start with their current style (what they actually wear day to day, not what they want). Work through all required topics one at a time.`
-    : `This is a check-in with ${state.name} in ${state.mode} mode. ${genderNote} Their current score is ${state.profile?.score ?? '?'}. Previous roadmap priorities: ${state.profile?.roadmap?.slice(0,2).map(r => r.action).join('; ') ?? 'none'}. ${vibeNote} ${goalsNote} Welcome them back in one sentence, then work through all required topics to update their profile — ask what's changed on each one.`;
+    ? `This is a first intake with a new user named ${state.name} in ${state.mode} mode. ${genderNote} ${vibeNote} ${goalsNote} Greet them in one sentence as Designer, then immediately ask: "How can I help you improve right now?" Start with their current style (what they actually wear day to day, not what they want). Work through all required topics one at a time, and give at least one practical exercise in every reply.`
+    : `This is a check-in with ${state.name} in ${state.mode} mode. ${genderNote} Their current score is ${state.profile?.score ?? '?'}. Previous roadmap priorities: ${state.profile?.roadmap?.slice(0,2).map(r => r.action).join('; ') ?? 'none'}. ${vibeNote} ${goalsNote} Welcome them back in one sentence, then ask: "How can I help you improve today?" Work through all required topics to update their profile, and include at least one concrete exercise in every reply.`;
 
   setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 450);
 }

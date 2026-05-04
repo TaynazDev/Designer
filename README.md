@@ -62,3 +62,20 @@ Open designer-app.html directly in a browser, or serve the folder with any stati
 
 - API keys are stored locally in the browser and sent only to the chosen AI provider.
 - The demo URL above reflects the requested deployment URL text. If GitHub Pages is using the repository name path, update the link to match the published site path.
+
+## Parked Backlog (Hidden From Deferred Tracker)
+
+These are intentionally moved out of `designer-deferred.html` so the active deferred list stays focused.
+
+### Prism Suite Integrations (Post-MVP)
+
+- Prism Mood to AI tone shift
+- Prism Grind to roadmap sync
+- Prism Roast to check-in import
+- Prism Social to score share
+
+### Monetisation (Not Wired)
+
+- Paywall / upgrade flow
+- Designer Pro subscription management
+- Prism Pass bundle
