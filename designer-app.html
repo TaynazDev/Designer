@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-/* ─── RESET & ROOT ─────────────────────────────────────────── */
+/* â”€â”€â”€ RESET & ROOT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -44,7 +44,7 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ─── PHONE SHELL ──────────────────────────────────────────── */
+/* â”€â”€â”€ PHONE SHELL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .shell {
   width: 100%;
   height: 100%;
@@ -75,7 +75,7 @@ html, body {
 .status-icons { display: flex; gap: 6px; align-items: center; }
 .status-icon { width: 16px; height: 10px; opacity: 0.8; }
 
-/* ─── SCREENS ──────────────────────────────────────────────── */
+/* â”€â”€â”€ SCREENS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .screen {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -99,7 +99,7 @@ html, body {
   pointer-events: none;
 }
 
-/* ─── SCROLLABLE CONTENT AREA ──────────────────────────────── */
+/* â”€â”€â”€ SCROLLABLE CONTENT AREA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .scroll-area {
   flex: 1;
   overflow-y: auto;
@@ -109,7 +109,7 @@ html, body {
 }
 .scroll-area::-webkit-scrollbar { display: none; }
 
-/* ─── BOTTOM NAV ───────────────────────────────────────────── */
+/* â”€â”€â”€ BOTTOM NAV â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .bottom-nav {
   height: 64px;
   background: rgba(19,19,22,0.95);
@@ -154,7 +154,7 @@ html, body {
 }
 .nav-label { font-size: 10px; font-weight: 500; letter-spacing: 0.03em; }
 
-/* ─── UTILITY ──────────────────────────────────────────────── */
+/* â”€â”€â”€ UTILITY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .grad-text {
   background: var(--grad);
   -webkit-background-clip: text;
@@ -228,7 +228,7 @@ html, body {
   padding: 18px;
 }
 
-/* ─── SPLASH / LOGO SCREEN ─────────────────────────────────── */
+/* â”€â”€â”€ SPLASH / LOGO SCREEN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #screen-splash {
   background: var(--bg);
   align-items: center;
@@ -310,7 +310,7 @@ html, body {
   animation: fadeUp 0.7s 0.15s ease both;
 }
 
-/* ─── ONBOARDING ───────────────────────────────────────────── */
+/* â”€â”€â”€ ONBOARDING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #screen-onboard-1, #screen-onboard-2, #screen-onboard-3 {
   background: var(--bg);
 }
@@ -388,7 +388,7 @@ html, body {
   flex-shrink: 0;
 }
 
-/* onboard visual 1 — mode cards */
+/* onboard visual 1 â€” mode cards */
 .ob-modes-preview {
   display: flex;
   flex-direction: column;
@@ -431,7 +431,7 @@ html, body {
   border: 0.5px solid var(--border2);
 }
 
-/* onboard visual 2 — score ring */
+/* onboard visual 2 â€” score ring */
 .ob-score-ring {
   position: relative;
   width: 180px;
@@ -468,7 +468,7 @@ html, body {
   letter-spacing: 0.04em;
 }
 
-/* onboard visual 3 — goal cards */
+/* onboard visual 3 â€” goal cards */
 .goal-card {
   padding: 16px 14px;
   border-radius: 14px;
@@ -583,7 +583,7 @@ html, body {
   word-break: break-all;
 }
 
-/* onboard visual 4 — name input */
+/* onboard visual 4 â€” name input */
 .ob-input-wrap {
   width: 100%;
   display: flex;
@@ -611,7 +611,7 @@ html, body {
   padding-left: 4px;
 }
 
-/* ─── MODE SELECT ──────────────────────────────────────────── */
+/* â”€â”€â”€ MODE SELECT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #screen-mode-select {
   background: var(--bg);
 }
@@ -749,7 +749,7 @@ html, body {
   flex-shrink: 0;
 }
 
-/* ─── INTAKE / CHAT ────────────────────────────────────────── */
+/* â”€â”€â”€ INTAKE / CHAT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #screen-intake {
   background: var(--bg);
 }
@@ -923,7 +923,7 @@ html, body {
 .typing-dot:nth-child(2) { animation-delay: 0.2s; }
 .typing-dot:nth-child(3) { animation-delay: 0.4s; }
 
-/* ─── DASHBOARD (HOME) ─────────────────────────────────────── */
+/* â”€â”€â”€ DASHBOARD (HOME) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #screen-home {
   background: var(--bg);
 }
@@ -1511,7 +1511,7 @@ html, body {
   margin-bottom: 6px;
 }
 
-/* ─── PROFILE SCREEN ───────────────────────────────────────── */
+/* â”€â”€â”€ PROFILE SCREEN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #screen-profile {
   background: var(--bg);
 }
@@ -1619,7 +1619,7 @@ html, body {
 .profile-row-sub { font-size: 12px; color: var(--text3); }
 .profile-row-right { color: var(--text3); display: flex; align-items: center; gap: 6px; font-size: 12px; }
 
-/* ─── AUDIT RESULT ─────────────────────────────────────────── */
+/* â”€â”€â”€ AUDIT RESULT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #screen-audit {
   background: var(--bg);
 }
@@ -1729,7 +1729,7 @@ html, body {
   flex-shrink: 0;
 }
 
-/* ─── ANIMATIONS ───────────────────────────────────────────── */
+/* â”€â”€â”€ ANIMATIONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -1794,7 +1794,7 @@ html, body {
   background-clip: text;
 }
 
-/* ─── DESKTOP CENTERING ────────────────────────────────────── */
+/* â”€â”€â”€ DESKTOP CENTERING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 @media (min-height: 933px) {
   body {
     display: flex;
@@ -1817,7 +1817,7 @@ html, body {
   }
 }
 
-/* ─── SCORE HISTORY SCREEN ─────────────────────────────────── */
+/* â”€â”€â”€ SCORE HISTORY SCREEN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #screen-score-history { background: var(--bg); }
 .score-hist-header { padding: 52px 24px 16px; display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
 .score-hist-back { width: 36px; height: 36px; border-radius: 50%; background: var(--surface); border: 0.5px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: border-color 0.2s; }
@@ -1836,7 +1836,7 @@ html, body {
 .score-hist-delta.down { color: var(--pink); background: rgba(232,130,154,0.1); }
 .score-hist-delta.same { color: var(--text3); background: var(--surface2); }
 
-/* ─── REMINDERS SCREEN ─────────────────────────────────────── */
+/* â”€â”€â”€ REMINDERS SCREEN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 #screen-reminders { background: var(--bg); }
 .remind-header { padding: 52px 24px 24px; flex-shrink: 0; display: flex; align-items: center; gap: 16px; }
 .remind-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: -0.01em; }
@@ -1853,7 +1853,7 @@ html, body {
 .remind-toggle input:checked + .remind-toggle-track::after { transform: translateX(18px); background: #fff; }
 .remind-note { margin: 12px 16px 0; padding: 12px 14px; background: rgba(122,174,204,0.05); border: 0.5px solid rgba(122,174,204,0.2); border-radius: 12px; font-size: 12px; color: var(--text2); line-height: 1.55; }
 
-/* ─── PHOTOS MODAL ─────────────────────────────────────────── */
+/* â”€â”€â”€ PHOTOS MODAL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .photos-modal { position: fixed; inset: 0; z-index: 700; display: flex; align-items: flex-end; pointer-events: none; opacity: 0; transition: opacity 0.25s; }
 .photos-modal.show { opacity: 1; pointer-events: all; }
 .photos-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
@@ -1874,7 +1874,7 @@ html, body {
 .photo-compare-label { font-size: 11px; color: var(--text3); line-height: 1.4; }
 .photo-section-label { font-size: 10px; font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 6px; }
 
-/* ─── SHARE CARD MODAL ─────────────────────────────────────── */
+/* â”€â”€â”€ SHARE CARD MODAL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .share-modal { position: fixed; inset: 0; z-index: 700; display: flex; align-items: flex-end; pointer-events: none; opacity: 0; transition: opacity 0.25s; }
 .share-modal.show { opacity: 1; pointer-events: all; }
 .share-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
@@ -1889,7 +1889,7 @@ html, body {
 .share-card-meta { font-size: 12px; color: var(--text3); }
 .share-hint { font-size: 12px; color: var(--text3); text-align: center; padding: 10px 12px; background: var(--surface2); border-radius: 10px; }
 
-/* ─── BRUTAL CONFIRM MODAL ─────────────────────────────────── */
+/* â”€â”€â”€ BRUTAL CONFIRM MODAL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .brutal-modal { position: fixed; inset: 0; z-index: 800; display: flex; align-items: flex-end; pointer-events: none; opacity: 0; transition: opacity 0.25s; }
 .brutal-modal.show { opacity: 1; pointer-events: all; }
 .brutal-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.7); }
@@ -1900,7 +1900,7 @@ html, body {
 .brutal-confirm-btn { width: 100%; padding: 15px; border-radius: 999px; background: rgba(232,130,154,0.1); border: 1px solid rgba(232,130,154,0.4); color: var(--pink); font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
 .brutal-confirm-btn:hover { background: rgba(232,130,154,0.18); }
 
-/* ─── SCORE UNLOCK OVERLAY ─────────────────────────────────── */
+/* â”€â”€â”€ SCORE UNLOCK OVERLAY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .score-unlock-overlay { position: fixed; inset: 0; z-index: 900; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; opacity: 0; transition: opacity 0.4s; background: var(--bg); }
 .score-unlock-overlay.show { opacity: 1; pointer-events: all; }
 .score-unlock-inner { text-align: center; padding: 40px 32px; }
@@ -1911,7 +1911,7 @@ html, body {
 .score-unlock-dismiss { margin-top: 36px; font-size: 13px; color: var(--text3); cursor: pointer; letter-spacing: 0.04em; }
 @keyframes unlockPop { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: scale(1); } }
 
-/* ─── INTAKE ANSWERS MODAL ─────────────────────────────────── */
+/* â”€â”€â”€ INTAKE ANSWERS MODAL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .intake-modal { position: fixed; inset: 0; z-index: 700; display: flex; align-items: flex-end; pointer-events: none; opacity: 0; transition: opacity 0.25s; }
 .intake-modal.show { opacity: 1; pointer-events: all; }
 .intake-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
@@ -1926,6 +1926,44 @@ html, body {
 .intake-qa-empty { font-size: 14px; color: var(--text3); text-align: center; padding: 24px 0; }
 .intake-new-btn { width: 100%; padding: 13px; background: rgba(122,174,204,0.08); border: 0.5px solid rgba(122,174,204,0.3); border-radius: 12px; color: var(--blue); font-size: 13px; font-weight: 500; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
 .intake-new-btn:hover { background: rgba(122,174,204,0.14); }
+
+/* â”€â”€â”€ TO-DO SCREEN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+#screen-todo { background: var(--bg); }
+.todo-header { padding: 52px 20px 12px; display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.todo-header-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: -0.01em; flex: 1; }
+.todo-scroll { padding: 0 20px calc(80px + var(--safe-bot)); display: flex; flex-direction: column; gap: 20px; overflow-y: auto; }
+.todo-tier-group { display: flex; flex-direction: column; gap: 8px; }
+.todo-tier-label { font-size: 10px; font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); padding-bottom: 8px; border-bottom: 0.5px solid var(--border); margin-bottom: 4px; }
+.todo-item { padding: 14px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 14px; display: flex; align-items: flex-start; gap: 12px; transition: opacity 0.2s; }
+.todo-item.done { opacity: 0.5; }
+.todo-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--border2); background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; margin-top: 1px; transition: all 0.2s; }
+.todo-check.done { border-color: #6DC98A; background: rgba(109,201,138,0.12); color: #6DC98A; font-size: 11px; }
+.todo-item-body { flex: 1; }
+.todo-item-text { font-size: 13px; color: var(--text); line-height: 1.45; margin-bottom: 5px; }
+.todo-item.done .todo-item-text { text-decoration: line-through; color: var(--text3); }
+.todo-item-why { font-size: 11px; color: var(--text3); line-height: 1.4; }
+.todo-item-cat { font-size: 10px; color: var(--text3); padding: 2px 7px; border-radius: 999px; border: 0.5px solid var(--border2); flex-shrink: 0; text-transform: capitalize; align-self: flex-start; margin-top: 1px; }
+.todo-empty { padding: 48px 20px; text-align: center; font-size: 14px; color: var(--text3); line-height: 1.6; }
+.todo-done-count { font-size: 12px; color: var(--text3); white-space: nowrap; }
+
+/* â”€â”€â”€ HOME MICRO BANNER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.micro-banner { padding: 14px 16px; background: rgba(122,174,204,0.06); border: 0.5px solid rgba(122,174,204,0.2); border-radius: 14px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: border-color 0.2s; }
+.micro-banner:hover { border-color: rgba(122,174,204,0.4); }
+.micro-banner-body { flex: 1; }
+.micro-banner-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+.micro-banner-sub { font-size: 11px; color: var(--text2); line-height: 1.4; }
+
+/* â”€â”€â”€ HOME CTA CARDS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.home-cta-row { display: flex; gap: 10px; }
+.home-cta { flex: 1; padding: 16px 14px; background: var(--surface); border: 0.5px solid var(--border); border-radius: 16px; cursor: pointer; transition: border-color 0.2s, transform 0.15s; text-align: left; }
+.home-cta:active { transform: scale(0.98); }
+.home-cta:hover { border-color: var(--border2); }
+.home-cta-icon { font-size: 22px; margin-bottom: 8px; }
+.home-cta-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 3px; }
+.home-cta-sub { font-size: 11px; color: var(--text3); line-height: 1.4; }
+
+/* â”€â”€â”€ CHECKIN GAIN ESTIMATE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.checkin-gain { display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: #6DC98A; margin-top: 3px; }
 </style>
 </head>
 <body>
@@ -1939,7 +1977,7 @@ html, body {
 
 <div class="shell" id="app">
 
-  <!-- ══════════════════════════════════════════════ SPLASH -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• SPLASH -->
   <div class="screen active" id="screen-splash">
     <div class="splash-logo">
       <div class="splash-icon">
@@ -1968,7 +2006,7 @@ html, body {
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════ ONBOARD 1: CONCEPT -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• ONBOARD 1: CONCEPT -->
   <div class="screen" id="screen-onboard-1">
     <div class="onboard-progress">
       <div class="ob-track"><div class="ob-fill" style="width:25%"></div></div>
@@ -1976,7 +2014,7 @@ html, body {
     <div class="onboard-body">
       <div class="onboard-tag">01 / 04</div>
       <h2 class="onboard-h">Honest feedback.<br><span class="grad-text">Real change.</span></h2>
-      <p class="onboard-p">Designer isn't here to make you feel good. It's here to help you actually improve — your style, your vibe, your presence. On your terms.</p>
+      <p class="onboard-p">Designer isn't here to make you feel good. It's here to help you actually improve â€” your style, your vibe, your presence. On your terms.</p>
       <div class="onboard-visual">
         <div class="ob-modes-preview">
           <div class="ob-mode-row">
@@ -2012,7 +2050,7 @@ html, body {
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════ ONBOARD 2: SCORE -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• ONBOARD 2: SCORE -->
   <div class="screen" id="screen-onboard-2">
     <div class="onboard-progress">
       <div class="ob-track"><div class="ob-fill" style="width:50%"></div></div>
@@ -2050,7 +2088,7 @@ html, body {
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════ ONBOARD 3: NAME -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• ONBOARD 3: NAME -->
   <div class="screen" id="screen-onboard-3">
     <div class="onboard-progress">
       <div class="ob-track"><div class="ob-fill" style="width:75%"></div></div>
@@ -2076,7 +2114,7 @@ html, body {
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════ ONBOARD 4: GOALS -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• ONBOARD 4: GOALS -->
   <div class="screen" id="screen-onboard-4">
     <div class="onboard-progress">
       <div class="ob-track"><div class="ob-fill" style="width:100%"></div></div>
@@ -2084,31 +2122,31 @@ html, body {
     <div class="onboard-body">
       <div class="onboard-tag">04 / 04</div>
       <h2 class="onboard-h">What do you<br>want to <span class="grad-text">change?</span></h2>
-      <p class="onboard-p">Pick everything that applies. Then set your vibe — Designer will push you toward it, or find the best version of it if it needs work.</p>
+      <p class="onboard-p">Pick everything that applies. Then set your vibe â€” Designer will push you toward it, or find the best version of it if it needs work.</p>
       <div class="onboard-visual" style="align-items:flex-start;padding-top:4px;">
         <div id="goal-cards" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;">
           <div class="goal-card" data-goal="Style &amp; clothing" onclick="toggleGoal(this)">
-            <div class="goal-card-icon">👚</div>
+            <div class="goal-card-icon">ðŸ‘š</div>
             <div class="goal-card-label">Style &amp; clothing</div>
           </div>
           <div class="goal-card" data-goal="Grooming &amp; skin" onclick="toggleGoal(this)">
-            <div class="goal-card-icon">✨</div>
+            <div class="goal-card-icon">âœ¨</div>
             <div class="goal-card-label">Grooming &amp; skin</div>
           </div>
           <div class="goal-card" data-goal="Fitness &amp; physique" onclick="toggleGoal(this)">
-            <div class="goal-card-icon">💪</div>
+            <div class="goal-card-icon">ðŸ’ª</div>
             <div class="goal-card-label">Fitness &amp; physique</div>
           </div>
           <div class="goal-card" data-goal="Confidence &amp; energy" onclick="toggleGoal(this)">
-            <div class="goal-card-icon">⚡</div>
+            <div class="goal-card-icon">âš¡</div>
             <div class="goal-card-label">Confidence &amp; energy</div>
           </div>
           <div class="goal-card" data-goal="Social presence" onclick="toggleGoal(this)">
-            <div class="goal-card-icon">📸</div>
+            <div class="goal-card-icon">ðŸ“¸</div>
             <div class="goal-card-label">Social presence</div>
           </div>
           <div class="goal-card" data-goal="Overall glow-up" onclick="toggleGoal(this)">
-            <div class="goal-card-icon">🔥</div>
+            <div class="goal-card-icon">ðŸ”¥</div>
             <div class="goal-card-label">Overall glow-up</div>
           </div>
         </div>
@@ -2126,7 +2164,7 @@ html, body {
             <div class="vibe-chip" data-vibe="Athletic" onclick="selectVibe(this)">Athletic</div>
           </div>
           <input class="vibe-custom-input" type="text" id="vibe-custom" maxlength="60"
-            placeholder="Or describe your own vibe…"
+            placeholder="Or describe your own vibeâ€¦"
             oninput="clearVibeChips()"
           />
         </div>
@@ -2137,12 +2175,12 @@ html, body {
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════ MODE SELECT -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• MODE SELECT -->
   <div class="screen" id="screen-mode-select">
     <div class="scroll-area">
       <div class="mode-select-header">
         <div class="mode-select-h">Pick your <span class="grad-text">mode.</span></div>
-        <p class="mode-select-sub">This controls how honest Designer gets. You can change it later at any time — your score adjusts accordingly.</p>
+        <p class="mode-select-sub">This controls how honest Designer gets. You can change it later at any time â€” your score adjusts accordingly.</p>
       </div>
       <div class="modes-list" id="modes-list">
 
@@ -2223,7 +2261,7 @@ html, body {
             </div>
           </div>
           <div class="mode-card-name" style="color:var(--text2)">Brutal</div>
-          <div class="mode-card-desc">Filter is negative — AI actively looks for what's wrong and says it plainly. 100 is impossible by design.</div>
+          <div class="mode-card-desc">Filter is negative â€” AI actively looks for what's wrong and says it plainly. 100 is impossible by design.</div>
           <div class="mode-card-tags">
             <div class="mode-card-tag">Filter: Negative</div>
             <div class="mode-card-tag">Photo: Required</div>
@@ -2235,11 +2273,11 @@ html, body {
       </div>
     </div>
     <div class="mode-select-actions">
-      <button class="btn-primary" onclick="goToIntake()">Start my intake →</button>
+      <button class="btn-primary" onclick="goToIntake()">Start my intake â†’</button>
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════ INTAKE / CHAT -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• INTAKE / CHAT -->
   <div class="screen" id="screen-intake">
     <div class="chat-header">
       <div class="chat-header-left">
@@ -2248,7 +2286,7 @@ html, body {
       </div>
       <div class="chat-header-score">
         <div class="chat-score-label">Score</div>
-        <div class="chat-score-num">—</div>
+        <div class="chat-score-num" id="chat-score-num">â€”</div>
         <div class="chat-transfer-link" onclick="openTransferModal()">Import / export</div>
       </div>
     </div>
@@ -2257,7 +2295,7 @@ html, body {
     </div>
     <div class="chat-quick-replies" id="quick-replies"></div>
     <div class="chat-input-bar">
-      <textarea class="chat-input-field" id="chat-field" placeholder="Type your answer…" rows="1" onInput="autoResize(this)" onkeydown="handleChatKey(event)"></textarea>
+      <textarea class="chat-input-field" id="chat-field" placeholder="Type your answerâ€¦" rows="1" onInput="autoResize(this)" onkeydown="handleChatKey(event)"></textarea>
       <button class="chat-send-btn" onclick="sendChatMsg()">
         <svg viewBox="0 0 18 18"><path d="M15 9L3 3l2.5 6L3 15l12-6z"/></svg>
       </button>
@@ -2282,7 +2320,7 @@ html, body {
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════ HOME / DASHBOARD -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• HOME / DASHBOARD -->
   <div class="screen" id="screen-home">
     <div class="scroll-area home-scroll">
 
@@ -2328,7 +2366,7 @@ html, body {
               </span>
             </div>
             <div style="margin-top:10px;">
-              <button onclick="openShareModal()" style="font-size:12px;background:none;border:0.5px solid var(--border2);border-radius:999px;color:var(--text3);padding:4px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.color='var(--text)';this.style.borderColor='var(--border3)'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border2)'">Share score ↗</button>
+              <button onclick="openShareModal()" style="font-size:12px;background:none;border:0.5px solid var(--border2);border-radius:999px;color:var(--text3);padding:4px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:border-color 0.2s,color 0.2s;" onmouseover="this.style.color='var(--text)';this.style.borderColor='var(--border3)'" onmouseout="this.style.color='var(--text3)';this.style.borderColor='var(--border2)'">Share score â†—</button>
             </div>
           </div>
         </div>
@@ -2344,11 +2382,24 @@ html, body {
         </div>
         <div class="checkin-text">
           <div class="checkin-title">Time for a check-in</div>
-          <div class="checkin-sub">Last session was 3 days ago</div>
+          <div class="checkin-sub" id="checkin-sub">Last session was 3 days ago</div>
+          <div class="checkin-gain" id="checkin-gain" style="display:none;">
+            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M6 10V2M6 2L3 5M6 2L9 5" stroke="#6DC98A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="checkin-gain-text">+3â€“7 expected</span>
+          </div>
         </div>
         <div class="checkin-arrow">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
+      </div>
+
+      <!-- Daily micro prompt -->
+      <div class="micro-banner" id="micro-banner" style="display:none;" onclick="startDailyMicroPrompt()">
+        <div class="micro-banner-body">
+          <div class="micro-banner-title">Quick check âœ¦</div>
+          <div class="micro-banner-sub">What did you change today? 30 seconds.</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
 
       <!-- Category breakdown -->
@@ -2390,7 +2441,7 @@ html, body {
           <div class="roadmap-tier-group">
             <div class="roadmap-tier-header tier-now">
               <div class="roadmap-tier-dot"></div>
-              <div class="roadmap-tier-label">Do Now — free &amp; instant</div>
+              <div class="roadmap-tier-label">Do Now â€” free &amp; instant</div>
             </div>
             <div class="roadmap-item">
               <div class="roadmap-num">01</div>
@@ -2401,30 +2452,44 @@ html, body {
           <div class="roadmap-tier-group">
             <div class="roadmap-tier-header tier-effort">
               <div class="roadmap-tier-dot"></div>
-              <div class="roadmap-tier-label">Some Effort — needs a little spend</div>
+              <div class="roadmap-tier-label">Some Effort â€” needs a little spend</div>
             </div>
             <div class="roadmap-item">
               <div class="roadmap-num">02</div>
-              <div class="roadmap-text">Fix the haircut — current length is fighting your face shape</div>
+              <div class="roadmap-text">Fix the haircut â€” current length is fighting your face shape</div>
               <div class="roadmap-cat">grooming</div>
             </div>
             <div class="roadmap-item">
               <div class="roadmap-num">03</div>
-              <div class="roadmap-text">Start a consistent skincare routine — morning and evening</div>
+              <div class="roadmap-text">Start a consistent skincare routine â€” morning and evening</div>
               <div class="roadmap-cat">grooming</div>
             </div>
           </div>
           <div class="roadmap-tier-group">
             <div class="roadmap-tier-header tier-time">
               <div class="roadmap-tier-dot"></div>
-              <div class="roadmap-tier-label">Takes Time — needs weeks or months</div>
+              <div class="roadmap-tier-label">Takes Time â€” needs weeks or months</div>
             </div>
             <div class="roadmap-item">
               <div class="roadmap-num">04</div>
-              <div class="roadmap-text">Upgrade your basics — better fitting neutral pieces</div>
+              <div class="roadmap-text">Upgrade your basics â€” better fitting neutral pieces</div>
               <div class="roadmap-cat">style</div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Quick-action CTAs -->
+      <div class="home-cta-row">
+        <div class="home-cta" onclick="openTodoScreen()">
+          <div class="home-cta-icon">âœ…</div>
+          <div class="home-cta-title">Your tasks</div>
+          <div class="home-cta-sub" id="todo-cta-sub">0 to do</div>
+        </div>
+        <div class="home-cta" onclick="askNinetyVision()">
+          <div class="home-cta-icon">ðŸŽ¯</div>
+          <div class="home-cta-title">What does 90 look like?</div>
+          <div class="home-cta-sub">Your personal target vision</div>
         </div>
       </div>
 
@@ -2450,7 +2515,7 @@ html, body {
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════ AUDIT RESULT -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• AUDIT RESULT -->
   <div class="screen" id="screen-audit">
     <div class="audit-header">
       <div class="audit-eyebrow">Full audit</div>
@@ -2492,7 +2557,7 @@ html, body {
         <div class="audit-block-title">What's working</div>
         <div class="audit-item">
           <div class="audit-item-dot good"></div>
-          <span>Your clothing choices are intentional — you've got a clear aesthetic direction and you're mostly hitting it.</span>
+          <span>Your clothing choices are intentional â€” you've got a clear aesthetic direction and you're mostly hitting it.</span>
         </div>
         <div class="audit-item">
           <div class="audit-item-dot good"></div>
@@ -2512,7 +2577,7 @@ html, body {
         </div>
         <div class="audit-item">
           <div class="audit-item-dot warn"></div>
-          <span>Fit is inconsistent — some pieces work, others are slightly too loose in the wrong places. Doesn't read as intentional.</span>
+          <span>Fit is inconsistent â€” some pieces work, others are slightly too loose in the wrong places. Doesn't read as intentional.</span>
         </div>
         <div class="audit-item">
           <div class="audit-item-dot warn"></div>
@@ -2556,7 +2621,7 @@ html, body {
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════ PROFILE -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• PROFILE -->
   <div class="screen" id="screen-profile">
     <div class="scroll-area profile-scroll">
 
@@ -2564,7 +2629,7 @@ html, body {
         <div class="profile-avatar">J</div>
         <div>
           <div class="profile-info-name" id="profile-name">Jordan</div>
-          <div class="profile-info-sub">Prism ID · Member since May 2026</div>
+          <div class="profile-info-sub">Prism ID Â· Member since May 2026</div>
         </div>
       </div>
 
@@ -2591,7 +2656,7 @@ html, body {
             <div class="current-mode-label">Mode 02</div>
             <div class="current-mode-name" id="profile-mode-name">Real</div>
           </div>
-          <div class="current-mode-change" onclick="goTo('screen-mode-select')">Change →</div>
+          <div class="current-mode-change" onclick="goTo('screen-mode-select')">Change â†’</div>
         </div>
       </div>
 
@@ -2721,14 +2786,14 @@ html, body {
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════ API SETUP -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• API SETUP -->
   <div class="screen" id="screen-api-setup">
     <div class="scroll-area">
       <div style="padding:80px 28px 32px;display:flex;flex-direction:column;gap:24px;">
         <div>
           <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:16px;">One time setup</div>
           <h2 style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin-bottom:12px;">Add your <span class="grad-text">API key.</span></h2>
-          <p style="font-size:14px;color:var(--text2);line-height:1.65;">Designer uses AI for everything. Paste your OpenRouter or Gemini API key — it's stored only on this device, never sent anywhere else.</p>
+          <p style="font-size:14px;color:var(--text2);line-height:1.65;">Designer uses AI for everything. Paste your OpenRouter or Gemini API key â€” it's stored only on this device, never sent anywhere else.</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:8px;">
           <div class="ob-input-label">API key</div>
@@ -2740,14 +2805,14 @@ html, body {
           <a href="https://openrouter.ai/keys" target="_blank" style="padding:14px 16px;background:var(--surface);border:0.5px solid var(--border);border-radius:14px;text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;">
             <div style="flex:1;">
               <div style="font-size:13px;font-weight:600;margin-bottom:2px;">OpenRouter</div>
-              <div style="font-size:12px;color:var(--text3);">openrouter.ai/keys · starts with sk-or-</div>
+              <div style="font-size:12px;color:var(--text3);">openrouter.ai/keys Â· starts with sk-or-</div>
             </div>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="var(--text3)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
           <a href="https://aistudio.google.com/apikey" target="_blank" style="padding:14px 16px;background:var(--surface);border:0.5px solid var(--border);border-radius:14px;text-decoration:none;color:inherit;display:flex;align-items:center;gap:12px;">
             <div style="flex:1;">
               <div style="font-size:13px;font-weight:600;margin-bottom:2px;">Google Gemini</div>
-              <div style="font-size:12px;color:var(--text3);">aistudio.google.com · starts with AIza</div>
+              <div style="font-size:12px;color:var(--text3);">aistudio.google.com Â· starts with AIza</div>
             </div>
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="var(--text3)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
@@ -2763,7 +2828,7 @@ html, body {
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════ SCORE HISTORY -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• SCORE HISTORY -->
   <div class="screen" id="screen-score-history">
     <div class="score-hist-header">
       <button class="score-hist-back" onclick="goTo('screen-profile')" aria-label="Back">
@@ -2781,7 +2846,7 @@ html, body {
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════ REMINDERS -->
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• REMINDERS -->
   <div class="screen" id="screen-reminders">
     <div class="remind-header">
       <button class="score-hist-back" onclick="goTo('screen-profile')" aria-label="Back">
@@ -2794,7 +2859,7 @@ html, body {
         <div class="remind-card">
           <div class="remind-card-info">
             <div class="remind-card-title">Daily nudge</div>
-            <div class="remind-card-desc">Reminds you once per day to log something — an outfit win, a habit done, anything.</div>
+            <div class="remind-card-desc">Reminds you once per day to log something â€” an outfit win, a habit done, anything.</div>
           </div>
           <label class="remind-toggle">
             <input type="checkbox" id="remind-daily" onchange="saveReminderSettings()">
@@ -2841,7 +2906,7 @@ html, body {
       </div>
       <div style="display:flex;align-items:flex-start;gap:10px;">
         <div class="cat-modal-score grad-text" id="cat-modal-score">0</div>
-        <button class="cat-modal-close" onclick="closeCategoryDetail()" aria-label="Close category details">×</button>
+        <button class="cat-modal-close" onclick="closeCategoryDetail()" aria-label="Close category details">Ã—</button>
       </div>
     </div>
 
@@ -2866,7 +2931,7 @@ html, body {
         <div class="transfer-title" id="transfer-title">Transfer document</div>
         <div class="transfer-sub">Generate an AI-formatted document on this device, then paste it into the same screen on another device and tap import.</div>
       </div>
-      <button class="cat-modal-close" onclick="closeTransferModal()" aria-label="Close transfer modal">×</button>
+      <button class="cat-modal-close" onclick="closeTransferModal()" aria-label="Close transfer modal">Ã—</button>
     </div>
 
     <div class="transfer-actions">
@@ -2876,7 +2941,7 @@ html, body {
       <button class="transfer-btn" onclick="clearTransferDoc()">Clear</button>
     </div>
 
-    <textarea id="transfer-text" class="transfer-text" placeholder="Your transfer document appears here…"></textarea>
+    <textarea id="transfer-text" class="transfer-text" placeholder="Your transfer document appears hereâ€¦"></textarea>
   </div>
 </div>
 
@@ -2886,7 +2951,7 @@ html, body {
   <div class="photos-modal-sheet" role="dialog" aria-modal="true">
     <div class="photos-modal-top">
       <div class="photos-modal-title">Your photos</div>
-      <button class="cat-modal-close" onclick="closePhotosModal()" aria-label="Close photos">×</button>
+      <button class="cat-modal-close" onclick="closePhotosModal()" aria-label="Close photos">Ã—</button>
     </div>
     <div class="photo-grid" id="photo-grid"><!-- injected --></div>
     <div id="photo-compare-section" style="display:none;">
@@ -2903,18 +2968,50 @@ html, body {
   <div class="share-modal-sheet" role="dialog" aria-modal="true">
     <div class="share-top">
       <div class="share-title">Share your score</div>
-      <button class="cat-modal-close" onclick="closeShareModal()" aria-label="Close share">×</button>
+      <button class="cat-modal-close" onclick="closeShareModal()" aria-label="Close share">Ã—</button>
     </div>
     <div class="share-card" id="share-card">
       <div class="share-card-brand">Designer by Prism</div>
-      <div class="share-card-score" id="share-card-score">—</div>
+      <div class="share-card-score" id="share-card-score">â€”</div>
       <div>
-        <div class="share-card-tier" id="share-card-tier">—</div>
-        <div class="share-card-meta" id="share-card-meta">—</div>
+        <div class="share-card-tier" id="share-card-tier">â€”</div>
+        <div class="share-card-meta" id="share-card-meta">â€”</div>
       </div>
     </div>
-    <div class="share-hint">📱 Hold down on the card to save as an image on mobile. On desktop, right-click → Save image as.</div>
+    <div class="share-hint">ðŸ“± Hold down on the card to save as an image on mobile. On desktop, right-click â†’ Save image as.</div>
     <button class="btn-ghost" onclick="closeShareModal()">Done</button>
+  </div>
+</div>
+
+<!-- TO-DO SCREEN -->
+<div class="screen" id="screen-todo">
+  <div class="todo-header">
+    <button class="score-hist-back" onclick="goTo('screen-home')" aria-label="Back">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M13 4l-6 6 6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="todo-header-title">Your tasks</div>
+    <div class="todo-done-count" id="todo-done-count"></div>
+  </div>
+  <div class="todo-scroll scroll-area" id="todo-scroll-area">
+    <!-- injected by renderTodoList() -->
+  </div>
+  <div class="bottom-nav">
+    <button class="nav-item active" onclick="navTo('home')">
+      <div class="nav-icon"><svg viewBox="0 0 22 22"><path d="M3 9.5L11 3l8 6.5V19a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M8 20v-8h6v8"/></svg></div>
+      <span class="nav-label">Home</span>
+    </button>
+    <button class="nav-item" onclick="navTo('intake')">
+      <div class="nav-icon"><svg viewBox="0 0 22 22"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+      <span class="nav-label">Chat</span>
+    </button>
+    <button class="nav-item" onclick="navTo('audit')">
+      <div class="nav-icon"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M7 7h5M7 15h3"/></svg></div>
+      <span class="nav-label">Audit</span>
+    </button>
+    <button class="nav-item" onclick="navTo('profile')">
+      <div class="nav-icon"><svg viewBox="0 0 22 22"><circle cx="11" cy="7" r="4"/><path d="M3 20c0-4.418 3.582-8 8-8s8 3.582 8 8"/></svg></div>
+      <span class="nav-label">Profile</span>
+    </button>
   </div>
 </div>
 
@@ -2922,10 +3019,10 @@ html, body {
 <div class="brutal-modal" id="brutal-modal" aria-hidden="true">
   <div class="brutal-modal-backdrop" onclick="closeBrutalConfirm()"></div>
   <div class="brutal-modal-sheet" role="dialog" aria-modal="true">
-    <div class="brutal-modal-icon">⚠️</div>
+    <div class="brutal-modal-icon">âš ï¸</div>
     <div class="brutal-modal-title">Brutal mode</div>
-    <div class="brutal-modal-body">This mode has a negative filter. Designer will actively look for what's wrong and say it plainly — no softening, no encouragement. 100 is impossible by design.<br><br>This is experimental and can be very harsh. Only continue if you actually want completely unfiltered feedback.</div>
-    <button class="brutal-confirm-btn" onclick="confirmBrutalMode()">I understand — activate Brutal</button>
+    <div class="brutal-modal-body">This mode has a negative filter. Designer will actively look for what's wrong and say it plainly â€” no softening, no encouragement. 100 is impossible by design.<br><br>This is experimental and can be very harsh. Only continue if you actually want completely unfiltered feedback.</div>
+    <button class="brutal-confirm-btn" onclick="confirmBrutalMode()">I understand â€” activate Brutal</button>
     <button class="btn-ghost" onclick="closeBrutalConfirm()">Cancel</button>
   </div>
 </div>
@@ -2933,11 +3030,11 @@ html, body {
 <!-- SCORE UNLOCK OVERLAY -->
 <div class="score-unlock-overlay" id="score-unlock-overlay" aria-hidden="true" onclick="dismissUnlockOverlay()">
   <div class="score-unlock-inner">
-    <div class="score-unlock-badge" id="unlock-badge">🔒</div>
+    <div class="score-unlock-badge" id="unlock-badge">ðŸ”’</div>
     <div class="score-unlock-score" id="unlock-score">70</div>
     <div class="score-unlock-tier" id="unlock-tier">Locked in</div>
     <div class="score-unlock-sub" id="unlock-sub">You crossed a new threshold. Keep going.</div>
-    <div class="score-unlock-dismiss">Tap to continue →</div>
+    <div class="score-unlock-dismiss">Tap to continue â†’</div>
   </div>
 </div>
 
@@ -2947,15 +3044,15 @@ html, body {
   <div class="intake-modal-sheet" role="dialog" aria-modal="true">
     <div class="intake-modal-top">
       <div class="intake-modal-title">Intake answers</div>
-      <button class="cat-modal-close" onclick="closeIntakeModal()" aria-label="Close intake">×</button>
+      <button class="cat-modal-close" onclick="closeIntakeModal()" aria-label="Close intake">Ã—</button>
     </div>
     <div class="intake-qa-list" id="intake-qa-list"><!-- injected --></div>
-    <button class="intake-new-btn" onclick="closeIntakeModal(); openChatTab();">Start a new check-in →</button>
+    <button class="intake-new-btn" onclick="closeIntakeModal(); openChatTab();">Start a new check-in â†’</button>
   </div>
 </div>
 
 <script>
-// ─── CONSTANTS ───────────────────────────────────────────────────
+// â”€â”€â”€ CONSTANTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const modeLabels = { relaxed: 'Relaxed', real: 'Real', locked: 'Locked in', beast: 'Beast', brutal: 'Brutal' };
 const modeNums   = { relaxed: '01', real: '02', locked: '03', beast: '04', brutal: '05' };
 
@@ -2968,22 +3065,22 @@ const TIER_INFO = [
 ];
 
 const TOPIC_GUIDE = `
-You must cover ALL of these topics during the conversation, in roughly this order. Spend 1–2 exchanges per topic then move on:
-1. Current style / clothing — what they actually wear day to day
-2. Grooming — hair, skin, personal care routine
-3. Fitness / physique — how they feel about their body and what they're actively doing about it
-4. Personality & how they carry themselves — body language, posture, eye contact, confidence, energy they put out in rooms and in person. This is not the same as style — it's about presence and inner demeanour. Coach them on this specifically.
-5. Social presence — online profiles, photos, how they present themselves digitally
-6. Goals — what they actually want to change most urgently
+You must cover ALL of these topics during the conversation, in roughly this order. Spend 1â€“2 exchanges per topic then move on:
+1. Current style / clothing â€” what they actually wear day to day
+2. Grooming â€” hair, skin, personal care routine
+3. Fitness / physique â€” how they feel about their body and what they're actively doing about it
+4. Personality & how they carry themselves â€” body language, posture, eye contact, confidence, energy they put out in rooms and in person. This is not the same as style â€” it's about presence and inner demeanour. For this topic: ask the user to share ONE specific real-life situation that keeps happening â€” a moment they didn't show up how they wanted (for example: wanting to approach someone but freezing, feeling invisible in a group, struggling to hold eye contact, or not speaking up when they had something to say). Do NOT give advice until you have their concrete example. Once they share it, explore it through questions: what exactly happened, what they felt, what stopped them. Then give them ONE specific exercise they can do in the next 24 hours based on their actual story. You are guiding them to discover what to do â€” not telling them. Ask "Give me a real example of a situation where this shows up for you." before coaching.
+5. Social presence â€” online profiles, photos, how they present themselves digitally
+6. Goals â€” what they actually want to change most urgently
 
 STYLE DIRECTION:
 The user has declared a preferred vibe. Take it seriously but evaluate it honestly:
 - If their stated vibe genuinely suits them and their lifestyle, validate it and push them further into it.
-- If it won't work for them as-is (e.g. it clashes with their body type, budget, lifestyle, or current level), do NOT just reject it. Instead, find the middle ground — a version of their desired aesthetic that actually works. Explain why and what to keep vs. what to adjust.
+- If it won't work for them as-is (e.g. it clashes with their body type, budget, lifestyle, or current level), do NOT just reject it. Instead, find the middle ground â€” a version of their desired aesthetic that actually works. Explain why and what to keep vs. what to adjust.
 - Never tell someone their taste is wrong without offering a better direction that still honours what they're going for.
 
 PINTEREST REFERENCES:
-When recommending specific styles, outfits, or looks, sometimes include 1–2 Pinterest search links formatted as markdown links, like:
+When recommending specific styles, outfits, or looks, sometimes include 1â€“2 Pinterest search links formatted as markdown links, like:
 [Pinterest: minimalist men outfits 2026](https://pinterest.com/search/pins/?q=minimalist+men+outfits+2026)
 Generate the URL by replacing spaces with + in the search query. Always include the person's gender and current year (2026) in the search query.
 
@@ -2992,17 +3089,17 @@ COACHING BEHAVIOR (ALWAYS):
 - In every response, include at least one concrete exercise, drill, or actionable micro-task the user can do immediately.
 - When possible, provide short practice structure: what to do, how long, and what result to look for.
 
-After covering all topics, end with a short closing line like "That's everything I need." to signal you're done. Never ask two questions at once. Keep each response to 2–3 sentences max.`;
+After covering all topics, end with a short closing line like "That's everything I need." to signal you're done. Never ask two questions at once. Keep each response to 2â€“3 sentences max.`;
 
 const MODE_SYSTEM_PROMPTS = {
-  relaxed: `You are Designer, an AI personal style and self-improvement coach inside the Prism app. You're in RELAXED mode — be a warm, encouraging older sibling. Lead with positives, frame things constructively, celebrate small wins. Never make the user feel bad.${TOPIC_GUIDE}`,
-  real:    `You are Designer, an AI personal style and self-improvement coach inside the Prism app. You're in REAL mode — be an honest friend. Balanced and direct but not cruel. Give genuine, actionable feedback without coddling.${TOPIC_GUIDE}`,
-  locked:  `You are Designer, an AI personal style and self-improvement coach inside the Prism app. You're in LOCKED IN mode — be a direct, no-nonsense coach. Skip the softening. Tell the truth plainly. The user asked for this.${TOPIC_GUIDE}`,
-  beast:   `You are Designer, an AI personal style and self-improvement coach inside the Prism app. You're in BEAST mode — little filter, high standards. Push hard. Do not spare their feelings — that's what they signed up for. Be specific about what isn't working.${TOPIC_GUIDE}`,
+  relaxed: `You are Designer, an AI personal style and self-improvement coach inside the Prism app. You're in RELAXED mode â€” be a warm, encouraging older sibling. Lead with positives, frame things constructively, celebrate small wins. Never make the user feel bad.${TOPIC_GUIDE}`,
+  real:    `You are Designer, an AI personal style and self-improvement coach inside the Prism app. You're in REAL mode â€” be an honest friend. Balanced and direct but not cruel. Give genuine, actionable feedback without coddling.${TOPIC_GUIDE}`,
+  locked:  `You are Designer, an AI personal style and self-improvement coach inside the Prism app. You're in LOCKED IN mode â€” be a direct, no-nonsense coach. Skip the softening. Tell the truth plainly. The user asked for this.${TOPIC_GUIDE}`,
+  beast:   `You are Designer, an AI personal style and self-improvement coach inside the Prism app. You're in BEAST mode â€” little filter, high standards. Push hard. Do not spare their feelings â€” that's what they signed up for. Be specific about what isn't working.${TOPIC_GUIDE}`,
   brutal:  `You are Designer, an AI personal style and self-improvement coach inside the Prism app. You're in BRUTAL mode (experimental). Actively look for what's wrong and say it plainly. Pull no punches. The user explicitly chose this.${TOPIC_GUIDE}`
 };
 
-// ─── STATE ───────────────────────────────────────────────────────
+// â”€â”€â”€ STATE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 let state = {
   apiKey: '', apiType: '',
   name: '', mode: 'real', modeLabel: 'Real',
@@ -3017,10 +3114,12 @@ let state = {
   isProcessing: false,
   photos: [],         // [{data: base64, date: ISO, score: number|null}]
   scoreHistory: [],   // [{score, mode, modeLabel, date: ISO}]
-  reminderSettings: { daily: false, weekly: false, streak: false }
+  reminderSettings: { daily: false, weekly: false, streak: false },
+  todoChecked: {},    // { [taskKey]: true } â€” checked roadmap items
+  lastMicroDate: null // 'YYYY-MM-DD' â€” last daily micro-prompt date
 };
 
-// ─── LOCAL STORAGE ────────────────────────────────────────────────
+// â”€â”€â”€ LOCAL STORAGE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function saveState() {
   localStorage.setItem('ds_api_key',    state.apiKey);
   localStorage.setItem('ds_api_type',   state.apiType);
@@ -3039,6 +3138,9 @@ function saveState() {
   localStorage.setItem('ds_photos', JSON.stringify(state.photos || []));
   localStorage.setItem('ds_score_history', JSON.stringify(state.scoreHistory || []));
   localStorage.setItem('ds_remind', JSON.stringify(state.reminderSettings || {}));
+  localStorage.setItem('ds_todo_checked', JSON.stringify(state.todoChecked || {}));
+  if (state.lastMicroDate) localStorage.setItem('ds_last_micro', state.lastMicroDate);
+  else localStorage.removeItem('ds_last_micro');
 }
 
 function loadState() {
@@ -3065,6 +3167,9 @@ function loadState() {
   if (sh) { try { state.scoreHistory = JSON.parse(sh); } catch(e) { state.scoreHistory = []; } }
   const rs = localStorage.getItem('ds_remind');
   if (rs) { try { state.reminderSettings = JSON.parse(rs); } catch(e) { state.reminderSettings = { daily: false, weekly: false, streak: false }; } }
+  const tc = localStorage.getItem('ds_todo_checked');
+  if (tc) { try { state.todoChecked = JSON.parse(tc); } catch(e) { state.todoChecked = {}; } }
+  state.lastMicroDate = localStorage.getItem('ds_last_micro') || null;
 }
 
 function resetProfile() {
@@ -3076,7 +3181,7 @@ function resetProfile() {
   state.chatType = 'chat';
 }
 
-// ─── API KEY SETUP ────────────────────────────────────────────────
+// â”€â”€â”€ API KEY SETUP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function detectApiType(val) {
   const badge = document.getElementById('api-type-badge');
   val = val.trim();
@@ -3113,7 +3218,7 @@ function updateApiPreview() {
   if (!el) return;
   if (!state.apiKey) { el.textContent = 'Not set'; return; }
   const type = state.apiType === 'gemini' ? 'Gemini' : 'OpenRouter';
-  el.textContent = `${type} · ${state.apiKey.slice(0, 8)}…`;
+  el.textContent = `${type} Â· ${state.apiKey.slice(0, 8)}â€¦`;
 }
 
 function confirmResetProfile() {
@@ -3124,7 +3229,7 @@ function confirmResetProfile() {
   }
 }
 
-// ─── AI API CALLS ─────────────────────────────────────────────────
+// â”€â”€â”€ AI API CALLS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function callAI(messages, systemOverride) {
   const sys = systemOverride || MODE_SYSTEM_PROMPTS[state.mode] || MODE_SYSTEM_PROMPTS.real;
   if (state.apiType === 'gemini') return callGemini(messages, sys);
@@ -3179,7 +3284,7 @@ async function callGemini(messages, systemPrompt) {
 async function generateProfile() {
   const convo = state.chatHistory.map(m => `${m.role === 'user' ? 'User' : 'Designer'}: ${m.content}`).join('\n');
   const prevNote = state.profile ? `Previous score was ${state.profile.score}. This is a check-in session.` : 'This is the first intake.';
-  const prompt = `Based on this conversation, generate a JSON profile object. Return ONLY valid JSON — no markdown, no explanation.
+  const prompt = `Based on this conversation, generate a JSON profile object. Return ONLY valid JSON â€” no markdown, no explanation.
 
 Conversation:
 ${convo}
@@ -3222,8 +3327,8 @@ Required JSON structure:
 }
 
 Roadmap rules:
-- You decide how many items go in each tier based on the user’s actual profile. Someone very bad at personality might have 3 \"now\" items. Someone already fit might have 0 \"time\" items for fitness.
-- Order tiers: now → effort → time. Within each tier, order by highest impact first.
+- You decide how many items go in each tier based on the userâ€™s actual profile. Someone very bad at personality might have 3 \"now\" items. Someone already fit might have 0 \"time\" items for fitness.
+- Order tiers: now â†’ effort â†’ time. Within each tier, order by highest impact first.
 - Restructure completely from any previous roadmap if the priorities have changed.
 - Keep each action specific and actionable, not vague.
 - Category \"personality\" covers: how they carry themselves, body language, posture, eye contact, energy, confidence, social habits.`;
@@ -3241,7 +3346,7 @@ function extractJSON(text) {
   throw new Error('Could not parse profile data from AI response.');
 }
 
-// ─── NAVIGATION ───────────────────────────────────────────────────
+// â”€â”€â”€ NAVIGATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function goTo(screenId) {
   const current = document.querySelector('.screen.active');
   const next = document.getElementById(screenId);
@@ -3261,7 +3366,7 @@ function navTo(tab) {
   goTo(map[tab]);
 }
 
-// ─── ONBOARDING ───────────────────────────────────────────────────
+// â”€â”€â”€ ONBOARDING â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function selectGender(btn) {
   document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
@@ -3324,7 +3429,7 @@ function updateNameUI() {
   if (av) av.textContent = state.name.charAt(0).toUpperCase();
 }
 
-// ─── MODE SELECT ─────────────────────────────────────────────────
+// â”€â”€â”€ MODE SELECT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function selectMode(card) {
   document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
   card.classList.add('selected');
@@ -3347,7 +3452,7 @@ function goToIntake() {
   startChat(true);
 }
 
-// ─── CHAT ─────────────────────────────────────────────────────────
+// â”€â”€â”€ CHAT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function renderChatHistory() {
   const box = document.getElementById('chat-messages');
   box.innerHTML = '';
@@ -3355,6 +3460,8 @@ function renderChatHistory() {
 }
 
 function openChatTab() {
+  const scoreNum = document.getElementById('chat-score-num');
+  if (scoreNum) scoreNum.textContent = state.profile?.score ?? 'â€”';
   document.getElementById('chat-header-title').textContent = 'Chat';
   document.getElementById('intake-mode-label').textContent = state.modeLabel + ' mode';
   goTo('screen-intake');
@@ -3384,6 +3491,8 @@ function startChat(isFirstIntake) {
   document.getElementById('quick-replies').innerHTML = '';
   document.getElementById('chat-header-title').textContent = isFirstIntake ? 'Intake' : 'Chat';
   document.getElementById('intake-mode-label').textContent = state.modeLabel + ' mode';
+  const scoreNum = document.getElementById('chat-score-num');
+  if (scoreNum) scoreNum.textContent = 'â€”';
   saveState();
   goTo('screen-intake');
 
@@ -3413,11 +3522,14 @@ async function aiRespond(messages, isInit) {
 
     const userCount = state.chatHistory.filter(m => m.role === 'user').length;
     const lastAI = state.chatHistory.filter(m => m.role === 'assistant').pop()?.content || '';
-    const isDone = lastAI.toLowerCase().includes("that's everything i need") || lastAI.toLowerCase().includes("that's all i need") || lastAI.toLowerCase().includes('enough to build');
-    showReplies((userCount >= 6 || isDone) ? ['Build my profile →'] : []);
+    const isDone = lastAI.toLowerCase().includes("that's everything i need") || lastAI.toLowerCase().includes("that's all i need") || lastAI.toLowerCase().includes('enough to build') || lastAI.toLowerCase().includes("i have everything");
+    const hasProfile = !!state.profile;
+    const label = hasProfile ? 'Update my score â†’' : 'Build my profile â†’';
+    // Show button when AI signals done or after 12 user messages (safety fallback)
+    showReplies((isDone || userCount >= 12) ? [label] : []);
   } catch (err) {
     typingEl.remove();
-    addMsg('ai', `Something went wrong: ${err.message}. Check your API key in Profile → Settings.`);
+    addMsg('ai', `Something went wrong: ${err.message}. Check your API key in Profile â†’ Settings.`);
   }
   state.isProcessing = false;
 }
@@ -3456,7 +3568,10 @@ function showReplies(replies) {
     const btn = document.createElement('button');
     btn.className = 'qr-btn';
     btn.textContent = r;
-    if (r === 'Build my profile →') {
+    if (r === 'Build my profile â†’') {
+      Object.assign(btn.style, { background: 'rgba(122,174,204,0.1)', borderColor: 'rgba(122,174,204,0.35)', color: 'var(--blue)' });
+      btn.onclick = buildProfile;
+    } else if (r === 'Update my score â†’') {
       Object.assign(btn.style, { background: 'rgba(122,174,204,0.1)', borderColor: 'rgba(122,174,204,0.35)', color: 'var(--blue)' });
       btn.onclick = buildProfile;
     } else { btn.onclick = () => sendUserMsg(r); }
@@ -3490,7 +3605,7 @@ function autoResize(el) {
   el.style.height = Math.min(el.scrollHeight, 120) + 'px';
 }
 
-// ─── PROFILE GENERATION ───────────────────────────────────────────
+// â”€â”€â”€ PROFILE GENERATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function buildProfile() {
   if (state.isProcessing) return;
   state.isProcessing = true;
@@ -3510,6 +3625,8 @@ async function buildProfile() {
     addMsg('ai', `Done. Your score is ${profileData.score}. Heading to your dashboard now.`);
     setTimeout(() => {
       populateDashboard();
+      const scoreNum = document.getElementById('chat-score-num');
+      if (scoreNum) scoreNum.textContent = profileData.score;
       goTo('screen-home');
       checkAndShowUnlock(profileData.score, prevScore);
     }, 1800);
@@ -3520,14 +3637,14 @@ async function buildProfile() {
   state.isProcessing = false;
 }
 
-// ─── DASHBOARD ────────────────────────────────────────────────────
+// â”€â”€â”€ DASHBOARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function getTier(score) {
   for (const t of TIER_INFO) { if (score <= t.max) return t; }
   return TIER_INFO[TIER_INFO.length - 1];
 }
 
 function scoreToOffset(score) {
-  const C = 276.46; // 2π × 44
+  const C = 276.46; // 2Ï€ Ã— 44
   return C - (score / 100) * C;
 }
 
@@ -3545,11 +3662,11 @@ function buildRoadmapHTML(roadmap) {
   if (!roadmap || !roadmap.length) return '';
   const TIER_ORDER = ['now', 'effort', 'time'];
   const TIER_META = {
-    now:    { label: 'Do Now — free &amp; instant',          cls: 'tier-now' },
-    effort: { label: 'Some Effort — needs a little spend',   cls: 'tier-effort' },
-    time:   { label: 'Takes Time — needs weeks or months',   cls: 'tier-time' }
+    now:    { label: 'Do Now â€” free &amp; instant',          cls: 'tier-now' },
+    effort: { label: 'Some Effort â€” needs a little spend',   cls: 'tier-effort' },
+    time:   { label: 'Takes Time â€” needs weeks or months',   cls: 'tier-time' }
   };
-  // group by tier (normalise legacy priority → tier)
+  // group by tier (normalise legacy priority â†’ tier)
   const normalise = item => ({
     ...item,
     tier: item.tier || (item.priority === 'high' ? 'time' : item.priority === 'medium' ? 'effort' : 'now')
@@ -3811,7 +3928,7 @@ function populateDashboard() {
   if (!p) return;
   const tier = getTier(p.score);
 
-  // ── home
+  // â”€â”€ home
   document.getElementById('home-name').textContent    = state.name || '';
   document.getElementById('home-mode-pill').textContent = state.modeLabel;
   document.getElementById('score-num').textContent    = p.score;
@@ -3854,7 +3971,7 @@ function populateDashboard() {
     roadmapEl.innerHTML = buildRoadmapHTML(p.roadmap);
   }
 
-  // ── audit
+  // â”€â”€ audit
   const auditScoreNum = document.querySelector('#screen-audit .score-big');
   if (auditScoreNum) auditScoreNum.textContent = p.score;
   document.querySelectorAll('#screen-audit circle[stroke-linecap]').forEach(c =>
@@ -3882,7 +3999,7 @@ function populateDashboard() {
       p.weaknesses.map(w => `<div class="audit-item"><div class="audit-item-dot warn"></div><span>${w}</span></div>`).join('');
   }
 
-  // ── profile
+  // â”€â”€ profile
   updateNameUI();
   document.getElementById('profile-mode-name').textContent = state.modeLabel;
   const mn = document.querySelector('#screen-profile .current-mode-label');
@@ -3903,12 +4020,49 @@ function populateDashboard() {
   const histSub = document.getElementById('score-hist-row-sub');
   if (histSub) {
     const hist = state.scoreHistory || [];
-    histSub.textContent = hist.length ? `${hist[0].score} → ${hist[hist.length-1].score} over ${hist.length} session${hist.length !== 1 ? 's' : ''}` : 'No sessions yet';
+    histSub.textContent = hist.length ? `${hist[0].score} â†’ ${hist[hist.length-1].score} over ${hist.length} session${hist.length !== 1 ? 's' : ''}` : 'No sessions yet';
   }
   updateReminderRowSub();
+
+  // â”€â”€ checkin gain estimate
+  const gainEl = document.getElementById('checkin-gain');
+  const gainTxtEl = document.getElementById('checkin-gain-text');
+  if (gainEl && gainTxtEl && state.scoreHistory && state.scoreHistory.length >= 2) {
+    const hist = state.scoreHistory;
+    const gains = [];
+    for (let i = 1; i < hist.length; i++) gains.push(hist[i].score - hist[i-1].score);
+    const avg = Math.round(gains.reduce((a, b) => a + b, 0) / gains.length);
+    const low = Math.max(1, avg - 2), high = avg + 3;
+    gainTxtEl.textContent = `+${low}â€“${high} expected`;
+    gainEl.style.display = 'flex';
+  } else if (gainEl) { gainEl.style.display = 'none'; }
+
+  // â”€â”€ checkin-sub days since last session
+  const checkinSub = document.getElementById('checkin-sub');
+  if (checkinSub && state.scoreHistory && state.scoreHistory.length) {
+    const lastDate = new Date(state.scoreHistory[state.scoreHistory.length - 1].date);
+    const diffDays = Math.floor((Date.now() - lastDate) / 86400000);
+    checkinSub.textContent = diffDays <= 0 ? 'Session done today' : diffDays === 1 ? 'Last session was yesterday' : `Last session was ${diffDays} days ago`;
+  }
+
+  // â”€â”€ micro banner visibility
+  const microBanner = document.getElementById('micro-banner');
+  if (microBanner) {
+    const today = new Date().toISOString().slice(0, 10);
+    microBanner.style.display = (!!state.profile && state.lastMicroDate !== today) ? 'flex' : 'none';
+  }
+
+  // â”€â”€ todo CTA sub
+  const todoCtaSub = document.getElementById('todo-cta-sub');
+  if (todoCtaSub && p.roadmap) {
+    const allItems = p.roadmap;
+    const doneCount = allItems.filter(it => state.todoChecked[todoKey(it.action)]).length;
+    const remaining = allItems.length - doneCount;
+    todoCtaSub.textContent = remaining > 0 ? `${remaining} to do` : 'All done âœ“';
+  }
 }
 
-// ─── INIT ─────────────────────────────────────────────────────────
+// â”€â”€â”€ INIT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 document.addEventListener('DOMContentLoaded', () => {
   loadState();
   updateNameGenderContinueState();
@@ -3940,10 +4094,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!state.apiKey) { goTo('screen-api-setup'); return; }
   if (state.profile && state.name) { populateDashboard(); goTo('screen-home'); return; }
-  // has key but no profile — show splash
+  // has key but no profile â€” show splash
 });
 
-// ─── SCORE HISTORY ────────────────────────────────────────────────
+// â”€â”€â”€ SCORE HISTORY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function openScoreHistory() {
   renderScoreHistoryScreen();
   goTo('screen-score-history');
@@ -4001,7 +4155,7 @@ function renderScoreHistoryScreen() {
     return `<div class="score-hist-row">
       <div class="score-hist-num">${h.score}</div>
       <div class="score-hist-info">
-        <div class="score-hist-date">${dateStr} · Session ${i+1}</div>
+        <div class="score-hist-date">${dateStr} Â· Session ${i+1}</div>
         <div class="score-hist-mode">${h.modeLabel || h.mode} mode</div>
       </div>
       <div class="score-hist-delta ${cls}">${txt}</div>
@@ -4009,7 +4163,7 @@ function renderScoreHistoryScreen() {
   }).join('');
 }
 
-// ─── PHOTOS ───────────────────────────────────────────────────────
+// â”€â”€â”€ PHOTOS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function openPhotosModal() {
   renderPhotoGrid();
   const modal = document.getElementById('photos-modal');
@@ -4032,7 +4186,7 @@ function renderPhotoGrid() {
     `<div class="photo-thumb">
       <img src="${p.data}" alt="Photo ${i+1}" loading="lazy">
       ${p.score !== null ? `<div class="photo-thumb-score">${p.score}</div>` : ''}
-      <button class="photo-thumb-del" onclick="deletePhoto(${i})" aria-label="Delete photo">×</button>
+      <button class="photo-thumb-del" onclick="deletePhoto(${i})" aria-label="Delete photo">Ã—</button>
     </div>`
   ).join('');
   const uploadBtn = `<button class="photo-upload-btn" onclick="document.getElementById('photo-file-input').click()" aria-label="Add photo">
@@ -4096,14 +4250,14 @@ function handlePhotoUpload(input) {
   input.value = '';
 }
 
-// ─── SHARE CARD ───────────────────────────────────────────────────
+// â”€â”€â”€ SHARE CARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function openShareModal() {
-  const score  = state.profile?.score ?? '—';
-  const tier   = state.profile?.tier  ?? getTier(state.profile?.score || 0)?.name ?? '—';
+  const score  = state.profile?.score ?? 'â€”';
+  const tier   = state.profile?.tier  ?? getTier(state.profile?.score || 0)?.name ?? 'â€”';
   const modeL  = state.modeLabel || 'Real';
   document.getElementById('share-card-score').textContent = score;
   document.getElementById('share-card-tier').textContent  = tier;
-  document.getElementById('share-card-meta').textContent  = `${modeL} mode · ${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`;
+  document.getElementById('share-card-meta').textContent  = `${modeL} mode Â· ${new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`;
   const modal = document.getElementById('share-modal');
   modal.classList.add('show');
   modal.setAttribute('aria-hidden', 'false');
@@ -4116,7 +4270,7 @@ function closeShareModal() {
   modal.setAttribute('aria-hidden', 'true');
 }
 
-// ─── BRUTAL CONFIRM GATE ─────────────────────────────────────────
+// â”€â”€â”€ BRUTAL CONFIRM GATE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function confirmBrutalMode() {
   closeBrutalConfirm();
   document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
@@ -4133,13 +4287,13 @@ function closeBrutalConfirm() {
   modal.setAttribute('aria-hidden', 'true');
 }
 
-// ─── SCORE UNLOCK OVERLAY ────────────────────────────────────────
+// â”€â”€â”€ SCORE UNLOCK OVERLAY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const UNLOCK_THRESHOLDS = [
-  { score: 50, badge: '🏁', sub: 'You hit the halfway mark. Real progress from here.' },
-  { score: 65, badge: '📈', sub: 'Past the "building" phase. Every point is harder from here.' },
-  { score: 70, badge: '🔒', sub: 'Locked in territory. Most people never grind this far.' },
-  { score: 80, badge: '💎', sub: 'Elite territory. This is serious work.' },
-  { score: 90, badge: '👑', sub: 'You are in the top tier. This is extremely rare.' }
+  { score: 50, badge: 'ðŸ', sub: 'You hit the halfway mark. Real progress from here.' },
+  { score: 65, badge: 'ðŸ“ˆ', sub: 'Past the "building" phase. Every point is harder from here.' },
+  { score: 70, badge: 'ðŸ”’', sub: 'Locked in territory. Most people never grind this far.' },
+  { score: 80, badge: 'ðŸ’Ž', sub: 'Elite territory. This is serious work.' },
+  { score: 90, badge: 'ðŸ‘‘', sub: 'You are in the top tier. This is extremely rare.' }
 ];
 
 function checkAndShowUnlock(newScore, prevScore) {
@@ -4170,7 +4324,7 @@ function dismissUnlockOverlay() {
   overlay.setAttribute('aria-hidden', 'true');
 }
 
-// ─── INTAKE ANSWERS MODAL ────────────────────────────────────────
+// â”€â”€â”€ INTAKE ANSWERS MODAL â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function openIntakeModal() {
   const list    = document.getElementById('intake-qa-list');
   const history = state.chatHistory || [];
@@ -4201,7 +4355,129 @@ function closeIntakeModal() {
   modal.setAttribute('aria-hidden', 'true');
 }
 
-// ─── REMINDERS ───────────────────────────────────────────────────
+// â”€â”€â”€ TO-DO SCREEN â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+function todoKey(text) {
+  // Stable key from first 48 chars of the action text
+  return (text || '').trim().slice(0, 48).toLowerCase().replace(/\s+/g, '_');
+}
+
+function renderTodoList() {
+  const container = document.getElementById('todo-scroll-area');
+  const countEl   = document.getElementById('todo-done-count');
+  if (!container) return;
+
+  const roadmap = state.profile?.roadmap;
+  if (!roadmap || !roadmap.length) {
+    container.innerHTML = '<div class="todo-empty">Complete your intake to unlock your personal task list.</div>';
+    if (countEl) countEl.textContent = '';
+    return;
+  }
+
+  // Group roadmap items by tier
+  const TIER_ORDER = ['now', 'effort', 'time'];
+  const TIER_LABELS = { now: 'Do Now â€” free & instant', effort: 'Some Effort', time: 'Takes Time' };
+  const normalise = item => ({ ...item, tier: item.tier || (item.priority === 'high' ? 'time' : item.priority === 'medium' ? 'effort' : 'now') });
+  const grouped = {};
+  roadmap.map(normalise).forEach(item => {
+    if (!grouped[item.tier]) grouped[item.tier] = [];
+    grouped[item.tier].push(item);
+  });
+
+  const allItems = roadmap.map(normalise);
+  let doneCount = 0;
+  let html = '';
+
+  TIER_ORDER.forEach(tier => {
+    if (!grouped[tier]) return;
+    html += `<div class="todo-tier-group"><div class="todo-tier-label">${TIER_LABELS[tier] || tier}</div>`;
+    grouped[tier].forEach(item => {
+      const key  = todoKey(item.action);
+      const done = !!state.todoChecked[key];
+      if (done) doneCount++;
+      // Generate a "why" line from score impact
+      const catPretty = { style: 'Style', grooming: 'Grooming', personality: 'Personality', fitness: 'Fitness', social: 'Social presence' };
+      const catName = catPretty[item.category] || item.category || '';
+      const why = item.impact ? item.impact : catName ? `Impacts your ${catName} score` : 'Part of your roadmap';
+      const checkIcon = done ? 'âœ“' : '';
+      html += `<div class="todo-item${done ? ' done' : ''}" id="todo-item-${key.slice(0,20)}">
+        <div class="todo-check${done ? ' done' : ''}" onclick="toggleTodoItem('${key}')" role="checkbox" aria-checked="${done}" aria-label="Mark done">${checkIcon}</div>
+        <div class="todo-item-body">
+          <div class="todo-item-text">${item.action}</div>
+          <div class="todo-item-why">${why}</div>
+        </div>
+        <div class="todo-item-cat">${catName}</div>
+      </div>`;
+    });
+    html += '</div>';
+  });
+
+  container.innerHTML = html;
+  if (countEl) {
+    const total = allItems.length;
+    countEl.textContent = `${doneCount}/${total} done`;
+  }
+}
+
+function toggleTodoItem(key) {
+  if (!state.todoChecked) state.todoChecked = {};
+  state.todoChecked[key] = !state.todoChecked[key];
+  if (!state.todoChecked[key]) delete state.todoChecked[key];
+  saveState();
+  renderTodoList();
+  // Keep home CTA in sync if visible
+  const todoCtaSub = document.getElementById('todo-cta-sub');
+  if (todoCtaSub && state.profile?.roadmap) {
+    const allItems = state.profile.roadmap;
+    const doneCount = allItems.filter(it => state.todoChecked[todoKey(it.action)]).length;
+    const remaining = allItems.length - doneCount;
+    todoCtaSub.textContent = remaining > 0 ? `${remaining} to do` : 'All done âœ“';
+  }
+}
+
+function openTodoScreen() {
+  renderTodoList();
+  goTo('screen-todo');
+}
+
+// â”€â”€â”€ 90-VISION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+function askNinetyVision() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  const p = state.profile;
+  const genderNote = state.gender ? `They identify as ${state.gender}.` : '';
+  const vibeNote   = `Their desired style vibe is "${state.vibe}".`;
+  const catLines   = p?.categories ? Object.entries(p.categories).map(([k,v]) => `${k}: ${v}`).join(', ') : 'unknown';
+  const seed = `This is a special one-off session. The user (${state.name}) wants to know what a score of 90 would look like for them specifically. Their current score is ${p?.score ?? '?'} and their categories are: ${catLines}. ${genderNote} ${vibeNote} In 3â€“4 vivid, personal paragraphs, describe the version of ${state.name} who has reached 90. Make it concrete and specific to their actual situation â€” what they look like, how they move, how they dress, how people respond to them. Be inspiring but grounded. Call it a vision, not a guarantee. Then ask them: "What's the one thing holding you back from this version of yourself right now?"`;
+  goTo('screen-intake');
+  document.getElementById('chat-header-title').textContent = 'What does 90 look like?';
+  document.getElementById('intake-mode-label').textContent = state.modeLabel + ' mode';
+  document.getElementById('chat-messages').innerHTML = '';
+  document.getElementById('quick-replies').innerHTML = '';
+  const scoreNum = document.getElementById('chat-score-num');
+  if (scoreNum) scoreNum.textContent = p?.score ?? 'â€”';
+  setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 450);
+}
+
+// â”€â”€â”€ DAILY MICRO PROMPT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+function startDailyMicroPrompt() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  const today = new Date().toISOString().slice(0, 10);
+  state.lastMicroDate = today;
+  saveState();
+  // Hide the banner immediately
+  const banner = document.getElementById('micro-banner');
+  if (banner) banner.style.display = 'none';
+  goTo('screen-intake');
+  document.getElementById('chat-header-title').textContent = 'Quick check';
+  document.getElementById('intake-mode-label').textContent = state.modeLabel + ' mode';
+  document.getElementById('chat-messages').innerHTML = '';
+  document.getElementById('quick-replies').innerHTML = '';
+  const scoreNum = document.getElementById('chat-score-num');
+  if (scoreNum) scoreNum.textContent = state.profile?.score ?? 'â€”';
+  const seed = `The user (${state.name}) is doing a quick daily check-in. Don't do a full intake. Just ask ONE simple question: "What's one thing you worked on or changed today, even something small?" After their answer, give them one brief encouraging observation and one micro-action for tomorrow. Keep it under 3 sentences total. Be warm but not sappy.`;
+  setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 350);
+}
+
+// â”€â”€â”€ REMINDERS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function saveReminderSettings() {
   const daily  = document.getElementById('remind-daily')?.checked  || false;
   const weekly = document.getElementById('remind-weekly')?.checked || false;

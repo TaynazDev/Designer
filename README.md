@@ -1,8 +1,45 @@
 # Designer by Prism
 
+Current prototype release: Prismatic 0.0.0
+
 Designer is a single-file HTML prototype for an AI personal style and self-improvement app in the Prism Suite.
 
 Live demo: https://taynazdev.github.io/Designer
+
+## Version concept
+
+This version is named Prismatic 0.0.0.
+
+Prismatic reflects the core moment this product is in: light splitting into multiple directions. The app is now a usable prototype, and this stage is about choosing which reflected beam to commit to next.
+
+Status note: still a prototype, but now a usable prototype.
+
+## Changelog
+
+### Prismatic 0.0.0
+
+- Established a usable single-file prototype with real AI integration (OpenRouter + Gemini).
+- Added onboarding flow with name, gender, goals, and vibe selection.
+- Implemented mode system (Relaxed, Real, Locked in, Beast, Brutal) with mode-specific coaching behavior.
+- Added profile generation with score, tier, strengths, weaknesses, and AI roadmap.
+- Added full dashboard loop: Home, Chat, Audit, Profile.
+- Added transfer import/export for local profile portability.
+- Added photo upload and progress comparison.
+- Added score history tracking and chart view.
+- Added intake answers viewer modal.
+- Added Brutal mode confirmation gate.
+- Added shareable score card modal.
+- Added reminder settings screen and local persistence.
+- Added score unlock milestone overlay.
+- Added category drill-down details.
+- Added To-Do task screen from roadmap with persistent check state.
+- Added daily micro-prompt loop and 90-vision coaching CTA.
+- Fixed chat score header display and improved profile update trigger threshold.
+- Improved AI coaching prompt to require concrete real-life examples in personality/confidence coaching.
+
+Naming policy:
+- Word codenames are for major updates only (for example, 1.x.x to 2.x.x).
+- Do not assign new codenames for minor/patch updates (for example, 1.1.5 to 1.6.0).
 
 ## What it does
 
