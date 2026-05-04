@@ -190,6 +190,11 @@ html, body {
   transition: opacity 0.15s, transform 0.1s;
 }
 .btn-primary:active { opacity: 0.85; transform: scale(0.98); }
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
 
 .btn-ghost {
   width: 100%;
@@ -773,6 +778,15 @@ html, body {
 .chat-header-score {
   text-align: right;
 }
+.chat-transfer-link {
+  margin-top: 6px;
+  display: inline-block;
+  font-size: 11px;
+  color: var(--blue);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
 .chat-score-label { font-size: 10px; color: var(--text3); letter-spacing: 0.06em; text-transform: uppercase; font-family: 'Syne', sans-serif; font-weight: 600; }
 .chat-score-num {
   font-family: 'Syne', sans-serif;
@@ -1117,7 +1131,11 @@ html, body {
   background: var(--surface);
   border: 0.5px solid var(--border);
   border-radius: 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s;
 }
+.cat-card:hover { border-color: rgba(122,174,204,0.3); transform: translateY(-1px); }
+.cat-card:active { transform: translateY(0); }
 .cat-label { font-size: 11px; color: var(--text2); margin-bottom: 6px; font-weight: 500; }
 .cat-score {
   font-family: 'Syne', sans-serif;
@@ -1136,6 +1154,173 @@ html, body {
   height: 100%;
   border-radius: 3px;
   background: var(--grad);
+}
+
+/* category drill-down modal */
+.cat-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1400;
+  display: none;
+}
+.cat-modal.show { display: block; }
+.cat-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.58);
+  backdrop-filter: blur(2px);
+}
+.cat-modal-sheet {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  background: var(--surface);
+  border: 0.5px solid var(--border2);
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 72vh;
+  overflow: auto;
+  box-shadow: 0 28px 80px rgba(0,0,0,0.55);
+}
+.cat-modal-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+.cat-modal-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.cat-modal-score {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+}
+.cat-modal-sub {
+  color: var(--text2);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.cat-modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  border: 0.5px solid var(--border2);
+  background: var(--surface2);
+  color: var(--text2);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+}
+.cat-modal-block { display: flex; flex-direction: column; gap: 8px; }
+.cat-modal-block-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+.cat-modal-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cat-modal-list li {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+/* transfer doc modal */
+.transfer-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1450;
+  display: none;
+}
+.transfer-modal.show { display: block; }
+.transfer-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.62);
+}
+.transfer-modal-sheet {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  max-height: 78vh;
+  overflow: auto;
+  background: var(--surface);
+  border: 0.5px solid var(--border2);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 30px 90px rgba(0,0,0,0.58);
+}
+.transfer-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.transfer-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+}
+.transfer-sub {
+  margin-top: 4px;
+  color: var(--text2);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.transfer-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.transfer-btn {
+  border: 0.5px solid var(--border2);
+  background: var(--surface2);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 12px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.transfer-btn.primary {
+  border-color: rgba(122,174,204,0.35);
+  color: var(--blue);
+}
+.transfer-text {
+  width: 100%;
+  min-height: 280px;
+  resize: vertical;
+  border: 0.5px solid var(--border2);
+  border-radius: 12px;
+  background: #0f1013;
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.45;
+  padding: 12px;
 }
 
 /* ─── PROFILE SCREEN ───────────────────────────────────────── */
@@ -1376,6 +1561,51 @@ html, body {
   to { transform: rotate(-90deg) rotate(360deg); }
 }
 
+/* desktop shortcut for non-fullscreen shell */
+.deferred-fab {
+  display: none;
+}
+
+.deferred-fab-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(19,19,22,0.92);
+  border: 0.5px solid rgba(255,255,255,0.12);
+  color: var(--text);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.deferred-fab-link:hover {
+  border-color: rgba(122,174,204,0.35);
+  transform: translateY(-1px);
+}
+
+.deferred-fab-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text2);
+}
+
+.deferred-fab-time {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* ─── DESKTOP CENTERING ────────────────────────────────────── */
 @media (min-height: 933px) {
   body {
@@ -1389,10 +1619,25 @@ html, body {
     border: 0.5px solid rgba(255,255,255,0.08);
     box-shadow: 0 40px 120px rgba(0,0,0,0.7), 0 0 0 0.5px rgba(255,255,255,0.04);
   }
+
+  .deferred-fab {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 1200;
+    display: block;
+  }
 }
 </style>
 </head>
 <body>
+
+<div class="deferred-fab">
+  <a class="deferred-fab-link" href="designer-deferred.html" aria-label="Open deferred feature tracker">
+    <span class="deferred-fab-label">Deferred</span>
+    <span class="deferred-fab-time" id="deferred-clock">--:--</span>
+  </a>
+</div>
 
 <div class="shell" id="app">
 
@@ -1519,8 +1764,8 @@ html, body {
       <div class="onboard-visual" style="align-items:flex-start;padding-top:8px;">
         <div class="ob-input-wrap">
           <div class="ob-input-label">Your name</div>
-          <input class="ob-input" type="text" placeholder="e.g. Jordan" id="name-input" maxlength="30"/>
-          <div class="ob-input-label" style="margin-top:14px;">You identify as</div>
+          <input class="ob-input" type="text" placeholder="e.g. Jordan" id="name-input" maxlength="30" oninput="updateNameGenderContinueState()"/>
+          <div class="ob-input-label" style="margin-top:14px;">Are you male or female?</div>
           <div class="gender-toggle">
             <button class="gender-btn" data-gender="male" onclick="selectGender(this)">&#9794; Male</button>
             <button class="gender-btn" data-gender="female" onclick="selectGender(this)">&#9792; Female</button>
@@ -1529,7 +1774,7 @@ html, body {
       </div>
     </div>
     <div class="onboard-actions">
-      <button class="btn-primary" onclick="saveNameAndContinue()">Continue</button>
+      <button class="btn-primary" id="onboard-3-continue" onclick="saveNameAndContinue()" disabled>Continue</button>
     </div>
   </div>
 
@@ -1700,12 +1945,13 @@ html, body {
   <div class="screen" id="screen-intake">
     <div class="chat-header">
       <div class="chat-header-left">
-        <div class="chat-header-title">Intake</div>
+        <div class="chat-header-title" id="chat-header-title">Chat</div>
         <div class="chat-header-mode" id="intake-mode-label">Real mode</div>
       </div>
       <div class="chat-header-score">
         <div class="chat-score-label">Score</div>
         <div class="chat-score-num">—</div>
+        <div class="chat-transfer-link" onclick="openTransferModal()">Import / export</div>
       </div>
     </div>
     <div class="chat-messages" id="chat-messages">
@@ -1770,7 +2016,7 @@ html, body {
       </div>
 
       <!-- Check-in banner -->
-      <div class="checkin-banner" onclick="goTo('screen-intake')">
+      <div class="checkin-banner" onclick="startChat(false)">
         <div class="checkin-icon">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M10 3v7l4 2" stroke="#E8829A" stroke-width="1.6" stroke-linecap="round"/>
@@ -1790,27 +2036,27 @@ html, body {
       <div>
         <div class="section-label">Category breakdown</div>
         <div class="category-grid" id="category-grid">
-          <div class="cat-card">
+          <div class="cat-card" data-cat="style" onclick="openCategoryDetail('style', 78)">
             <div class="cat-label">Style</div>
             <div class="cat-score grad-text">78</div>
             <div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:78%"></div></div>
           </div>
-          <div class="cat-card">
+          <div class="cat-card" data-cat="grooming" onclick="openCategoryDetail('grooming', 65)">
             <div class="cat-label">Grooming</div>
             <div class="cat-score grad-text">65</div>
             <div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:65%"></div></div>
           </div>
-          <div class="cat-card">
+          <div class="cat-card" data-cat="personality" onclick="openCategoryDetail('personality', 74)">
             <div class="cat-label">Personality</div>
             <div class="cat-score grad-text">74</div>
             <div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:74%"></div></div>
           </div>
-          <div class="cat-card">
+          <div class="cat-card" data-cat="fitness" onclick="openCategoryDetail('fitness', 58)">
             <div class="cat-label">Fitness</div>
             <div class="cat-score grad-text">58</div>
             <div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:58%"></div></div>
           </div>
-          <div class="cat-card" style="grid-column: 1 / -1;">
+          <div class="cat-card" data-cat="social" style="grid-column: 1 / -1;" onclick="openCategoryDetail('social', 69)">
             <div class="cat-label">Social presence</div>
             <div class="cat-score grad-text">69</div>
             <div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:69%"></div></div>
@@ -2085,6 +2331,16 @@ html, body {
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
+        <div class="profile-row" onclick="openTransferModal()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Transfer document</div>
+            <div class="profile-row-sub">Export/import your full profile and chat for another device</div>
+          </div>
+          <div class="profile-row-right">
+            Open
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
       </div>
 
       <div class="profile-section-card">
@@ -2179,6 +2435,56 @@ html, body {
 
 </div><!-- /shell -->
 
+<!-- CATEGORY DETAIL MODAL -->
+<div class="cat-modal" id="cat-modal" aria-hidden="true">
+  <div class="cat-modal-backdrop" onclick="closeCategoryDetail()"></div>
+  <div class="cat-modal-sheet" role="dialog" aria-modal="true" aria-labelledby="cat-modal-title">
+    <div class="cat-modal-top">
+      <div>
+        <div class="cat-modal-title" id="cat-modal-title">Category</div>
+        <div class="cat-modal-sub" id="cat-modal-summary"></div>
+      </div>
+      <div style="display:flex;align-items:flex-start;gap:10px;">
+        <div class="cat-modal-score grad-text" id="cat-modal-score">0</div>
+        <button class="cat-modal-close" onclick="closeCategoryDetail()" aria-label="Close category details">×</button>
+      </div>
+    </div>
+
+    <div class="cat-modal-block">
+      <div class="cat-modal-block-title">What's hurting this score</div>
+      <ul class="cat-modal-list" id="cat-modal-issues"></ul>
+    </div>
+
+    <div class="cat-modal-block">
+      <div class="cat-modal-block-title">How to move it up</div>
+      <ul class="cat-modal-list" id="cat-modal-actions"></ul>
+    </div>
+  </div>
+</div>
+
+<!-- TRANSFER DOC MODAL -->
+<div class="transfer-modal" id="transfer-modal" aria-hidden="true">
+  <div class="transfer-modal-backdrop" onclick="closeTransferModal()"></div>
+  <div class="transfer-modal-sheet" role="dialog" aria-modal="true" aria-labelledby="transfer-title">
+    <div class="transfer-top">
+      <div>
+        <div class="transfer-title" id="transfer-title">Transfer document</div>
+        <div class="transfer-sub">Generate an AI-formatted document on this device, then paste it into the same screen on another device and tap import.</div>
+      </div>
+      <button class="cat-modal-close" onclick="closeTransferModal()" aria-label="Close transfer modal">×</button>
+    </div>
+
+    <div class="transfer-actions">
+      <button class="transfer-btn primary" onclick="generateTransferDoc()">Generate doc</button>
+      <button class="transfer-btn" onclick="copyTransferDoc()">Copy</button>
+      <button class="transfer-btn" onclick="importTransferDoc()">Import pasted doc</button>
+      <button class="transfer-btn" onclick="clearTransferDoc()">Clear</button>
+    </div>
+
+    <textarea id="transfer-text" class="transfer-text" placeholder="Your transfer document appears here…"></textarea>
+  </div>
+</div>
+
 <script>
 // ─── CONSTANTS ───────────────────────────────────────────────────
 const modeLabels = { relaxed: 'Relaxed', real: 'Real', locked: 'Locked in', beast: 'Beast', brutal: 'Brutal' };
@@ -2233,6 +2539,7 @@ let state = {
   checkins: 0,
   scoreStart: null,
   chatHistory: [],    // [{role, content}]
+  chatType: 'chat',   // 'intake' | 'chat'
   isProcessing: false
 };
 
@@ -2245,9 +2552,13 @@ function saveState() {
   localStorage.setItem('ds_gender',     state.gender);
   localStorage.setItem('ds_vibe',       state.vibe);
   localStorage.setItem('ds_goals',      JSON.stringify(state.goals));
+  localStorage.setItem('ds_chat_history',JSON.stringify(state.chatHistory || []));
+  localStorage.setItem('ds_chat_type',  state.chatType || 'chat');
   localStorage.setItem('ds_checkins',   String(state.checkins));
   if (state.scoreStart !== null) localStorage.setItem('ds_score_start', String(state.scoreStart));
+  else localStorage.removeItem('ds_score_start');
   if (state.profile) localStorage.setItem('ds_profile', JSON.stringify(state.profile));
+  else localStorage.removeItem('ds_profile');
 }
 
 function loadState() {
@@ -2259,6 +2570,9 @@ function loadState() {
   state.gender    = localStorage.getItem('ds_gender')    || '';
   state.vibe      = localStorage.getItem('ds_vibe')      || 'Fresh & Modern';
   state.checkins  = parseInt(localStorage.getItem('ds_checkins') || '0');
+  state.chatType  = localStorage.getItem('ds_chat_type') || 'chat';
+  const ch = localStorage.getItem('ds_chat_history');
+  if (ch) { try { state.chatHistory = JSON.parse(ch); } catch(e) { state.chatHistory = []; } }
   const gs = localStorage.getItem('ds_goals');
   if (gs) { try { state.goals = JSON.parse(gs); } catch(e) { state.goals = []; } }
   const ss = localStorage.getItem('ds_score_start');
@@ -2268,8 +2582,12 @@ function loadState() {
 }
 
 function resetProfile() {
-  ['ds_profile','ds_checkins','ds_score_start'].forEach(k => localStorage.removeItem(k));
-  state.profile = null; state.checkins = 0; state.scoreStart = null;
+  ['ds_profile','ds_checkins','ds_score_start','ds_chat_history','ds_chat_type'].forEach(k => localStorage.removeItem(k));
+  state.profile = null;
+  state.checkins = 0;
+  state.scoreStart = null;
+  state.chatHistory = [];
+  state.chatType = 'chat';
 }
 
 // ─── API KEY SETUP ────────────────────────────────────────────────
@@ -2452,7 +2770,7 @@ function goTo(screenId) {
 }
 
 function navTo(tab) {
-  if (tab === 'intake') { startChat(false); return; }
+  if (tab === 'intake') { openChatTab(); return; }
   const map = { home: 'screen-home', audit: 'screen-audit', profile: 'screen-profile' };
   goTo(map[tab]);
 }
@@ -2462,12 +2780,27 @@ function selectGender(btn) {
   document.querySelectorAll('.gender-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   state.gender = btn.dataset.gender;
+  updateNameGenderContinueState();
+}
+
+function updateNameGenderContinueState() {
+  const nameVal = document.getElementById('name-input')?.value.trim() || '';
+  const hasGender = state.gender === 'male' || state.gender === 'female';
+  const btn = document.getElementById('onboard-3-continue');
+  if (btn) btn.disabled = !(nameVal && hasGender);
 }
 
 function saveNameAndContinue() {
   const nameVal = document.getElementById('name-input').value.trim();
-  if (nameVal) { state.name = nameVal; }
-  // gender already set via selectGender()
+  if (!nameVal) {
+    alert('Please enter your name before continuing.');
+    return;
+  }
+  if (!(state.gender === 'male' || state.gender === 'female')) {
+    alert('Please select male or female before continuing.');
+    return;
+  }
+  state.name = nameVal;
   goTo('screen-onboard-4');
 }
 
@@ -2522,12 +2855,34 @@ function goToIntake() {
 }
 
 // ─── CHAT ─────────────────────────────────────────────────────────
+function renderChatHistory() {
+  const box = document.getElementById('chat-messages');
+  box.innerHTML = '';
+  state.chatHistory.forEach(m => addMsg(m.role === 'assistant' ? 'ai' : 'user', m.content));
+}
+
+function openChatTab() {
+  document.getElementById('chat-header-title').textContent = 'Chat';
+  document.getElementById('intake-mode-label').textContent = state.modeLabel + ' mode';
+  goTo('screen-intake');
+
+  if (!state.chatHistory.length) {
+    startChat(false);
+    return;
+  }
+  renderChatHistory();
+  document.getElementById('quick-replies').innerHTML = '';
+}
+
 function startChat(isFirstIntake) {
+  state.chatType = isFirstIntake ? 'intake' : 'chat';
   state.chatHistory = [];
   state.isProcessing = false;
   document.getElementById('chat-messages').innerHTML = '';
   document.getElementById('quick-replies').innerHTML = '';
+  document.getElementById('chat-header-title').textContent = isFirstIntake ? 'Intake' : 'Chat';
   document.getElementById('intake-mode-label').textContent = state.modeLabel + ' mode';
+  saveState();
   goTo('screen-intake');
 
   const goalsNote = state.goals.length
@@ -2551,8 +2906,8 @@ async function aiRespond(messages, isInit) {
     const reply = await callAI(messages);
     typingEl.remove();
     addMsg('ai', reply);
-    if (!isInit) state.chatHistory.push({ role: 'assistant', content: reply });
-    else         state.chatHistory.push({ role: 'assistant', content: reply });
+    state.chatHistory.push({ role: 'assistant', content: reply });
+    saveState();
 
     const userCount = state.chatHistory.filter(m => m.role === 'user').length;
     const lastAI = state.chatHistory.filter(m => m.role === 'assistant').pop()?.content || '';
@@ -2612,6 +2967,7 @@ function sendUserMsg(text) {
   document.getElementById('quick-replies').innerHTML = '';
   addMsg('user', text);
   state.chatHistory.push({ role: 'user', content: text });
+  saveState();
   aiRespond(state.chatHistory, false);
 }
 
@@ -2711,6 +3067,216 @@ function priorityStyle(p) {
   return 'color:var(--text3);border-color:var(--border2)';
 }
 
+function categoryLabel(key) {
+  const labels = {
+    style: 'Style',
+    grooming: 'Grooming',
+    fitness: 'Fitness',
+    personality: 'Personality',
+    social: 'Social presence'
+  };
+  return labels[key] || 'Category';
+}
+
+function categoryKeywords(key) {
+  const map = {
+    style: ['style','outfit','fit','wardrobe','clothes','silhouette','color','shoes'],
+    grooming: ['groom','hair','skin','beard','hygiene','acne','routine'],
+    fitness: ['fitness','body','physique','weight','muscle','stamina'],
+    personality: ['personality','confidence','presence','energy','posture','eye contact','body language','vibe'],
+    social: ['social','online','profile','photo','bio','instagram','digital']
+  };
+  return map[key] || [];
+}
+
+function categoryTierLine(score) {
+  if (score >= 80) return 'Strong category overall. This is helping your total score.';
+  if (score >= 65) return 'Decent baseline, but clear leaks are preventing a higher tier.';
+  if (score >= 50) return 'Inconsistent right now. You have upside if you tighten execution.';
+  return 'This is currently dragging your total score down and needs immediate attention.';
+}
+
+function matchesCategory(text, key) {
+  const t = String(text || '').toLowerCase();
+  return categoryKeywords(key).some(k => t.includes(k));
+}
+
+function openCategoryDetail(key, scoreOverride) {
+  const p = state.profile || {};
+  const score = Number.isFinite(scoreOverride) ? scoreOverride : (p.categories?.[key] ?? 0);
+  const title = categoryLabel(key);
+
+  const weaknesses = Array.isArray(p.weaknesses) ? p.weaknesses : [];
+  const weak = weaknesses.filter(w => matchesCategory(w, key)).slice(0, 3);
+
+  const roadmap = Array.isArray(p.roadmap) ? p.roadmap : [];
+  const targeted = roadmap.filter(r => (r.category || '').toLowerCase() === key).slice(0, 3);
+  const fallbackActions = roadmap.filter(r => !r.category).slice(0, 2);
+  const actions = (targeted.length ? targeted : fallbackActions).map(r => r.action).filter(Boolean);
+
+  const issues = weak.length ? weak : [
+    `${title} is below its ceiling right now, and inconsistency is costing points.`,
+    `Your recent check-ins suggest this area is not yet fully aligned with your target vibe.`
+  ];
+
+  const lift = actions.length ? actions : [
+    `Focus on one ${title.toLowerCase()} habit this week and execute it daily.`,
+    `Use your next check-in to report concrete progress in this category.`
+  ];
+
+  document.getElementById('cat-modal-title').textContent = title;
+  document.getElementById('cat-modal-score').textContent = score;
+  document.getElementById('cat-modal-summary').textContent = `${title} is ${score}/100. ${categoryTierLine(score)}`;
+  document.getElementById('cat-modal-issues').innerHTML = issues.map(i => `<li>${i}</li>`).join('');
+  document.getElementById('cat-modal-actions').innerHTML = lift.map(a => `<li>${a}</li>`).join('');
+
+  const modal = document.getElementById('cat-modal');
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+function closeCategoryDetail() {
+  const modal = document.getElementById('cat-modal');
+  if (!modal) return;
+  modal.classList.remove('show');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+function openTransferModal() {
+  const modal = document.getElementById('transfer-modal');
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden', 'false');
+  if (!document.getElementById('transfer-text').value.trim()) generateTransferDoc();
+}
+
+function closeTransferModal() {
+  const modal = document.getElementById('transfer-modal');
+  if (!modal) return;
+  modal.classList.remove('show');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+function clearTransferDoc() {
+  document.getElementById('transfer-text').value = '';
+}
+
+function getPortableState() {
+  return {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    data: {
+      apiKey: state.apiKey,
+      apiType: state.apiType,
+      name: state.name,
+      mode: state.mode,
+      modeLabel: state.modeLabel,
+      gender: state.gender,
+      vibe: state.vibe,
+      goals: state.goals,
+      profile: state.profile,
+      checkins: state.checkins,
+      scoreStart: state.scoreStart,
+      chatType: state.chatType,
+      chatHistory: state.chatHistory
+    }
+  };
+}
+
+function fallbackTransferDoc(payload) {
+  return [
+    '# Designer Transfer Document',
+    '',
+    'Paste this full document into Transfer document on another device and tap Import pasted doc.',
+    '',
+    'BEGIN DESIGNER TRANSFER JSON',
+    JSON.stringify(payload),
+    'END DESIGNER TRANSFER JSON'
+  ].join('\n');
+}
+
+async function generateTransferDoc() {
+  const el = document.getElementById('transfer-text');
+  const payload = getPortableState();
+  el.value = 'Generating transfer document...';
+
+  const prompt = `Turn this payload into a short transfer document that is easy to copy/paste.
+Output plain text only and include these exact markers with minified JSON between them:
+BEGIN DESIGNER TRANSFER JSON
+<json>
+END DESIGNER TRANSFER JSON
+
+Payload:\n${JSON.stringify(payload)}`;
+
+  try {
+    const sys = 'You format portable transfer documents. Output plain text only.';
+    const doc = await callAI([{ role: 'user', content: prompt }], sys);
+    if (!doc.includes('BEGIN DESIGNER TRANSFER JSON') || !doc.includes('END DESIGNER TRANSFER JSON')) {
+      el.value = fallbackTransferDoc(payload);
+      return;
+    }
+    el.value = doc;
+  } catch (err) {
+    el.value = fallbackTransferDoc(payload);
+  }
+}
+
+async function copyTransferDoc() {
+  const el = document.getElementById('transfer-text');
+  const txt = el.value.trim();
+  if (!txt) return;
+  try {
+    await navigator.clipboard.writeText(txt);
+    alert('Transfer document copied.');
+  } catch (e) {
+    el.select();
+    document.execCommand('copy');
+    alert('Transfer document copied.');
+  }
+}
+
+function parseTransferPayload(raw) {
+  const marked = raw.match(/BEGIN DESIGNER TRANSFER JSON\s*([\s\S]*?)\s*END DESIGNER TRANSFER JSON/);
+  const fenced = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
+  const body = marked ? marked[1].trim() : (fenced ? fenced[1].trim() : raw.trim());
+  return JSON.parse(body);
+}
+
+function importTransferDoc() {
+  const raw = document.getElementById('transfer-text').value.trim();
+  if (!raw) { alert('Paste a transfer document first.'); return; }
+
+  let parsed;
+  try {
+    parsed = parseTransferPayload(raw);
+  } catch (e) {
+    alert('Could not parse transfer document.');
+    return;
+  }
+
+  const d = parsed.data || parsed;
+  state.apiKey = d.apiKey || '';
+  state.apiType = d.apiType || (state.apiKey.startsWith('AIza') ? 'gemini' : (state.apiKey ? 'openrouter' : ''));
+  state.name = d.name || '';
+  state.mode = d.mode || 'real';
+  state.modeLabel = modeLabels[state.mode] || 'Real';
+  state.gender = d.gender || '';
+  state.vibe = d.vibe || 'Fresh & Modern';
+  state.goals = Array.isArray(d.goals) ? d.goals : [];
+  state.profile = d.profile || null;
+  state.checkins = Number.isFinite(d.checkins) ? d.checkins : parseInt(d.checkins || '0');
+  state.scoreStart = (d.scoreStart === null || d.scoreStart === undefined) ? null : parseInt(d.scoreStart);
+  state.chatType = d.chatType || 'chat';
+  state.chatHistory = Array.isArray(d.chatHistory) ? d.chatHistory : [];
+
+  saveState();
+  if (state.name) updateNameUI();
+  if (state.profile) populateDashboard();
+  updateApiPreview();
+  alert('Imported. Your Designer profile has been restored on this device.');
+  goTo(state.profile ? 'screen-home' : 'screen-splash');
+  closeTransferModal();
+}
+
 function populateDashboard() {
   const p = state.profile;
   if (!p) return;
@@ -2750,7 +3316,7 @@ function populateDashboard() {
     catGrid.innerHTML = cats.map((c, i) => {
       const v = p.categories[c.key] ?? 0;
       const span = (i === cats.length - 1 && cats.length % 2 !== 0) ? ' style="grid-column:1/-1"' : '';
-      return `<div class="cat-card"${span}><div class="cat-label">${c.label}</div><div class="cat-score grad-text">${v}</div><div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:${v}%"></div></div></div>`;
+      return `<div class="cat-card" data-cat="${c.key}" onclick="openCategoryDetail('${c.key}', ${v})"${span}><div class="cat-label">${c.label}</div><div class="cat-score grad-text">${v}</div><div class="cat-bar-wrap"><div class="cat-bar-fill" style="width:${v}%"></div></div></div>`;
     }).join('');
   }
 
@@ -2805,12 +3371,21 @@ function populateDashboard() {
 // ─── INIT ─────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   loadState();
+  updateNameGenderContinueState();
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeCategoryDetail();
+    if (e.key === 'Escape') closeTransferModal();
+  });
 
   const updateTime = () => {
     const now = new Date();
     const h = now.getHours().toString().padStart(2,'0');
     const m = now.getMinutes().toString().padStart(2,'0');
-    document.querySelectorAll('.status-time').forEach(el => el.textContent = `${h}:${m}`);
+    const t = `${h}:${m}`;
+    document.querySelectorAll('.status-time').forEach(el => el.textContent = t);
+    const deferredClock = document.getElementById('deferred-clock');
+    if (deferredClock) deferredClock.textContent = t;
   };
   updateTime();
   setInterval(updateTime, 10000);
