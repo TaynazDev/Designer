@@ -1414,6 +1414,14 @@ html, body {
   line-height: 1.45;
   padding: 12px;
 }
+.transfer-status {
+  margin-top: 8px;
+  min-height: 18px;
+  font-size: 12px;
+  color: var(--text2);
+}
+.transfer-status.success { color: #6DC98A; }
+.transfer-status.error { color: var(--pink); }
 
 /* utility modal family */
 .util-modal {
@@ -1974,6 +1982,21 @@ html, body {
 .photo-vision-list { margin: 0; padding-left: 16px; color: var(--text2); font-size: 12px; line-height: 1.5; display: flex; flex-direction: column; gap: 4px; }
 .photo-vision-meta { font-size: 11px; color: var(--text3); }
 .photo-upload-primary { width: 100%; border-radius: 999px; padding: 12px 14px; border: 0.5px solid rgba(122,174,204,0.35); background: rgba(122,174,204,0.1); color: var(--blue); font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; }
+.photo-capture-actions { display: flex; gap: 10px; }
+.photo-upload-primary.ghost { background: transparent; color: var(--text2); border-color: var(--border2); }
+.photo-camera-wrap { display: flex; flex-direction: column; gap: 8px; }
+.photo-camera-video { width: 100%; border-radius: 14px; border: 0.5px solid var(--border2); background: #0b0b0d; aspect-ratio: 3/4; object-fit: cover; }
+.photo-camera-actions { display: flex; gap: 10px; }
+
+.photo-vision-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.photo-vision-pill {
+  border-radius: 999px;
+  border: 0.5px solid var(--border2);
+  padding: 4px 10px;
+  font-size: 11px;
+  color: var(--text2);
+  background: rgba(255,255,255,0.02);
+}
 
 /* ─── SHARE CARD MODAL ─────────────────────────────────────── */
 .share-modal { position: fixed; inset: 0; z-index: 700; display: flex; align-items: flex-end; pointer-events: none; opacity: 0; transition: opacity 0.25s; }
@@ -2258,7 +2281,7 @@ html, body {
     <div class="onboard-body">
       <div class="onboard-tag">04 / 04</div>
       <h2 class="onboard-h">What do you<br>want to <span class="grad-text">change?</span></h2>
-      <p class="onboard-p">Pick everything that applies. Then set your vibe — Designer will push you toward it, or find the best version of it if it needs work.</p>
+      <p class="onboard-p">Pick everything that applies. You will define your style direction in intake, not from preset labels.</p>
       <div class="onboard-visual" style="align-items:flex-start;padding-top:4px;">
         <div id="goal-cards" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;">
           <div class="goal-card" data-goal="Style &amp; clothing" onclick="toggleGoal(this)">
@@ -2287,23 +2310,8 @@ html, body {
           </div>
         </div>
 
-        <!-- vibe selector -->
         <div class="vibe-section">
-          <div class="vibe-section-label">Your vibe</div>
-          <div class="vibe-chips">
-            <div class="vibe-chip selected" data-vibe="Fresh &amp; Modern" onclick="selectVibe(this)">Fresh &amp; Modern</div>
-            <div class="vibe-chip" data-vibe="Streetwear" onclick="selectVibe(this)">Streetwear</div>
-            <div class="vibe-chip" data-vibe="Minimalist" onclick="selectVibe(this)">Minimalist</div>
-            <div class="vibe-chip" data-vibe="Business Casual" onclick="selectVibe(this)">Business Casual</div>
-            <div class="vibe-chip" data-vibe="Edgy / Alt" onclick="selectVibe(this)">Edgy / Alt</div>
-            <div class="vibe-chip" data-vibe="Vintage" onclick="selectVibe(this)">Vintage</div>
-            <div class="vibe-chip" data-vibe="Athletic" onclick="selectVibe(this)">Athletic</div>
-          </div>
-          <input class="vibe-custom-input" type="text" id="vibe-custom" maxlength="60"
-            placeholder="Or describe your own vibe…"
-            oninput="clearVibeChips()"
-          />
-          <div class="vibe-section-label" style="margin-top:14px;">Who are you dressing for?</div>
+          <div class="vibe-section-label">Who are you dressing for?</div>
           <div class="audience-chips">
             <div class="audience-chip selected" data-audience="Myself" onclick="setAudience(this)">Myself</div>
             <div class="audience-chip" data-audience="Dating" onclick="setAudience(this)">Dating</div>
@@ -3219,6 +3227,7 @@ html, body {
     </div>
 
     <textarea id="transfer-text" class="transfer-text" placeholder="Your full account transfer document appears here…"></textarea>
+    <div id="transfer-status" class="transfer-status" aria-live="polite"></div>
   </div>
 </div>
 
@@ -3230,7 +3239,17 @@ html, body {
       <div class="photos-modal-title">Your photos</div>
       <button class="cat-modal-close" onclick="closePhotosModal()" aria-label="Close photos">×</button>
     </div>
-    <button class="photo-upload-primary" onclick="document.getElementById('photo-file-input').click()">Upload photo</button>
+    <div class="photo-capture-actions">
+      <button class="photo-upload-primary" onclick="document.getElementById('photo-file-input').click()">Upload photo</button>
+      <button class="photo-upload-primary ghost" onclick="openPhotoCamera()">Take photo</button>
+    </div>
+    <div id="photo-camera-wrap" class="photo-camera-wrap" style="display:none;">
+      <video id="photo-camera-video" class="photo-camera-video" autoplay playsinline muted></video>
+      <div class="photo-camera-actions">
+        <button class="photo-upload-primary" onclick="capturePhotoFromCamera()">Capture</button>
+        <button class="photo-upload-primary ghost" onclick="stopPhotoCamera()">Cancel</button>
+      </div>
+    </div>
     <div class="photo-grid" id="photo-grid"><!-- injected --></div>
     <div id="photo-compare-section" style="display:none;">
       <div class="photo-section-label">Progress comparison</div>
@@ -3249,6 +3268,30 @@ html, body {
       </div>
     </div>
     <input type="file" id="photo-file-input" accept="image/*" style="display:none;" onchange="handlePhotoUpload(this)">
+  </div>
+</div>
+
+<!-- WHAT'S NEW: VISION V2 -->
+<div class="util-modal" id="vision-v2-modal" aria-hidden="true">
+  <div class="util-modal-backdrop" onclick="closeVisionV2Modal()"></div>
+  <div class="util-modal-sheet" role="dialog" aria-modal="true">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;">
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;">What\'s New: Vision V2</div>
+        <div class="small-note" style="margin-top:6px;">Photo analysis now powers all coaching.</div>
+      </div>
+      <button class="cat-modal-close" onclick="closeVisionV2Modal()" aria-label="Close">×</button>
+    </div>
+    <div class="small-note" style="margin-top:10px;">
+      - Capture photos directly in-app with camera mode<br>
+      - Deeper reads on hair, body presentation, and style silhouette<br>
+      - Chat is now biased toward modern, wearable trend directions<br>
+      - Your style is defined during intake, not preset onboarding vibes
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px;">
+      <button class="simple-btn primary" onclick="ackVisionV2Modal()">Got it</button>
+      <button class="simple-btn" onclick="closeVisionV2Modal()">Later</button>
+    </div>
   </div>
 </div>
 
@@ -3369,6 +3412,44 @@ const TIER_INFO = [
   { max: 100, name: 'Unreachable',       desc: '100 is impossible by design in this mode.' }
 ];
 
+const STYLE_TREND_LIBRARY = {
+  male: {
+    hair: ['textured crop', 'soft mullet', 'fluffy fringe', 'low taper fade', 'curtain flow'],
+    outfits: ['relaxed straight denim + boxy tee', 'baggy trousers + white tee + sneakers', 'wide-leg trousers + knit polo', 'overshirt + tank + loose denim', 'cropped bomber + tonal cargos']
+  },
+  female: {
+    hair: ['butterfly layers', 'bixie cut', 'modern shag', 'soft curtain bangs', 'clean long layers'],
+    outfits: ['wide-leg trousers + fitted tank', 'oversized blazer + mini skirt', 'straight jeans + crisp shirt', 'slip skirt + baby tee + loafers', 'matching set with sneakers']
+  },
+  unisex: {
+    hair: ['natural texture styling', 'face-framing layers', 'clean taper edges', 'low-maintenance volume cut'],
+    outfits: ['monochrome neutrals', 'boxy outerwear + relaxed pants', 'athleisure with tailored layer', 'vintage wash denim + plain tee', 'minimal accessories with statement shoes']
+  }
+};
+
+function getTier(score) {
+  const n = Number(score);
+  const safe = Number.isFinite(n) ? Math.max(0, Math.min(100, Math.round(n))) : 0;
+  return TIER_INFO.find(t => safe <= t.max) || TIER_INFO[TIER_INFO.length - 1];
+}
+
+function getTrendPack() {
+  const base = state.gender === 'male' ? STYLE_TREND_LIBRARY.male : state.gender === 'female' ? STYLE_TREND_LIBRARY.female : STYLE_TREND_LIBRARY.unisex;
+  const uni = STYLE_TREND_LIBRARY.unisex;
+  return {
+    hair: [...new Set([...(base?.hair || []), ...(uni.hair || [])])].slice(0, 6),
+    outfits: [...new Set([...(base?.outfits || []), ...(uni.outfits || [])])].slice(0, 8)
+  };
+}
+
+function getLatestVision() {
+  const photos = Array.isArray(state.photos) ? state.photos : [];
+  for (let i = photos.length - 1; i >= 0; i--) {
+    if (photos[i]?.vision) return photos[i].vision;
+  }
+  return null;
+}
+
 const TOPIC_GUIDE = `
 You must cover ALL of these topics during the conversation, in roughly this order. Spend 1–2 exchanges per topic then move on:
 1. Current style / clothing — what they actually wear day to day
@@ -3409,7 +3490,7 @@ let state = {
   apiKey: '', apiType: '',
   name: '', mode: 'real', modeLabel: 'Real',
   gender: '',         // 'male' | 'female'
-  vibe: 'Fresh & Modern', // selected style vibe
+  vibe: '', // user-defined in intake
   goals: [],          // selected goal strings from onboarding
   profile: null,      // { score, categories, tier, strengths, weaknesses, roadmap, prevScore }
   checkins: 0,
@@ -3484,7 +3565,7 @@ function loadState() {
   state.mode      = localStorage.getItem('ds_mode')      || 'real';
   state.modeLabel = modeLabels[state.mode] || 'Real';
   state.gender    = localStorage.getItem('ds_gender')    || '';
-  state.vibe      = localStorage.getItem('ds_vibe')      || 'Fresh & Modern';
+  state.vibe      = localStorage.getItem('ds_vibe')      || '';
   state.checkins  = parseInt(localStorage.getItem('ds_checkins') || '0');
   state.chatType  = localStorage.getItem('ds_chat_type') || 'chat';
   const ch = localStorage.getItem('ds_chat_history');
@@ -3617,7 +3698,15 @@ function getPromptAdjustments() {
   const dnaPrompt = (dnaKeywords || dnaSummary)
     ? `Use the user's Style DNA as a baseline to improve their own style, not to force a totally different aesthetic. Style DNA keywords: ${dnaKeywords || 'n/a'}. DNA summary: ${dnaSummary || 'n/a'}. Keep suggestions aligned with this identity unless the user asks for a major pivot.`
     : 'Infer the user\'s style identity from their vibe and behavior, then improve it without forcing trend-driven look changes.';
-  return `${tonePrompt} ${focusPrompt} ${nemesisPrompt} ${dnaPrompt}`;
+  const trendPack = getTrendPack();
+  const trendPrompt = `When style direction is unclear, bias suggestions toward current wearable trends while staying realistic for the user. Hair trend pool: ${trendPack.hair.join(', ')}. Outfit trend pool: ${trendPack.outfits.join(', ')}. Suggest 2-3 concrete look formulas instead of vague style words.`;
+  const latestVision = getLatestVision();
+  const forceVisionPrompt = `VISION V2 IS ALWAYS ON: anchor all coaching in visual analysis (hair, body presentation, silhouette, key pieces). If the user mentions an older or out-of-fashion aesthetic (e.g. outdated goth variants), do not just validate it; redirect toward modern versions with concrete alternatives.`;
+  const visionPrompt = latestVision
+    ? `Latest photo vision context: hair=${latestVision.hair?.status || 'unknown'}; body composition read=${latestVision.body?.bodyFatBand || 'unknown'}; style silhouette=${latestVision.style?.silhouette || 'unknown'}; strongest fix opportunities=${(latestVision.improvements || []).slice(0, 2).join('; ') || 'none'}.
+Use this visual context to tailor advice.`
+    : 'No recent photo vision data yet. Ask for a photo upload/capture early, then give provisional advice until Vision V2 data exists.';
+  return `${tonePrompt} ${focusPrompt} ${nemesisPrompt} ${dnaPrompt} ${trendPrompt} ${forceVisionPrompt} ${visionPrompt}`;
 }
 
 function computeModeScoreSplit(score) {
@@ -3992,7 +4081,8 @@ function selectVibe(chip) {
   document.querySelectorAll('.vibe-chip').forEach(c => c.classList.remove('selected'));
   chip.classList.add('selected');
   state.vibe = chip.dataset.vibe;
-  document.getElementById('vibe-custom').value = '';
+  const custom = document.getElementById('vibe-custom');
+  if (custom) custom.value = '';
 }
 
 function clearVibeChips() {
@@ -4010,10 +4100,6 @@ function saveAndContinue() {
   state.goals = Array.from(document.querySelectorAll('.goal-card.selected')).map(c => c.dataset.goal);
   const selAudience = document.querySelector('.audience-chip.selected');
   if (selAudience) state.audience = selAudience.dataset.audience || 'Myself';
-  // vibe: custom input overrides chip selection
-  const customVibe = document.getElementById('vibe-custom').value.trim();
-  if (customVibe) state.vibe = customVibe;
-  // else state.vibe already set by selectVibe() or default
   if (state.name) updateNameUI();
   saveState();
   goTo('screen-mode-select');
@@ -4220,13 +4306,34 @@ function startChat(isFirstIntake) {
   const dnaNote = dna
     ? `Their Style DNA is ${Array.isArray(dna.keywords) ? dna.keywords.join(', ') : ''}. ${dna.summary || ''} Improve this identity rather than replacing it with a random look.`
     : '';
-  const vibeNote = `Their desired style vibe is: "${state.vibe}". Evaluate whether this vibe suits their real life and personality, then refine it from the inside out. Do not force trend-chasing look changes. Include Pinterest links when suggesting specific directions.`;
+  const vibeNote = state.vibe
+    ? `Their stated style direction is: "${state.vibe}". Evaluate whether it suits their real life and personality; if it is dated, pivot them to modern alternatives. Include Pinterest links when suggesting specific directions.`
+    : 'They have not defined a style direction yet. In the first part of intake, ask what look they are aiming for and then refine it toward modern wearable directions.';
 
   const seed = isFirstIntake
     ? `This is a first intake with a new user named ${state.name} in ${state.mode} mode. ${genderNote} ${vibeNote} ${goalsNote} ${focusNote} ${dnaNote} Greet them in one sentence as Designer, then immediately ask: "How can I help you improve right now?" Start with their current style (what they actually wear day to day, not what they want). Work through all required topics one at a time, and give at least one practical exercise in every reply.`
     : `This is a check-in with ${state.name} in ${state.mode} mode. ${genderNote} Their current score is ${state.profile?.score ?? '?'}. Previous roadmap priorities: ${state.profile?.roadmap?.slice(0,2).map(r => r.action).join('; ') ?? 'none'}. ${vibeNote} ${goalsNote} ${focusNote} ${dnaNote} Welcome them back in one sentence, then ask: "How can I help you improve today?" Work through all required topics to update their profile, and include at least one concrete exercise in every reply.`;
 
   setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 450);
+}
+
+function openVisionV2Modal() {
+  const modal = document.getElementById('vision-v2-modal');
+  if (!modal) return;
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+function closeVisionV2Modal() {
+  const modal = document.getElementById('vision-v2-modal');
+  if (!modal) return;
+  modal.classList.remove('show');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+function ackVisionV2Modal() {
+  localStorage.setItem('ds_vision_v2_seen', '1');
+  closeVisionV2Modal();
 }
 
 async function aiRespond(messages, isInit) {
@@ -4450,16 +4557,27 @@ async function sendChatWithPhoto(dataUrl, caption) {
   state.isProcessing = true;
   const typingEl = addMsg('ai', null, true);
 
-  const sys = 'You are Designer, a style and presence AI coach. Analyze this photo as part of an ongoing conversation. Be direct, practical, and specific. Do not identify the person or guess sensitive traits.';
-  const captionLine = caption ? 'The user says: "' + caption + '"' : 'No caption — just analyze what you see.';
-  const prompt = captionLine + '\n\nAnalyze this photo for style/presence coaching. Cover:\n1. What is working (be specific)\n2. What to fix (concrete changes)\n3. One tip for the next photo\n\nContext: Vibe goal: ' + (state.vibe || 'unset') + ' | Audience: ' + (state.audience || 'Myself') + ' | Mode: ' + state.mode + ' | Style DNA: ' + (state.profile?.styleDNA?.keywords?.join(', ') || 'unknown') + ' | Score: ' + (state.profile?.score ?? '?') + '/100\n\nKeep it conversational, 3-5 sentences per section.';
-
   try {
-    const reply = await callVisionAnalysis(dataUrl, prompt, sys);
+    const vision = await analyzePhotoVisionV2(dataUrl, caption || 'Uploaded directly in chat');
+    state.photos[photoIdx].vision = vision;
+
+    const trendPack = getTrendPack();
+    const responseLines = [];
+    responseLines.push(vision.summary || 'Photo reviewed.');
+    if (vision.strengths?.length) responseLines.push(`Working: ${vision.strengths.slice(0, 2).join(' · ')}`);
+    if (vision.improvements?.length) responseLines.push(`Fix first: ${vision.improvements.slice(0, 3).join(' · ')}`);
+    if (vision.hair?.recommendedCuts?.length) responseLines.push(`Hair directions: ${vision.hair.recommendedCuts.slice(0, 3).join(' · ')}`);
+    if (vision.style?.keyPieces?.length) responseLines.push(`Pieces to add: ${vision.style.keyPieces.slice(0, 3).join(' · ')}`);
+    if (vision.trendDirections?.length) {
+      responseLines.push(`Try these look formulas: ${vision.trendDirections.slice(0, 3).join(' · ')}`);
+    } else {
+      responseLines.push(`Trend bias ideas: ${trendPack.outfits.slice(0, 3).join(' · ')}`);
+    }
+    const reply = responseLines.join('\n');
+
     typingEl.remove();
     addMsg('ai', reply);
     state.chatHistory.push({ role: 'assistant', content: reply });
-    state.photos[photoIdx].vision = { summary: reply.slice(0, 120), analyzedAt: new Date().toISOString() };
     saveState();
     if (state.chatType === 'quick' && state.profile) {
       const userCount = state.chatHistory.filter(m => m.role === 'user').length;
@@ -4610,6 +4728,7 @@ function openTransferModal() {
   const modal = document.getElementById('transfer-modal');
   modal.classList.add('show');
   modal.setAttribute('aria-hidden', 'false');
+  setTransferStatus('');
 }
 
 function closeTransferModal() {
@@ -4621,6 +4740,14 @@ function closeTransferModal() {
 
 function clearTransferDoc() {
   document.getElementById('transfer-text').value = '';
+  setTransferStatus('');
+}
+
+function setTransferStatus(msg, tone = '') {
+  const el = document.getElementById('transfer-status');
+  if (!el) return;
+  el.textContent = msg || '';
+  el.className = `transfer-status${tone ? ' ' + tone : ''}`;
 }
 
 function getPortableState() {
@@ -4714,112 +4841,195 @@ async function copyTransferDoc() {
 }
 
 function parseTransferPayload(raw) {
-  const marked = raw.match(/BEGIN DESIGNER TRANSFER JSON\s*([\s\S]*?)\s*END DESIGNER TRANSFER JSON/);
-  const fenced = raw.match(/```(?:json)?\s*([\s\S]*?)```/);
-  const body = marked ? marked[1].trim() : (fenced ? fenced[1].trim() : raw.trim());
+  const text = String(raw || '').trim();
+  if (!text) throw new Error('Empty transfer document.');
+
+  const marked = text.match(/BEGIN DESIGNER TRANSFER JSON\s*([\s\S]*?)\s*END DESIGNER TRANSFER JSON/i);
+  const fenced = text.match(/```(?:json)?\s*([\s\S]*?)```/i);
+  const body = marked ? marked[1].trim() : (fenced ? fenced[1].trim() : text);
 
   // Try direct parse first.
   try { return JSON.parse(body); } catch (e) {}
 
-  // Fallback: grab the first JSON object-looking block and parse it.
-  const objFromBody = body.match(/\{[\s\S]*\}/);
-  if (objFromBody) {
-    try { return JSON.parse(objFromBody[0]); } catch (e) {}
-  }
-  const objFromRaw = raw.match(/\{[\s\S]*\}/);
-  if (objFromRaw) {
-    try { return JSON.parse(objFromRaw[0]); } catch (e) {}
+  // Try parsing from first to last brace inside body.
+  const firstBrace = body.indexOf('{');
+  const lastBrace = body.lastIndexOf('}');
+  if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+    const slice = body.slice(firstBrace, lastBrace + 1).trim();
+    try { return JSON.parse(slice); } catch (e) {}
   }
 
-  throw new Error('No valid JSON payload found in transfer document.');
+  // Balanced-brace scanner: extract every object-like segment and try each.
+  const candidates = [];
+  for (let i = 0; i < body.length; i++) {
+    if (body[i] !== '{') continue;
+    let depth = 0;
+    let inString = false;
+    let escaped = false;
+    for (let j = i; j < body.length; j++) {
+      const ch = body[j];
+      if (inString) {
+        if (escaped) escaped = false;
+        else if (ch === '\\') escaped = true;
+        else if (ch === '"') inString = false;
+      } else {
+        if (ch === '"') inString = true;
+        else if (ch === '{') depth++;
+        else if (ch === '}') {
+          depth--;
+          if (depth === 0) {
+            candidates.push(body.slice(i, j + 1));
+            break;
+          }
+        }
+      }
+    }
+  }
+  for (const c of candidates) {
+    try { return JSON.parse(c); } catch (e) {}
+  }
+
+  throw new Error('No valid JSON payload found in transfer document. Include BEGIN/END markers or paste raw JSON.');
 }
 
 function importTransferDoc() {
-  const raw = document.getElementById('transfer-text').value.trim();
-  if (!raw) { alert('Paste a transfer document first.'); return; }
+  const textEl = document.getElementById('transfer-text');
+  const raw = String(textEl?.value || '').trim();
+  if (!raw) {
+    setTransferStatus('Paste a transfer document first.', 'error');
+    alert('Paste a transfer document first.');
+    return;
+  }
 
-  let parsed;
+  setTransferStatus('Importing transfer document...');
+
   try {
-    parsed = parseTransferPayload(raw);
-  } catch (e) {
-    alert('Could not parse transfer document.');
-    return;
-  }
+    const parsed = parseTransferPayload(raw);
+    const d = parsed.data || parsed.state || parsed;
+    if (!d || typeof d !== 'object') throw new Error('Transfer document is missing account data.');
 
-  const d = parsed.data || parsed.state || parsed;
-  if (!d || typeof d !== 'object') {
-    alert('Transfer document is missing account data.');
-    return;
-  }
+    const asText = (v, fb = '') => (typeof v === 'string' ? v : (v === null || v === undefined ? fb : String(v)));
+    const asIntOr = (v, fb) => {
+      const n = Number(v);
+      return Number.isFinite(n) ? Math.round(n) : fb;
+    };
+    const clampScore = v => Math.max(0, Math.min(100, asIntOr(v, 0)));
+    const asArray = v => (Array.isArray(v) ? v : []);
+    const asObj = v => (v && typeof v === 'object' && !Array.isArray(v) ? v : {});
 
-  const scoreHistory = Array.isArray(d.scoreHistory) ? d.scoreHistory : [];
-  const latestHistoryScore = scoreHistory.length ? Number(scoreHistory[scoreHistory.length - 1]?.score) : NaN;
-  const directScore = Number(d.score);
-  const legacyScore = Number(d.legacyScore);
-  const fallbackScore = Number.isFinite(directScore)
-    ? directScore
-    : (Number.isFinite(latestHistoryScore) ? latestHistoryScore : (Number.isFinite(legacyScore) ? legacyScore : NaN));
+    const scoreHistory = asArray(d.scoreHistory);
+    const latestHistoryScore = scoreHistory.length ? Number(scoreHistory[scoreHistory.length - 1]?.score) : NaN;
+    const directScore = Number(d.score);
+    const legacyScore = Number(d.legacyScore);
+    const fallbackScore = Number.isFinite(directScore)
+      ? directScore
+      : (Number.isFinite(latestHistoryScore) ? latestHistoryScore : (Number.isFinite(legacyScore) ? legacyScore : NaN));
 
-  const importedProfile = d.profile || d.profileData || (Number.isFinite(fallbackScore)
-    ? {
-        score: Math.max(0, Math.min(100, Math.round(fallbackScore))),
-        categories: {
-          style: Number(d?.categories?.style ?? fallbackScore),
-          grooming: Number(d?.categories?.grooming ?? fallbackScore),
-          fitness: Number(d?.categories?.fitness ?? fallbackScore),
-          personality: Number(d?.categories?.personality ?? fallbackScore),
-          social: Number(d?.categories?.social ?? fallbackScore)
-        },
-        strengths: Array.isArray(d.strengths) ? d.strengths : [],
-        weaknesses: Array.isArray(d.weaknesses) ? d.weaknesses : [],
-        roadmap: Array.isArray(d.roadmap) ? d.roadmap : [],
-        prevScore: scoreHistory.length > 1 ? Number(scoreHistory[scoreHistory.length - 2]?.score ?? null) : null,
-        tier: getTier(Math.max(0, Math.min(100, Math.round(fallbackScore)))).name
+    const sourceProfile = asObj(d.profile || d.profileData);
+    const importedProfile = (Object.keys(sourceProfile).length || Number.isFinite(fallbackScore))
+      ? normalizeStyleDNA({
+          score: clampScore(sourceProfile.score ?? fallbackScore),
+          categories: {
+            style: clampScore(sourceProfile?.categories?.style ?? d?.categories?.style ?? fallbackScore),
+            grooming: clampScore(sourceProfile?.categories?.grooming ?? d?.categories?.grooming ?? fallbackScore),
+            fitness: clampScore(sourceProfile?.categories?.fitness ?? d?.categories?.fitness ?? fallbackScore),
+            personality: clampScore(sourceProfile?.categories?.personality ?? d?.categories?.personality ?? fallbackScore),
+            social: clampScore(sourceProfile?.categories?.social ?? d?.categories?.social ?? fallbackScore)
+          },
+          strengths: asArray(sourceProfile.strengths || d.strengths).map(x => asText(x)).filter(Boolean),
+          weaknesses: asArray(sourceProfile.weaknesses || d.weaknesses).map(x => asText(x)).filter(Boolean),
+          roadmap: asArray(sourceProfile.roadmap || d.roadmap),
+          styleDNA: asObj(sourceProfile.styleDNA),
+          prevScore: scoreHistory.length > 1 ? asIntOr(scoreHistory[scoreHistory.length - 2]?.score, null) : null,
+          tier: getTier(clampScore(sourceProfile.score ?? fallbackScore)).name
+        })
+      : null;
+
+    const apiKey = asText(d.apiKey, '');
+    const apiType = asText(d.apiType, '');
+    const mode = asText(d.mode, 'real').toLowerCase();
+    const safeMode = modeLabels[mode] ? mode : 'real';
+
+    state.apiKey = apiKey;
+    state.apiType = apiType || (apiKey.startsWith('AIza') ? 'gemini' : (apiKey ? 'openrouter' : ''));
+    state.name = asText(d.name || d.username || d.displayName, '');
+    state.mode = safeMode;
+    state.modeLabel = modeLabels[safeMode] || 'Real';
+    state.gender = asText(d.gender, '');
+    state.vibe = asText(d.vibe, 'Fresh & Modern');
+    state.goals = asArray(d.goals).map(x => asText(x)).filter(Boolean);
+    state.profile = importedProfile;
+    state.checkins = asIntOr(d.checkins, 0);
+    state.scoreStart = (d.scoreStart === null || d.scoreStart === undefined) ? null : asIntOr(d.scoreStart, null);
+    state.chatType = asText(d.chatType, 'chat');
+    state.chatHistory = asArray(d.chatHistory);
+    state.photos = asArray(d.photos);
+    state.scoreHistory = scoreHistory;
+    state.reminderSettings = asObj(d.reminderSettings);
+    if (!('daily' in state.reminderSettings)) state.reminderSettings.daily = false;
+    if (!('weekly' in state.reminderSettings)) state.reminderSettings.weekly = false;
+    if (!('streak' in state.reminderSettings)) state.reminderSettings.streak = false;
+    state.todoChecked = asObj(d.todoChecked);
+    state.lastMicroDate = d.lastMicroDate ? asText(d.lastMicroDate) : null;
+    state.audience = asText(d.audience, 'Myself');
+    state.legacyScore = (d.legacyScore === null || d.legacyScore === undefined) ? null : asIntOr(d.legacyScore, null);
+    state.whatChangedLog = asArray(d.whatChangedLog);
+    state.todoEvents = asArray(d.todoEvents);
+    state.quickWinOnly = !!d.quickWinOnly;
+    const weeklyDrop = asObj(d.weeklyDrop);
+    state.weeklyDrop = { text: asText(weeklyDrop.text, ''), date: asText(weeklyDrop.date, '') };
+    state.voiceTone = asText(d.voiceTone, 'default');
+    state.focusCategory = d.focusCategory ? asText(d.focusCategory) : null;
+    state.confidenceHistory = asArray(d.confidenceHistory);
+    state.nemesisTarget = asText(d.nemesisTarget, '');
+    state.interventionSeen = !!d.interventionSeen;
+
+    let importWarning = '';
+    try {
+      saveState();
+    } catch (err) {
+      const name = String(err?.name || '');
+      const msg = String(err?.message || '');
+      const isQuota = name === 'QuotaExceededError' || /quota|storage|exceeded/i.test(msg);
+      if (!isQuota) throw err;
+
+      try {
+        state.photos = [];
+        saveState();
+        importWarning = 'Imported, but photos were skipped because local storage is full.';
+      } catch (err2) {
+        try {
+          state.photos = [];
+          state.chatHistory = [];
+          saveState();
+          importWarning = 'Imported, but photos and chat history were skipped because local storage is full.';
+        } catch (err3) {
+          throw new Error('Local storage is full on this device. Clear some app/browser data, then try again.');
+        }
       }
-    : null);
+    }
 
-  state.apiKey = d.apiKey || '';
-  state.apiType = d.apiType || (state.apiKey.startsWith('AIza') ? 'gemini' : (state.apiKey ? 'openrouter' : ''));
-  state.name = d.name || d.username || d.displayName || '';
-  state.mode = d.mode || 'real';
-  state.modeLabel = modeLabels[state.mode] || 'Real';
-  state.gender = d.gender || '';
-  state.vibe = d.vibe || 'Fresh & Modern';
-  state.goals = Array.isArray(d.goals) ? d.goals : [];
-  state.profile = importedProfile;
-  state.checkins = Number.isFinite(d.checkins) ? d.checkins : parseInt(d.checkins || '0');
-  state.scoreStart = (d.scoreStart === null || d.scoreStart === undefined) ? null : parseInt(d.scoreStart);
-  state.chatType = d.chatType || 'chat';
-  state.chatHistory = Array.isArray(d.chatHistory) ? d.chatHistory : [];
-  state.photos = Array.isArray(d.photos) ? d.photos : [];
-  state.scoreHistory = scoreHistory;
-  state.reminderSettings = d.reminderSettings && typeof d.reminderSettings === 'object' ? d.reminderSettings : { daily: false, weekly: false, streak: false };
-  state.todoChecked = d.todoChecked && typeof d.todoChecked === 'object' ? d.todoChecked : {};
-  state.lastMicroDate = d.lastMicroDate || null;
-  state.audience = d.audience || 'Myself';
-  state.legacyScore = (d.legacyScore === null || d.legacyScore === undefined || Number.isNaN(parseInt(d.legacyScore))) ? null : parseInt(d.legacyScore);
-  state.whatChangedLog = Array.isArray(d.whatChangedLog) ? d.whatChangedLog : [];
-  state.todoEvents = Array.isArray(d.todoEvents) ? d.todoEvents : [];
-  state.quickWinOnly = !!d.quickWinOnly;
-  state.weeklyDrop = d.weeklyDrop && typeof d.weeklyDrop === 'object' ? d.weeklyDrop : { text: '', date: '' };
-  state.voiceTone = d.voiceTone || 'default';
-  state.focusCategory = d.focusCategory || null;
-  state.confidenceHistory = Array.isArray(d.confidenceHistory) ? d.confidenceHistory : [];
-  state.nemesisTarget = d.nemesisTarget || '';
-  state.interventionSeen = !!d.interventionSeen;
+    updateNameUI();
+    updateApiPreview();
+    if (state.profile) {
+      populateDashboard();
+      goTo('screen-home');
+    } else if (state.apiKey) {
+      goTo('screen-splash');
+    } else {
+      goTo('screen-api-setup');
+    }
 
-  saveState();
-  updateNameUI();
-  if (state.profile) populateDashboard();
-  updateApiPreview();
-  alert('Imported. Your Designer profile has been restored on this device.');
-  if (state.profile) {
-    populateDashboard();
-    goTo('screen-home');
+    const doneMsg = importWarning || 'Imported. Your Designer profile has been restored on this device.';
+    setTransferStatus(doneMsg, importWarning ? 'error' : 'success');
+    alert(doneMsg);
+    closeTransferModal();
+  } catch (e) {
+    console.error('Transfer import failed:', e);
+    const msg = String(e?.message || 'Import failed.');
+    setTransferStatus(msg, 'error');
+    alert(`Import failed: ${msg}`);
   }
-  else if (state.apiKey) goTo('screen-splash');
-  else goTo('screen-api-setup');
-  closeTransferModal();
 }
 
 function toISODate(d) {
@@ -4892,7 +5102,8 @@ function openVibeInspo() {
   document.getElementById('intake-mode-label').textContent = state.modeLabel + ' mode';
   document.getElementById('chat-messages').innerHTML = '';
   document.getElementById('quick-replies').innerHTML = '';
-  const seed = `The user vibe is "${state.vibe}" and audience is "${state.audience}". Give 5 concrete vibe references (outfit directions), each with a one-line explanation and one Pinterest markdown link.`;
+  const vibe = state.vibe || 'not set yet';
+  const seed = `The user style direction is "${vibe}" and audience is "${state.audience}". If style direction is not set, first suggest 3 modern direction options. Then give 5 concrete outfit directions with one-line explanation and one Pinterest markdown link each.`;
   setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 250);
 }
 
@@ -5288,6 +5499,10 @@ document.addEventListener('DOMContentLoaded', () => {
   updateTime();
   setInterval(updateTime, 10000);
 
+  if (localStorage.getItem('ds_vision_v2_seen') !== '1') {
+    openVisionV2Modal();
+  }
+
   if (state.profile) { populateDashboard(); goTo('screen-home'); return; }
   if (!state.apiKey) { goTo('screen-api-setup'); return; }
   // has key but no profile — show splash
@@ -5379,8 +5594,125 @@ function openPhotosModal() {
 function closePhotosModal() {
   const modal = document.getElementById('photos-modal');
   if (!modal) return;
+  stopPhotoCamera();
   modal.classList.remove('show');
   modal.setAttribute('aria-hidden', 'true');
+}
+
+async function openPhotoCamera() {
+  const wrap = document.getElementById('photo-camera-wrap');
+  const video = document.getElementById('photo-camera-video');
+  if (!wrap || !video) return;
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    alert('Camera capture is not supported in this browser.');
+    return;
+  }
+  try {
+    stopPhotoCamera();
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false });
+    window.photoCameraStream = stream;
+    video.srcObject = stream;
+    wrap.style.display = 'flex';
+    await video.play().catch(() => {});
+  } catch (err) {
+    alert('Could not open camera. Please allow camera access or use Upload photo.');
+  }
+}
+
+function stopPhotoCamera() {
+  const wrap = document.getElementById('photo-camera-wrap');
+  const video = document.getElementById('photo-camera-video');
+  if (video) video.srcObject = null;
+  if (window.photoCameraStream) {
+    window.photoCameraStream.getTracks().forEach(track => track.stop());
+    window.photoCameraStream = null;
+  }
+  if (wrap) wrap.style.display = 'none';
+}
+
+function capturePhotoFromCamera() {
+  const video = document.getElementById('photo-camera-video');
+  if (!video || !video.videoWidth || !video.videoHeight) {
+    alert('Camera is not ready yet. Try again in a second.');
+    return;
+  }
+  const canvas = document.createElement('canvas');
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+  if (!state.photos) state.photos = [];
+  state.photos.push({ data: dataUrl, date: new Date().toISOString(), score: state.profile?.score ?? null, vision: null });
+  window.photoVisionIndex = state.photos.length - 1;
+  saveState();
+  stopPhotoCamera();
+  renderPhotoGrid();
+}
+
+async function analyzePhotoVisionV2(photoData, extraContext) {
+  const trendPack = getTrendPack();
+  const sys = 'You are a style and presence image analyst inside Designer. Be precise, constructive, and practical. Do not identify the person. Do not infer age or gender from image alone.';
+  const prompt = `Analyze this image for practical style coaching.
+Return ONLY valid JSON:
+{
+  "summary":"<1 sentence>",
+  "strengths":["<up to 3>","<...>"],
+  "improvements":["<up to 5 concrete fixes>","<...>"],
+  "hair":{
+    "status":"<short read on current hair impact>",
+    "score":<0-100 integer>,
+    "recommendedCuts":["<3-5 cut/style ideas>"]
+  },
+  "body":{
+    "bodyFatBand":"<visual estimate band like lean / average / higher-average>",
+    "confidence":"<low|medium|high>",
+    "advice":["<2-4 practical fitness/body presentation moves>"]
+  },
+  "style":{
+    "silhouette":"<current silhouette read>",
+    "colorDirection":"<color feedback>",
+    "keyPieces":["<3-5 recommended items>"]
+  },
+  "trendDirections":["<3-6 modern look directions matched to this person>"]
+}
+
+Context:
+- Self-identified gender (if set by user): ${state.gender || 'not provided'}
+- Vibe: ${state.vibe || 'unset'}
+- Audience: ${state.audience || 'Myself'}
+- Mode: ${state.mode}
+- Style DNA: ${state.profile?.styleDNA?.keywords?.join(', ') || 'unknown'}
+- Hair trend pool: ${trendPack.hair.join(', ')}
+- Outfit trend pool: ${trendPack.outfits.join(', ')}
+- Extra context from user: ${extraContext || 'none'}
+
+Priority: hair quality, body composition presentation, and style silhouette. Keep fixes realistic and specific.`;
+
+  const raw = await callVisionAnalysis(photoData, prompt, sys);
+  const parsed = extractJSON(raw);
+  return {
+    summary: String(parsed?.summary || 'Photo reviewed.').trim(),
+    strengths: Array.isArray(parsed?.strengths) ? parsed.strengths.map(x => String(x || '').trim()).filter(Boolean).slice(0, 3) : [],
+    improvements: Array.isArray(parsed?.improvements) ? parsed.improvements.map(x => String(x || '').trim()).filter(Boolean).slice(0, 5) : [],
+    hair: {
+      status: String(parsed?.hair?.status || '').trim(),
+      score: Math.max(0, Math.min(100, Math.round(Number(parsed?.hair?.score) || 0))),
+      recommendedCuts: Array.isArray(parsed?.hair?.recommendedCuts) ? parsed.hair.recommendedCuts.map(x => String(x || '').trim()).filter(Boolean).slice(0, 5) : []
+    },
+    body: {
+      bodyFatBand: String(parsed?.body?.bodyFatBand || '').trim(),
+      confidence: String(parsed?.body?.confidence || '').trim(),
+      advice: Array.isArray(parsed?.body?.advice) ? parsed.body.advice.map(x => String(x || '').trim()).filter(Boolean).slice(0, 4) : []
+    },
+    style: {
+      silhouette: String(parsed?.style?.silhouette || '').trim(),
+      colorDirection: String(parsed?.style?.colorDirection || '').trim(),
+      keyPieces: Array.isArray(parsed?.style?.keyPieces) ? parsed.style.keyPieces.map(x => String(x || '').trim()).filter(Boolean).slice(0, 5) : []
+    },
+    trendDirections: Array.isArray(parsed?.trendDirections) ? parsed.trendDirections.map(x => String(x || '').trim()).filter(Boolean).slice(0, 6) : [],
+    analyzedAt: new Date().toISOString()
+  };
 }
 
 function renderPhotoGrid() {
@@ -5453,11 +5785,28 @@ function renderPhotoVisionPanel() {
   }
 
   summary.textContent = p.vision.summary || 'Analysis complete.';
-  strengths.innerHTML = (p.vision.strengths || []).slice(0, 3).map(item => `<li>Strength: ${item}</li>`).join('');
-  improvements.innerHTML = (p.vision.improvements || []).slice(0, 4).map(item => `<li>Fix: ${item}</li>`).join('') + (p.vision.nextShot ? `<li>Next photo: ${p.vision.nextShot}</li>` : '');
+  const hairScore = Number.isFinite(Number(p.vision?.hair?.score)) ? `${p.vision.hair.score}/100` : 'n/a';
+  const bodyBand = p.vision?.body?.bodyFatBand || 'n/a';
+  const silhouette = p.vision?.style?.silhouette || 'n/a';
+  strengths.innerHTML =
+    `<div class="photo-vision-pills">
+      <span class="photo-vision-pill">Hair: ${hairScore}</span>
+      <span class="photo-vision-pill">Body read: ${bodyBand}</span>
+      <span class="photo-vision-pill">Silhouette: ${silhouette}</span>
+    </div>` +
+    (p.vision.hair?.status ? `<li>Hair read: ${p.vision.hair.status}</li>` : '') +
+    (p.vision.style?.colorDirection ? `<li>Color direction: ${p.vision.style.colorDirection}</li>` : '') +
+    (p.vision.strengths || []).slice(0, 3).map(item => `<li>Strength: ${item}</li>`).join('');
+
+  improvements.innerHTML =
+    (p.vision.improvements || []).slice(0, 5).map(item => `<li>Fix: ${item}</li>`).join('') +
+    (p.vision.hair?.recommendedCuts || []).slice(0, 3).map(item => `<li>Hair option: ${item}</li>`).join('') +
+    (p.vision.style?.keyPieces || []).slice(0, 3).map(item => `<li>Key piece: ${item}</li>`).join('') +
+    (p.vision.trendDirections || []).slice(0, 3).map(item => `<li>Look direction: ${item}</li>`).join('') +
+    (p.vision.body?.advice || []).slice(0, 2).map(item => `<li>Body/fitness: ${item}</li>`).join('');
   const when = p.vision.analyzedAt ? new Date(p.vision.analyzedAt).toLocaleString() : '';
-  const conf = Number.isFinite(Number(p.vision.confidence)) ? ` · confidence ${p.vision.confidence}%` : '';
-  meta.textContent = `Analyzed ${when}${conf}`.trim();
+  const confBand = p.vision?.body?.confidence ? ` · body confidence ${p.vision.body.confidence}` : '';
+  meta.textContent = `Analyzed ${when}${confBand}`.trim();
 }
 
 async function analyzeSelectedPhotoVision() {
@@ -5467,37 +5816,10 @@ async function analyzeSelectedPhotoVision() {
   if (!state.apiKey) { goTo('screen-api-setup'); return; }
   const photo = photos[idx];
 
-  const sys = `You are a style and presence image analyst inside Designer. Be precise, constructive, and practical. Do not identify the person or guess sensitive traits.`;
-  const prompt = `Analyze this photo for style/presence coaching.
-Return ONLY valid JSON:
-{
-  "summary":"<1 sentence>",
-  "strengths":["<up to 3>","<...>"],
-  "improvements":["<up to 4 concrete fixes>","<...>"],
-  "nextShot":"<how to take a better next photo>",
-  "confidence":<0-100 integer>
-}
-
-Context:
-- User vibe: ${state.vibe}
-- Audience: ${state.audience}
-- Mode: ${state.mode}
-- Style DNA: ${state.profile?.styleDNA?.keywords?.join(', ') || 'unknown'}
-- Goal: Improve their own style identity, not force a new aesthetic.`;
-
   window.photoVisionBusy = true;
   renderPhotoVisionPanel();
   try {
-    const raw = await callVisionAnalysis(photo.data, prompt, sys);
-    const parsed = extractJSON(raw);
-    photo.vision = {
-      summary: String(parsed?.summary || 'Photo reviewed.').trim(),
-      strengths: Array.isArray(parsed?.strengths) ? parsed.strengths.map(x => String(x || '').trim()).filter(Boolean).slice(0, 3) : [],
-      improvements: Array.isArray(parsed?.improvements) ? parsed.improvements.map(x => String(x || '').trim()).filter(Boolean).slice(0, 4) : [],
-      nextShot: String(parsed?.nextShot || '').trim(),
-      confidence: Math.max(0, Math.min(100, Math.round(Number(parsed?.confidence) || 0))),
-      analyzedAt: new Date().toISOString()
-    };
+    photo.vision = await analyzePhotoVisionV2(photo.data, 'Selected from photo gallery modal');
     saveState();
     renderPhotoVisionPanel();
   } catch (err) {

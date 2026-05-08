@@ -2,6 +2,29 @@
 
 All notable changes to this project are documented in this file.
 
+## 0.0.2
+
+### Added
+
+- Photo Vision V2 with richer structured analysis: hair status/score, body presentation band, silhouette read, key pieces, and trend directions
+- In-browser camera capture in Photos modal (take photo directly without leaving app)
+- One-time "What's New: Vision V2" popup with local acknowledgement persistence
+- Trend direction library expanded for male/female/unisex coaching examples
+
+### Changed
+
+- Vision V2 context is now forced into ongoing coaching prompts (always-on visual anchoring)
+- Chat photo analysis now uses Vision V2 outputs and returns trend-biased look formulas
+- Onboarding no longer forces preset style-vibe selection; style direction is now defined in intake
+- Intake prompt behavior updated to establish style direction when missing and modernize outdated aesthetics
+
+### Fixed
+
+- Transfer import parser hardened for more pasted formats and noisy payload wrappers
+- Transfer import now reports explicit status/errors instead of failing silently
+- Import flow now handles localStorage quota limits with progressive fallback (drop photos/chat history when needed)
+- Missing tier helper restored to prevent runtime "getTier is not defined" failures
+
 ## 0.0.1
 
 ### Added
