@@ -872,9 +872,87 @@ html, body {
   padding: 12px 16px 12px;
   border-top: 0.5px solid var(--border);
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: flex-end;
   flex-shrink: 0;
+  flex-direction: column;
+}
+.chat-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  width: 100%;
+}
+
+/* photo attach button */
+.chat-photo-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 0.5px solid var(--border2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: border-color 0.2s, background 0.2s;
+}
+.chat-photo-btn:hover { border-color: var(--border3); background: var(--surface2); }
+.chat-photo-btn:active { opacity: 0.7; }
+.chat-photo-btn.has-photo {
+  border-color: rgba(122,174,204,0.45);
+  background: rgba(122,174,204,0.1);
+}
+.chat-photo-btn svg path, .chat-photo-btn svg rect, .chat-photo-btn svg circle { stroke: var(--text3); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.chat-photo-btn.has-photo svg path, .chat-photo-btn.has-photo svg rect, .chat-photo-btn.has-photo svg circle { stroke: var(--blue); }
+
+/* pending photo preview strip above input */
+.chat-photo-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0 2px;
+}
+.chat-photo-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 0.5px solid rgba(122,174,204,0.35);
+  flex-shrink: 0;
+}
+.chat-photo-preview-label {
+  flex: 1;
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.4;
+}
+.chat-photo-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text3);
+  font-size: 18px;
+  line-height: 1;
+  padding: 4px;
+  transition: color 0.15s;
+}
+.chat-photo-remove:hover { color: var(--pink); }
+
+/* photo bubble inside chat */
+.msg-photo {
+  max-width: 200px;
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+.msg-photo img {
+  width: 100%;
+  display: block;
+  border-radius: 14px;
+  border: 0.5px solid rgba(255,255,255,0.08);
 }
 .chat-input-field {
   flex: 1;
@@ -958,7 +1036,11 @@ html, body {
   border: 0.5px solid rgba(122,174,204,0.3);
   background: rgba(122,174,204,0.08);
   color: var(--blue);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
 }
+.home-mode-pill:hover { background: rgba(122,174,204,0.14); border-color: rgba(122,174,204,0.5); }
+.home-mode-pill:active { opacity: 0.8; }
 
 /* score card */
 .score-card {
@@ -1133,9 +1215,19 @@ html, body {
   border-radius: 14px;
   cursor: pointer;
   transition: border-color 0.15s, transform 0.15s;
+  position: relative;
 }
 .cat-card:hover { border-color: rgba(122,174,204,0.3); transform: translateY(-1px); }
 .cat-card:active { transform: translateY(0); }
+.cat-card::after {
+  content: '›';
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  font-size: 14px;
+  color: var(--text3);
+  line-height: 1;
+}
 .cat-label { font-size: 11px; color: var(--text2); margin-bottom: 6px; font-weight: 500; }
 .cat-score {
   font-family: 'Syne', sans-serif;
@@ -1862,6 +1954,7 @@ html, body {
 .photos-modal-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 800; }
 .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .photo-thumb { aspect-ratio: 1; border-radius: 12px; background: var(--surface2); border: 0.5px solid var(--border); overflow: hidden; position: relative; }
+.photo-thumb.selected { border-color: rgba(122,174,204,0.65); box-shadow: 0 0 0 1px rgba(122,174,204,0.35) inset; }
 .photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .photo-thumb-score { position: absolute; bottom: 5px; right: 5px; background: rgba(12,12,14,0.8); border-radius: 999px; font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; color: var(--text); padding: 2px 7px; }
 .photo-thumb-del { position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border-radius: 50%; background: rgba(12,12,14,0.75); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; line-height: 1; color: var(--text2); }
@@ -1873,6 +1966,14 @@ html, body {
 .photo-compare-img { width: 100%; aspect-ratio: 3/4; border-radius: 14px; object-fit: cover; background: var(--surface2); border: 0.5px solid var(--border); display: block; }
 .photo-compare-label { font-size: 11px; color: var(--text3); line-height: 1.4; }
 .photo-section-label { font-size: 10px; font-family: 'Syne', sans-serif; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 6px; }
+.photo-vision-card { padding: 14px; border-radius: 14px; border: 0.5px solid var(--border); background: var(--surface2); display: flex; flex-direction: column; gap: 10px; }
+.photo-vision-actions { display: flex; gap: 8px; }
+.photo-vision-btn { flex: 1; border-radius: 999px; padding: 11px 14px; border: 0.5px solid rgba(122,174,204,0.35); background: rgba(122,174,204,0.1); color: var(--blue); font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; }
+.photo-vision-btn:disabled { opacity: 0.5; cursor: default; }
+.photo-vision-summary { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.photo-vision-list { margin: 0; padding-left: 16px; color: var(--text2); font-size: 12px; line-height: 1.5; display: flex; flex-direction: column; gap: 4px; }
+.photo-vision-meta { font-size: 11px; color: var(--text3); }
+.photo-upload-primary { width: 100%; border-radius: 999px; padding: 12px 14px; border: 0.5px solid rgba(122,174,204,0.35); background: rgba(122,174,204,0.1); color: var(--blue); font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; }
 
 /* ─── SHARE CARD MODAL ─────────────────────────────────────── */
 .share-modal { position: fixed; inset: 0; z-index: 700; display: flex; align-items: flex-end; pointer-events: none; opacity: 0; transition: opacity 0.25s; }
@@ -2315,7 +2416,7 @@ html, body {
       </div>
     </div>
     <div class="mode-select-actions">
-      <button class="btn-primary" onclick="goToIntake()">Start my intake →</button>
+      <button class="btn-primary" id="mode-select-cta" onclick="goToIntake()">Start my intake →</button>
     </div>
   </div>
 
@@ -2337,10 +2438,23 @@ html, body {
     </div>
     <div class="chat-quick-replies" id="quick-replies"></div>
     <div class="chat-input-bar">
-      <textarea class="chat-input-field" id="chat-field" placeholder="Type your answer…" rows="1" onInput="autoResize(this)" onkeydown="handleChatKey(event)"></textarea>
-      <button class="chat-send-btn" onclick="sendChatMsg()">
-        <svg viewBox="0 0 18 18"><path d="M15 9L3 3l2.5 6L3 15l12-6z"/></svg>
-      </button>
+      <!-- pending photo preview -->
+      <div class="chat-photo-preview" id="chat-photo-preview" style="display:none;">
+        <img class="chat-photo-thumb" id="chat-photo-thumb" src="" alt="Photo">
+        <div class="chat-photo-preview-label">Photo attached · AI will analyze it in this chat</div>
+        <button class="chat-photo-remove" onclick="removeChatPhoto()" title="Remove photo">×</button>
+      </div>
+      <div class="chat-input-row">
+        <!-- hidden file input -->
+        <input type="file" id="chat-photo-input" accept="image/*" style="display:none;" onchange="handleChatPhotoSelect(this)">
+        <button class="chat-photo-btn" id="chat-photo-btn" onclick="document.getElementById('chat-photo-input').click()" title="Attach a photo">
+          <svg width="18" height="18" viewBox="0 0 18 18"><rect x="1" y="4" width="16" height="11" rx="2"/><circle cx="9" cy="9.5" r="3"/><path d="M6 4l1-2h4l1 2"/></svg>
+        </button>
+        <textarea class="chat-input-field" id="chat-field" placeholder="Type your answer…" rows="1" onInput="autoResize(this)" onkeydown="handleChatKey(event)"></textarea>
+        <button class="chat-send-btn" onclick="sendChatMsg()">
+          <svg viewBox="0 0 18 18"><path d="M15 9L3 3l2.5 6L3 15l12-6z"/></svg>
+        </button>
+      </div>
     </div>
     <div class="bottom-nav">
       <button class="nav-item" onclick="navTo('home')">
@@ -2353,7 +2467,7 @@ html, body {
       </button>
       <button class="nav-item" onclick="navTo('audit')">
         <div class="nav-icon"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M7 7h5M7 15h3"/></svg></div>
-        <span class="nav-label">Audit</span>
+        <span class="nav-label">Report</span>
       </button>
       <button class="nav-item" onclick="navTo('profile')">
         <div class="nav-icon"><svg viewBox="0 0 22 22"><circle cx="11" cy="7" r="4"/><path d="M3 20c0-4.418 3.582-8 8-8s8 3.582 8 8"/></svg></div>
@@ -2371,7 +2485,7 @@ html, body {
           <div class="home-greeting">Good evening,</div>
           <div class="home-name" id="home-name">Jordan</div>
         </div>
-        <div class="home-mode-pill" id="home-mode-pill">Real</div>
+        <div class="home-mode-pill" id="home-mode-pill" onclick="goTo('screen-mode-select')" title="Tap to change mode">Real ↗</div>
       </div>
 
       <div class="signal-row">
@@ -2449,7 +2563,7 @@ html, body {
           </div>
         </div>
         <div>
-          <div class="trajectory-label">Pull up ready?</div>
+          <div class="trajectory-label">How confident are you right now?</div>
           <div class="mini-choice-row" id="confidence-choice-row">
             <button class="mini-choice" onclick="setConfidenceState('yes')">Yes</button>
             <button class="mini-choice" onclick="setConfidenceState('kinda')">Kinda</button>
@@ -2468,8 +2582,8 @@ html, body {
           </svg>
         </div>
         <div class="checkin-text">
-          <div class="checkin-title">Time for a check-in</div>
-          <div class="checkin-sub" id="checkin-sub">Last session was 3 days ago</div>
+          <div class="checkin-title">Start a full check-in</div>
+          <div class="checkin-sub" id="checkin-sub">Rebuilds your full score &amp; roadmap</div>
           <div class="checkin-gain" id="checkin-gain" style="display:none;">
             <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M6 10V2M6 2L3 5M6 2L9 5" stroke="#6DC98A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span id="checkin-gain-text">+3–7 expected</span>
@@ -2481,10 +2595,10 @@ html, body {
       </div>
 
       <!-- Daily micro prompt -->
-      <div class="micro-banner" id="micro-banner" style="display:none;" onclick="startDailyMicroPrompt()">
+      <div class="micro-banner" id="micro-banner" onclick="startDailyMicroPrompt()">
         <div class="micro-banner-body">
           <div class="micro-banner-title">Quick check ✦</div>
-          <div class="micro-banner-sub">What did you change today? 30 seconds.</div>
+          <div class="micro-banner-sub">What changed today? 30 sec · updates your score</div>
         </div>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
@@ -2575,20 +2689,32 @@ html, body {
         </div>
         <div class="home-cta" onclick="askNinetyVision()">
           <div class="home-cta-icon">🎯</div>
-          <div class="home-cta-title">What does 90 look like?</div>
-          <div class="home-cta-sub">Your personal target vision</div>
+          <div class="home-cta-title">Vision at 90</div>
+          <div class="home-cta-sub">Define what you're working toward</div>
         </div>
       </div>
       <div class="home-cta-row">
         <div class="home-cta" onclick="startFreeChat()">
           <div class="home-cta-icon">💬</div>
-          <div class="home-cta-title">Ask Designer anything</div>
-          <div class="home-cta-sub">Free-form chat with profile context</div>
+          <div class="home-cta-title">Ask Designer</div>
+          <div class="home-cta-sub">Get advice on anything, right now</div>
         </div>
-        <div class="home-cta" onclick="logWhatChanged()">
-          <div class="home-cta-icon">✍️</div>
-          <div class="home-cta-title">What changed today?</div>
-          <div class="home-cta-sub" id="change-log-sub">Add context for your next score</div>
+        <div class="home-cta" onclick="openPhotosModal()">
+          <div class="home-cta-icon">📸</div>
+          <div class="home-cta-title">Photo vision</div>
+          <div class="home-cta-sub" id="photos-cta-sub">Upload and analyze your look</div>
+        </div>
+      </div>
+      <div class="home-cta-row" id="advanced-cta-row">
+        <div class="home-cta" id="desire-cta" onclick="askWhatDoYouActuallyWant()">
+          <div class="home-cta-icon">🧭</div>
+          <div class="home-cta-title">What do you actually want?</div>
+          <div class="home-cta-sub" id="desire-cta-sub">Unlocks after 3 check-ins</div>
+        </div>
+        <div class="home-cta" id="intervention-cta" onclick="runInterventionFlow()" style="display:none;">
+          <div class="home-cta-icon">🧱</div>
+          <div class="home-cta-title">The intervention</div>
+          <div class="home-cta-sub" id="intervention-cta-sub">Available when your trend drops</div>
         </div>
       </div>
 
@@ -2605,7 +2731,7 @@ html, body {
       </button>
       <button class="nav-item" onclick="navTo('audit')">
         <div class="nav-icon"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M7 7h5M7 15h3"/></svg></div>
-        <span class="nav-label">Audit</span>
+        <span class="nav-label">Report</span>
       </button>
       <button class="nav-item" onclick="navTo('profile')">
         <div class="nav-icon"><svg viewBox="0 0 22 22"><circle cx="11" cy="7" r="4"/><path d="M3 20c0-4.418 3.582-8 8-8s8 3.582 8 8"/></svg></div>
@@ -2697,7 +2823,7 @@ html, body {
         </div>
       </div>
 
-      <div class="audit-cta" onclick="goTo('screen-intake')">
+      <div class="audit-cta" onclick="startChat(false)">
         <div class="audit-cta-icon">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M10 3v7l4 2" stroke="#7AAECC" stroke-width="1.6" stroke-linecap="round"/>
@@ -2705,7 +2831,7 @@ html, body {
           </svg>
         </div>
         <div style="flex:1;">
-          <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:2px;">Book a check-in</div>
+          <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:2px;">Start a check-in</div>
           <div style="font-size:12px;color:var(--text2);">Update your profile and move your score</div>
         </div>
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="var(--text3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -2724,7 +2850,7 @@ html, body {
       </button>
       <button class="nav-item active" onclick="navTo('audit')">
         <div class="nav-icon"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M7 7h5M7 15h3"/></svg></div>
-        <span class="nav-label">Audit</span>
+        <span class="nav-label">Report</span>
       </button>
       <button class="nav-item" onclick="navTo('profile')">
         <div class="nav-icon"><svg viewBox="0 0 22 22"><circle cx="11" cy="7" r="4"/><path d="M3 20c0-4.418 3.582-8 8-8s8 3.582 8 8"/></svg></div>
@@ -2765,7 +2891,7 @@ html, body {
         <div class="trajectory-label">Style DNA</div>
         <div class="dna-words" id="style-dna-words">-- · -- · --</div>
         <div class="trajectory-sub" id="style-dna-sub">Your evolving style fingerprint</div>
-        <div class="trajectory-label" style="margin-top:2px;">Not yet list</div>
+        <div class="trajectory-label" style="margin-top:2px;">Still locked</div>
         <div class="tiny-list" id="not-yet-list">
           <div class="tiny-pill">Unlocks as your score rises</div>
         </div>
@@ -2797,11 +2923,11 @@ html, body {
         </div>
         <div class="profile-row" onclick="openPhotosModal()" style="cursor:pointer;">
           <div class="profile-row-left">
-            <div class="profile-row-label">Photos</div>
-            <div class="profile-row-sub" id="photos-row-sub">No photos yet</div>
+            <div class="profile-row-label">Photo vision</div>
+            <div class="profile-row-sub" id="photos-row-sub">Upload and analyze photos</div>
           </div>
           <div class="profile-row-right">
-            Manage
+            Open
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
@@ -2840,8 +2966,8 @@ html, body {
         </div>
         <div class="profile-row" onclick="openTransferModal()" style="cursor:pointer;">
           <div class="profile-row-left">
-            <div class="profile-row-label">Transfer document</div>
-            <div class="profile-row-sub">Export/import your full local account snapshot for another device</div>
+            <div class="profile-row-label">Export / Import</div>
+            <div class="profile-row-sub">Move your profile to another device</div>
           </div>
           <div class="profile-row-right">
             Open
@@ -2863,14 +2989,28 @@ html, body {
             <div class="profile-row-label">Voice tone</div>
             <div class="profile-row-sub" id="voice-tone-sub">Default</div>
           </div>
-          <div class="profile-row-right">Cycle</div>
+          <div class="profile-row-right">Change</div>
         </div>
         <div class="profile-row" onclick="cycleFocusCategory()" style="cursor:pointer;">
           <div class="profile-row-left">
             <div class="profile-row-label">One thing focus</div>
             <div class="profile-row-sub" id="focus-cat-sub">Off</div>
           </div>
-          <div class="profile-row-right">Cycle</div>
+          <div class="profile-row-right">Change</div>
+        </div>
+        <div class="profile-row" onclick="setNemesisTarget()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Nemesis target</div>
+            <div class="profile-row-sub" id="nemesis-sub">Not set</div>
+          </div>
+          <div class="profile-row-right">Set</div>
+        </div>
+        <div class="profile-row" onclick="askRejectionAnalysis()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Rejection analysis</div>
+            <div class="profile-row-sub">Brutal-style fix path from a real scenario</div>
+          </div>
+          <div class="profile-row-right">Run</div>
         </div>
       </div>
 
@@ -2914,7 +3054,7 @@ html, body {
       </button>
       <button class="nav-item" onclick="navTo('audit')">
         <div class="nav-icon"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M7 7h5M7 15h3"/></svg></div>
-        <span class="nav-label">Audit</span>
+        <span class="nav-label">Report</span>
       </button>
       <button class="nav-item active" onclick="navTo('profile')">
         <div class="nav-icon"><svg viewBox="0 0 22 22"><circle cx="11" cy="7" r="4"/><path d="M3 20c0-4.418 3.582-8 8-8s8 3.582 8 8"/></svg></div>
@@ -3090,10 +3230,23 @@ html, body {
       <div class="photos-modal-title">Your photos</div>
       <button class="cat-modal-close" onclick="closePhotosModal()" aria-label="Close photos">×</button>
     </div>
+    <button class="photo-upload-primary" onclick="document.getElementById('photo-file-input').click()">Upload photo</button>
     <div class="photo-grid" id="photo-grid"><!-- injected --></div>
     <div id="photo-compare-section" style="display:none;">
       <div class="photo-section-label">Progress comparison</div>
       <div class="photo-compare-wrap" id="photo-compare-wrap"></div>
+    </div>
+    <div id="photo-vision-section" style="display:none;">
+      <div class="photo-section-label">Photo vision analysis</div>
+      <div class="photo-vision-card">
+        <div class="photo-vision-actions">
+          <button class="photo-vision-btn" id="photo-vision-btn" onclick="analyzeSelectedPhotoVision()">Analyze selected photo</button>
+        </div>
+        <div class="photo-vision-summary" id="photo-vision-summary">Select a photo and run AI analysis.</div>
+        <ul class="photo-vision-list" id="photo-vision-strengths"></ul>
+        <ul class="photo-vision-list" id="photo-vision-improvements"></ul>
+        <div class="photo-vision-meta" id="photo-vision-meta"></div>
+      </div>
     </div>
     <input type="file" id="photo-file-input" accept="image/*" style="display:none;" onchange="handlePhotoUpload(this)">
   </div>
@@ -3148,7 +3301,7 @@ html, body {
     </button>
     <button class="nav-item" onclick="navTo('audit')">
       <div class="nav-icon"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M7 7h5M7 15h3"/></svg></div>
-      <span class="nav-label">Audit</span>
+      <span class="nav-label">Report</span>
     </button>
     <button class="nav-item" onclick="navTo('profile')">
       <div class="nav-icon"><svg viewBox="0 0 22 22"><circle cx="11" cy="7" r="4"/><path d="M3 20c0-4.418 3.582-8 8-8s8 3.582 8 8"/></svg></div>
@@ -3278,7 +3431,10 @@ let state = {
   liveScore: null,
   voiceTone: 'default',
   focusCategory: null,
-  confidenceHistory: []
+  confidenceHistory: [],
+  nemesisTarget: '',
+  interventionSeen: false,
+  quickCheckLastUserCount: 0
 };
 
 // ─── LOCAL STORAGE ────────────────────────────────────────────────
@@ -3316,6 +3472,9 @@ function saveState() {
   if (state.focusCategory) localStorage.setItem('ds_focus_category', state.focusCategory);
   else localStorage.removeItem('ds_focus_category');
   localStorage.setItem('ds_confidence_history', JSON.stringify(state.confidenceHistory || []));
+  if (state.nemesisTarget) localStorage.setItem('ds_nemesis_target', state.nemesisTarget);
+  else localStorage.removeItem('ds_nemesis_target');
+  localStorage.setItem('ds_intervention_seen', state.interventionSeen ? '1' : '0');
 }
 
 function loadState() {
@@ -3361,16 +3520,19 @@ function loadState() {
   state.focusCategory = localStorage.getItem('ds_focus_category') || null;
   const chx = localStorage.getItem('ds_confidence_history');
   if (chx) { try { state.confidenceHistory = JSON.parse(chx); } catch(e) { state.confidenceHistory = []; } }
+  state.nemesisTarget = localStorage.getItem('ds_nemesis_target') || '';
+  state.interventionSeen = localStorage.getItem('ds_intervention_seen') === '1';
 }
 
 function resetProfile() {
-  ['ds_profile','ds_checkins','ds_score_start','ds_chat_history','ds_chat_type','ds_confidence_history'].forEach(k => localStorage.removeItem(k));
+  ['ds_profile','ds_checkins','ds_score_start','ds_chat_history','ds_chat_type','ds_confidence_history','ds_intervention_seen'].forEach(k => localStorage.removeItem(k));
   state.profile = null;
   state.checkins = 0;
   state.scoreStart = null;
   state.chatHistory = [];
   state.chatType = 'chat';
   state.confidenceHistory = [];
+  state.interventionSeen = false;
 }
 
 // ─── API KEY SETUP ────────────────────────────────────────────────
@@ -3448,7 +3610,14 @@ function cycleFocusCategory() {
 function getPromptAdjustments() {
   const tonePrompt = VOICE_TONES.find(t => t.key === state.voiceTone)?.prompt || VOICE_TONES[0].prompt;
   const focusPrompt = state.focusCategory ? `Prioritise ${CATEGORY_LABELS[state.focusCategory]} when deciding what matters most. Keep bringing the user back to that lane unless they explicitly want something else.` : 'Do not over-focus on any one category unless the conversation clearly calls for it.';
-  return `${tonePrompt} ${focusPrompt}`;
+  const nemesisPrompt = state.nemesisTarget ? `The user selected a nemesis benchmark: "${state.nemesisTarget}". Use that energy as a reference point when framing standards and examples.` : '';
+  const dna = state.profile?.styleDNA;
+  const dnaKeywords = Array.isArray(dna?.keywords) ? dna.keywords.filter(Boolean).join(', ') : '';
+  const dnaSummary = String(dna?.summary || '').trim();
+  const dnaPrompt = (dnaKeywords || dnaSummary)
+    ? `Use the user's Style DNA as a baseline to improve their own style, not to force a totally different aesthetic. Style DNA keywords: ${dnaKeywords || 'n/a'}. DNA summary: ${dnaSummary || 'n/a'}. Keep suggestions aligned with this identity unless the user asks for a major pivot.`
+    : 'Infer the user\'s style identity from their vibe and behavior, then improve it without forcing trend-driven look changes.';
+  return `${tonePrompt} ${focusPrompt} ${nemesisPrompt} ${dnaPrompt}`;
 }
 
 function computeModeScoreSplit(score) {
@@ -3485,12 +3654,37 @@ function deriveStyleDNA(profile) {
   const words = [];
   const vibe = (state.vibe || '').trim();
   if (vibe) words.push(vibe.split(/\s+/)[0]);
+  const aiKeywords = Array.isArray(profile?.styleDNA?.keywords)
+    ? profile.styleDNA.keywords.map(word => String(word || '').trim().toLowerCase()).filter(Boolean)
+    : [];
+  if (aiKeywords.length) return aiKeywords.slice(0, 3);
   const cats = Object.entries(profile?.categories || {}).sort((a, b) => b[1] - a[1]);
   const topCat = cats[0]?.[0];
   const catWordMap = { style: 'curated', grooming: 'clean-cut', fitness: 'athletic', personality: 'magnetic', social: 'camera-ready' };
   if (topCat) words.push(catWordMap[topCat]);
   words.push(profile?.score >= 80 ? 'elevated' : profile?.score >= 65 ? 'sharpening' : 'forming');
   return words.slice(0, 3).map(word => (word || '').replace(/[^a-zA-Z-]/g, '')).filter(Boolean);
+}
+
+function normalizeStyleDNA(profile) {
+  if (!profile || typeof profile !== 'object') return profile;
+  const rawKeywords = Array.isArray(profile?.styleDNA?.keywords)
+    ? profile.styleDNA.keywords
+    : deriveStyleDNA(profile);
+  const keywords = rawKeywords
+    .map(word => String(word || '').toLowerCase().replace(/[^a-z-]/g, '').trim())
+    .filter(Boolean)
+    .slice(0, 3);
+  while (keywords.length < 3) keywords.push('refining');
+
+  const summary = String(profile?.styleDNA?.summary || '').trim() || `Improve from within your own style lane: ${keywords.join(', ')}.`;
+  return {
+    ...profile,
+    styleDNA: {
+      keywords,
+      summary
+    }
+  };
 }
 
 function buildNotYetList(profile) {
@@ -3594,6 +3788,77 @@ async function callGemini(messages, systemPrompt) {
   return data.candidates[0].content.parts[0].text.trim();
 }
 
+function parseDataUrlImage(dataUrl) {
+  const m = String(dataUrl || '').match(/^data:(.+?);base64,(.+)$/);
+  if (!m) throw new Error('Invalid image payload');
+  return { mimeType: m[1], base64: m[2] };
+}
+
+async function callOpenRouterVision(imageDataUrl, prompt, systemPrompt) {
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${state.apiKey}`,
+      'Content-Type': 'application/json',
+      'HTTP-Referer': window.location.origin,
+      'X-Title': 'Designer by Prism'
+    },
+    body: JSON.stringify({
+      model: 'openai/gpt-4o-mini',
+      messages: [
+        { role: 'system', content: systemPrompt },
+        {
+          role: 'user',
+          content: [
+            { type: 'text', text: prompt },
+            { type: 'image_url', image_url: { url: imageDataUrl } }
+          ]
+        }
+      ],
+      max_tokens: 550
+    })
+  });
+  if (!res.ok) {
+    const e = await res.json().catch(() => ({}));
+    throw new Error(e?.error?.message || `Vision API error ${res.status}`);
+  }
+  const data = await res.json();
+  return data?.choices?.[0]?.message?.content?.trim() || '';
+}
+
+async function callGeminiVision(imageDataUrl, prompt, systemPrompt) {
+  const parsed = parseDataUrlImage(imageDataUrl);
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${state.apiKey}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: systemPrompt }] },
+        contents: [{
+          role: 'user',
+          parts: [
+            { text: prompt },
+            { inline_data: { mime_type: parsed.mimeType, data: parsed.base64 } }
+          ]
+        }],
+        generationConfig: { maxOutputTokens: 550 }
+      })
+    }
+  );
+  if (!res.ok) {
+    const e = await res.json().catch(() => ({}));
+    throw new Error(e?.error?.message || `Vision API error ${res.status}`);
+  }
+  const data = await res.json();
+  return data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
+}
+
+async function callVisionAnalysis(imageDataUrl, prompt, systemPrompt) {
+  if (state.apiType === 'gemini') return callGeminiVision(imageDataUrl, prompt, systemPrompt);
+  return callOpenRouterVision(imageDataUrl, prompt, systemPrompt);
+}
+
 async function generateProfile() {
   const convo = state.chatHistory.map(m => `${m.role === 'user' ? 'User' : 'Designer'}: ${m.content}`).join('\n');
   const prevNote = state.profile ? `Previous score was ${state.profile.score}. This is a check-in session.` : 'This is the first intake.';
@@ -3619,6 +3884,10 @@ Required JSON structure:
   },
   "strengths": [<2-3 specific strength strings>],
   "weaknesses": [<2-3 specific weakness strings>],
+  "styleDNA": {
+    "keywords": [<exactly 3 short words that describe the user's natural style identity>],
+    "summary": "<one short sentence describing how to improve their style without changing who they are>"
+  },
   "roadmap": [
     {
       "tier": "now",
@@ -3673,6 +3942,11 @@ function goTo(screenId) {
   next.style.opacity = '0';
   next.classList.add('active');
   requestAnimationFrame(() => requestAnimationFrame(() => { next.style.transform = ''; next.style.opacity = ''; }));
+  // Update mode select CTA label contextually
+  if (screenId === 'screen-mode-select') {
+    const modeBtn = document.getElementById('mode-select-cta');
+    if (modeBtn) modeBtn.textContent = state.profile ? 'Confirm mode →' : 'Start my intake →';
+  }
 }
 
 function navTo(tab) {
@@ -3777,59 +4051,95 @@ function goToIntake() {
   // Returning users should not be forced into a fresh intake when changing mode.
   if (state.profile) {
     populateDashboard();
+    const modeBtn = document.getElementById('mode-select-cta');
+    if (modeBtn) modeBtn.textContent = 'Confirm mode →';
     goTo('screen-home');
     return;
   }
+  const modeBtn = document.getElementById('mode-select-cta');
+  if (modeBtn) modeBtn.textContent = 'Start my intake →';
 
   startChat(true);
 }
 
-function computePromptDelta(text) {
-  const t = String(text || '').toLowerCase();
-  const positive = ['done','completed','improved','worked on','routine','haircut','skincare','gym','posture','approached','spoke up','consistent','win'];
-  const negative = ['didn\'t','didnt','failed','skip','skipped','lazy','nothing','stuck','avoid','avoided','relapse','inconsistent'];
-
-  let score = 0;
-  positive.forEach(k => { if (t.includes(k)) score += 1; });
-  negative.forEach(k => { if (t.includes(k)) score -= 1; });
-
-  if (t.length < 12) score -= 1;
-
-  const modeBias = { relaxed: 1, real: 0, locked: 0, beast: -1, brutal: -1 };
-  score += modeBias[state.mode] ?? 0;
-
-  // Keep per-prompt movement small but meaningful in both directions.
-  return Math.max(-3, Math.min(3, score));
+function clampQuickDelta(n) {
+  return Math.max(-3, Math.min(3, Math.round(Number(n) || 0)));
 }
 
-function applyPromptScoreDelta(userText) {
-  const delta = computePromptDelta(userText);
-  const now = new Date().toISOString();
+function inferQuickDeltaFallback(text) {
+  const t = String(text || '').toLowerCase();
+  const pos = ['did', 'done', 'improved', 'consistent', 'routine', 'haircut', 'skincare', 'gym', 'worked', 'approached', 'practice', 'better'];
+  const neg = ['didn\'t', 'didnt', 'not', 'skip', 'skipped', 'failed', 'lazy', 'nothing', 'regressed', 'worse', 'avoid', 'avoided'];
+  let p = 0;
+  let m = 0;
+  pos.forEach(k => { if (t.includes(k)) p++; });
+  neg.forEach(k => { if (t.includes(k)) m++; });
+  if (p > m) return 1;
+  if (m > p) return -1;
+  return 0;
+}
 
-  if (state.profile) {
-    const next = Math.max(0, Math.min(100, (state.profile.score || 0) + delta));
-    state.profile.prevScore = state.profile.score;
-    state.profile.score = next;
-    state.liveScore = next;
-    if (!state.scoreHistory) state.scoreHistory = [];
-    state.scoreHistory.push({
-      score: next,
-      mode: state.mode,
-      modeLabel: state.modeLabel,
-      date: now,
-      note: String(userText || '').slice(0, 80),
-      source: 'prompt-delta',
-      delta
-    });
-    state.scoreHistory = state.scoreHistory.slice(-600);
-  } else {
-    const baselineByMode = { relaxed: 56, real: 52, locked: 48, beast: 44, brutal: 40 };
-    const base = state.liveScore ?? baselineByMode[state.mode] ?? 50;
-    state.liveScore = Math.max(0, Math.min(100, base + delta));
-  }
+function applyQuickCheckScoreDecision(delta, reason, sourceText) {
+  if (!state.profile) return;
+  const now = new Date().toISOString();
+  const safeDelta = clampQuickDelta(delta);
+  const next = Math.max(0, Math.min(100, (state.profile.score || 0) + safeDelta));
+  state.profile.prevScore = state.profile.score;
+  state.profile.score = next;
+  state.liveScore = next;
+  if (!state.scoreHistory) state.scoreHistory = [];
+  state.scoreHistory.push({
+    score: next,
+    mode: state.mode,
+    modeLabel: state.modeLabel,
+    date: now,
+    note: String(sourceText || reason || '').slice(0, 120),
+    source: 'quick-check-ai',
+    delta: safeDelta
+  });
+  state.scoreHistory = state.scoreHistory.slice(-600);
 
   const scoreNum = document.getElementById('chat-score-num');
-  if (scoreNum) scoreNum.textContent = String(state.profile?.score ?? state.liveScore ?? '—');
+  if (scoreNum) scoreNum.textContent = String(next);
+}
+
+async function evaluateQuickCheckDelta(lastUserText) {
+  if (!state.profile) return { delta: 0, reason: 'No profile found' };
+  const convo = (state.chatHistory || []).map(m => `${m.role === 'user' ? 'User' : 'Designer'}: ${m.content}`).join('\n');
+  const prompt = `Evaluate this quick check-in and decide score movement.
+Return ONLY valid JSON in this shape:
+{"delta": <integer from -3 to 3>, "reason": "<max 14 words>"}
+
+Scoring intent:
+- Positive concrete action, consistency, and measurable progress can increase score.
+- No action, excuses, or clear regression can decrease score.
+- Avoid defaulting to 0. If there is any clear signal, choose at least +1 or -1.
+- Use 0 only when the message is truly ambiguous or purely logistical.
+- Be stricter in beast/brutal and gentler in relaxed.
+
+Mode: ${state.mode}
+Current score: ${state.profile.score}
+Latest user update to score: ${String(lastUserText || '')}
+
+Quick check-in transcript:
+${convo}`;
+  const jsonSys = 'You are a strict JSON scorer. Output only valid JSON with keys delta and reason.';
+  try {
+    const raw = await callAI([{ role: 'user', content: prompt }], jsonSys);
+    const parsed = extractJSON(raw);
+    let delta = clampQuickDelta(parsed?.delta);
+    if (delta === 0) {
+      const fallback = inferQuickDeltaFallback(lastUserText);
+      if (fallback !== 0) delta = fallback;
+    }
+    return {
+      delta,
+      reason: String(parsed?.reason || '').trim() || 'Quick check reviewed'
+    };
+  } catch (e) {
+    const fallback = inferQuickDeltaFallback(lastUserText);
+    return { delta: fallback, reason: fallback === 0 ? 'Quick check reviewed' : 'Applied based on your latest update' };
+  }
 }
 
 function startQuickCheckIn(fromDailyPrompt) {
@@ -3837,11 +4147,10 @@ function startQuickCheckIn(fromDailyPrompt) {
   if (fromDailyPrompt) {
     state.lastMicroDate = new Date().toISOString().slice(0, 10);
     saveState();
-    const banner = document.getElementById('micro-banner');
-    if (banner) banner.style.display = 'none';
   }
 
   state.chatType = 'quick';
+  state.quickCheckLastUserCount = 0;
   state.chatHistory = [];
   state.isProcessing = false;
   document.getElementById('chat-messages').innerHTML = '';
@@ -3876,8 +4185,8 @@ function openChatTab() {
     if (state.profile) {
       document.getElementById('chat-messages').innerHTML = '';
       document.getElementById('quick-replies').innerHTML = '';
-      addMsg('ai', `You're signed in as ${state.name || 'your profile'}. Choose a quick check-in or run a full check-in.`);
-      showReplies(['Quick check-in', 'Start full check-in']);
+      addMsg('ai', `Hey ${state.name || 'there'} — what do you want to work on?`);
+      showReplies(['Quick check-in (30 sec · score update)', 'Full check-in (rebuilds roadmap)', 'Just get advice']);
       return;
     }
     // No profile yet: start intake flow.
@@ -3894,6 +4203,7 @@ function startChat(isFirstIntake) {
   state.isProcessing = false;
   document.getElementById('chat-messages').innerHTML = '';
   document.getElementById('quick-replies').innerHTML = '';
+  removeChatPhoto();
   document.getElementById('chat-header-title').textContent = isFirstIntake ? 'Intake' : 'Check-in';
   document.getElementById('intake-mode-label').textContent = state.modeLabel + ' mode';
   const scoreNum = document.getElementById('chat-score-num');
@@ -3906,11 +4216,15 @@ function startChat(isFirstIntake) {
     : '';
   const genderNote = state.gender ? `They identify as ${state.gender}.` : '';
   const focusNote = state.focusCategory ? `Their current one-thing focus is ${CATEGORY_LABELS[state.focusCategory]}. Keep returning to that lane when helpful.` : '';
-  const vibeNote = `Their desired style vibe is: "${state.vibe}". Evaluate whether this vibe actually suits them based on what they tell you. If it does, champion it. If it needs adjusting, find the middle ground and explain it. Include Pinterest links when suggesting specific directions.`;
+  const dna = state.profile?.styleDNA;
+  const dnaNote = dna
+    ? `Their Style DNA is ${Array.isArray(dna.keywords) ? dna.keywords.join(', ') : ''}. ${dna.summary || ''} Improve this identity rather than replacing it with a random look.`
+    : '';
+  const vibeNote = `Their desired style vibe is: "${state.vibe}". Evaluate whether this vibe suits their real life and personality, then refine it from the inside out. Do not force trend-chasing look changes. Include Pinterest links when suggesting specific directions.`;
 
   const seed = isFirstIntake
-    ? `This is a first intake with a new user named ${state.name} in ${state.mode} mode. ${genderNote} ${vibeNote} ${goalsNote} ${focusNote} Greet them in one sentence as Designer, then immediately ask: "How can I help you improve right now?" Start with their current style (what they actually wear day to day, not what they want). Work through all required topics one at a time, and give at least one practical exercise in every reply.`
-    : `This is a check-in with ${state.name} in ${state.mode} mode. ${genderNote} Their current score is ${state.profile?.score ?? '?'}. Previous roadmap priorities: ${state.profile?.roadmap?.slice(0,2).map(r => r.action).join('; ') ?? 'none'}. ${vibeNote} ${goalsNote} ${focusNote} Welcome them back in one sentence, then ask: "How can I help you improve today?" Work through all required topics to update their profile, and include at least one concrete exercise in every reply.`;
+    ? `This is a first intake with a new user named ${state.name} in ${state.mode} mode. ${genderNote} ${vibeNote} ${goalsNote} ${focusNote} ${dnaNote} Greet them in one sentence as Designer, then immediately ask: "How can I help you improve right now?" Start with their current style (what they actually wear day to day, not what they want). Work through all required topics one at a time, and give at least one practical exercise in every reply.`
+    : `This is a check-in with ${state.name} in ${state.mode} mode. ${genderNote} Their current score is ${state.profile?.score ?? '?'}. Previous roadmap priorities: ${state.profile?.roadmap?.slice(0,2).map(r => r.action).join('; ') ?? 'none'}. ${vibeNote} ${goalsNote} ${focusNote} ${dnaNote} Welcome them back in one sentence, then ask: "How can I help you improve today?" Work through all required topics to update their profile, and include at least one concrete exercise in every reply.`;
 
   setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 450);
 }
@@ -3924,6 +4238,19 @@ async function aiRespond(messages, isInit) {
     typingEl.remove();
     addMsg('ai', reply);
     state.chatHistory.push({ role: 'assistant', content: reply });
+
+    if (state.chatType === 'quick' && !isInit && state.profile) {
+      const userCount = state.chatHistory.filter(m => m.role === 'user').length;
+      if (userCount > (state.quickCheckLastUserCount || 0)) {
+        const lastUser = [...state.chatHistory].reverse().find(m => m.role === 'user');
+        const decision = await evaluateQuickCheckDelta(lastUser?.content || '');
+        applyQuickCheckScoreDecision(decision.delta, decision.reason, lastUser?.content || '');
+        state.quickCheckLastUserCount = userCount;
+        addMsg('ai', `Quick check score update: ${decision.delta >= 0 ? '+' : ''}${decision.delta}. ${decision.reason}`);
+        populateDashboard();
+      }
+    }
+
     saveState();
 
     const userCount = state.chatHistory.filter(m => m.role === 'user').length;
@@ -3980,10 +4307,12 @@ function showReplies(replies) {
     } else if (r === 'Update my score →') {
       Object.assign(btn.style, { background: 'rgba(122,174,204,0.1)', borderColor: 'rgba(122,174,204,0.35)', color: 'var(--blue)' });
       btn.onclick = buildProfile;
-    } else if (r === 'Quick check-in') {
+    } else if (r === 'Quick check-in' || r === 'Quick check-in (30 sec · score update)') {
       btn.onclick = () => startQuickCheckIn(false);
-    } else if (r === 'Start full check-in') {
+    } else if (r === 'Start full check-in' || r === 'Full check-in (rebuilds roadmap)') {
       btn.onclick = () => startChat(false);
+    } else if (r === 'Just get advice') {
+      btn.onclick = () => startFreeChat();
     } else { btn.onclick = () => sendUserMsg(r); }
     qr.appendChild(btn);
   });
@@ -3994,8 +4323,6 @@ function sendUserMsg(text) {
   document.getElementById('quick-replies').innerHTML = '';
   addMsg('user', text);
   state.chatHistory.push({ role: 'user', content: text });
-  applyPromptScoreDelta(text);
-  if (state.profile) populateDashboard();
   saveState();
   aiRespond(state.chatHistory, false);
 }
@@ -4003,8 +4330,16 @@ function sendUserMsg(text) {
 function sendChatMsg() {
   const field = document.getElementById('chat-field');
   const text = field.value.trim();
-  if (!text || state.isProcessing) return;
+  if (state.isProcessing) return;
+  if (!text && !chatPendingPhoto) return;
   field.value = ''; field.style.height = '';
+  if (chatPendingPhoto) {
+    const photoData = chatPendingPhoto.dataUrl;
+    const caption = text;
+    removeChatPhoto();
+    sendChatWithPhoto(photoData, caption);
+    return;
+  }
   sendUserMsg(text);
 }
 
@@ -4024,7 +4359,7 @@ async function buildProfile() {
   document.getElementById('quick-replies').innerHTML = '';
   const typingEl = addMsg('ai', null, true);
   try {
-    const profileData = await generateProfile();
+    const profileData = normalizeStyleDNA(await generateProfile());
     typingEl.remove();
     const prevScore = state.profile?.score ?? null;
     state.profile = { ...profileData, prevScore };
@@ -4038,24 +4373,114 @@ async function buildProfile() {
     addMsg('ai', `Done. Your score is ${profileData.score}. Heading to your dashboard now.`);
     setTimeout(() => {
       populateDashboard();
-      const scoreNum = document.getElementById('chat-score-num');
-      if (scoreNum) scoreNum.textContent = profileData.score;
       goTo('screen-home');
-      checkAndShowUnlock(profileData.score, prevScore);
-    }, 1800);
+    }, 1200);
   } catch (err) {
     typingEl.remove();
-    addMsg('ai', `Couldn't generate your profile: ${err.message}`);
+    addMsg('ai', 'Profile generation failed. Check your API key in Profile settings and try again.');
   }
   state.isProcessing = false;
 }
 
-// ─── DASHBOARD ────────────────────────────────────────────────────
-function getTier(score) {
-  for (const t of TIER_INFO) { if (score <= t.max) return t; }
-  return TIER_INFO[TIER_INFO.length - 1];
+// ─── CHAT PHOTO ATTACHMENT ────────────────────────────────────────
+let chatPendingPhoto = null;
+
+function handleChatPhotoSelect(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 5 * 1024 * 1024) {
+    alert('Photo must be under 5 MB.');
+    input.value = '';
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    chatPendingPhoto = { dataUrl: e.target.result };
+    const preview = document.getElementById('chat-photo-preview');
+    const thumb = document.getElementById('chat-photo-thumb');
+    const btn = document.getElementById('chat-photo-btn');
+    if (thumb) thumb.src = e.target.result;
+    if (preview) preview.style.display = 'flex';
+    if (btn) btn.classList.add('has-photo');
+    document.getElementById('chat-field')?.focus();
+  };
+  reader.readAsDataURL(file);
+  input.value = '';
 }
 
+function removeChatPhoto() {
+  chatPendingPhoto = null;
+  const preview = document.getElementById('chat-photo-preview');
+  const btn = document.getElementById('chat-photo-btn');
+  if (preview) preview.style.display = 'none';
+  if (btn) btn.classList.remove('has-photo');
+}
+
+function addPhotoMsg(dataUrl) {
+  const msgs = document.getElementById('chat-messages');
+  const wrap = document.createElement('div');
+  wrap.className = 'msg user';
+  const photoDiv = document.createElement('div');
+  photoDiv.className = 'msg-photo';
+  const img = document.createElement('img');
+  img.src = dataUrl;
+  img.alt = 'Your photo';
+  photoDiv.appendChild(img);
+  wrap.appendChild(photoDiv);
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+async function sendChatWithPhoto(dataUrl, caption) {
+  if (state.isProcessing) return;
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  document.getElementById('quick-replies').innerHTML = '';
+
+  addPhotoMsg(dataUrl);
+  if (caption) {
+    addMsg('user', caption);
+    state.chatHistory.push({ role: 'user', content: caption });
+  }
+  saveState();
+
+  if (!state.photos) state.photos = [];
+  const photoIdx = state.photos.length;
+  state.photos.push({ data: dataUrl, date: new Date().toISOString(), score: state.profile?.score ?? null, vision: null });
+
+  state.isProcessing = true;
+  const typingEl = addMsg('ai', null, true);
+
+  const sys = 'You are Designer, a style and presence AI coach. Analyze this photo as part of an ongoing conversation. Be direct, practical, and specific. Do not identify the person or guess sensitive traits.';
+  const captionLine = caption ? 'The user says: "' + caption + '"' : 'No caption — just analyze what you see.';
+  const prompt = captionLine + '\n\nAnalyze this photo for style/presence coaching. Cover:\n1. What is working (be specific)\n2. What to fix (concrete changes)\n3. One tip for the next photo\n\nContext: Vibe goal: ' + (state.vibe || 'unset') + ' | Audience: ' + (state.audience || 'Myself') + ' | Mode: ' + state.mode + ' | Style DNA: ' + (state.profile?.styleDNA?.keywords?.join(', ') || 'unknown') + ' | Score: ' + (state.profile?.score ?? '?') + '/100\n\nKeep it conversational, 3-5 sentences per section.';
+
+  try {
+    const reply = await callVisionAnalysis(dataUrl, prompt, sys);
+    typingEl.remove();
+    addMsg('ai', reply);
+    state.chatHistory.push({ role: 'assistant', content: reply });
+    state.photos[photoIdx].vision = { summary: reply.slice(0, 120), analyzedAt: new Date().toISOString() };
+    saveState();
+    if (state.chatType === 'quick' && state.profile) {
+      const userCount = state.chatHistory.filter(m => m.role === 'user').length;
+      if (userCount > (state.quickCheckLastUserCount || 0)) {
+        const lastUser = [...state.chatHistory].reverse().find(m => m.role === 'user');
+        const decision = await evaluateQuickCheckDelta(lastUser?.content || '');
+        applyQuickCheckScoreDecision(decision.delta, decision.reason, lastUser?.content || '');
+        state.quickCheckLastUserCount = userCount;
+        addMsg('ai', 'Score update: ' + (decision.delta >= 0 ? '+' : '') + decision.delta + '. ' + decision.reason);
+        populateDashboard();
+      }
+    }
+  } catch (err) {
+    typingEl.remove();
+    addMsg('ai', 'Could not analyze the photo: ' + err.message + '. Check your API key or try again.');
+  }
+  state.isProcessing = false;
+  saveState();
+}
+
+// ─── DASHBOARD ────────────────────────────────────────────────────
 function scoreToOffset(score) {
   const C = 276.46; // 2π × 44
   return C - (score / 100) * C;
@@ -4229,7 +4654,9 @@ function getPortableState() {
       weeklyDrop: state.weeklyDrop,
       voiceTone: state.voiceTone,
       focusCategory: state.focusCategory,
-      confidenceHistory: state.confidenceHistory
+      confidenceHistory: state.confidenceHistory,
+      nemesisTarget: state.nemesisTarget,
+      interventionSeen: state.interventionSeen
     }
   };
 }
@@ -4378,6 +4805,8 @@ function importTransferDoc() {
   state.voiceTone = d.voiceTone || 'default';
   state.focusCategory = d.focusCategory || null;
   state.confidenceHistory = Array.isArray(d.confidenceHistory) ? d.confidenceHistory : [];
+  state.nemesisTarget = d.nemesisTarget || '';
+  state.interventionSeen = !!d.interventionSeen;
 
   saveState();
   updateNameUI();
@@ -4490,6 +4919,72 @@ function logWhatChanged() {
   if (sub) sub.textContent = `Latest: ${text.trim().slice(0, 34)}${text.trim().length > 34 ? '...' : ''}`;
 }
 
+function setNemesisTarget() {
+  const current = state.nemesisTarget ? `Current: ${state.nemesisTarget}\n\n` : '';
+  const val = prompt(`${current}Set a style nemesis target (celebrity/public figure/fictional). Leave empty to clear.`);
+  if (val === null) return;
+  state.nemesisTarget = val.trim();
+  saveState();
+  if (state.profile) populateDashboard();
+}
+
+function askRejectionAnalysis() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  const scenario = prompt('Describe the rejection scenario in one line (party, date, social, interview, etc).');
+  if (!scenario || !scenario.trim()) return;
+  goTo('screen-intake');
+  document.getElementById('chat-header-title').textContent = 'Rejection analysis';
+  document.getElementById('intake-mode-label').textContent = `${state.modeLabel} mode`;
+  document.getElementById('chat-messages').innerHTML = '';
+  document.getElementById('quick-replies').innerHTML = '';
+  const scoreNum = document.getElementById('chat-score-num');
+  if (scoreNum) scoreNum.textContent = state.profile?.score ?? state.liveScore ?? '—';
+  const seed = `The user wants a direct rejection analysis. Scenario: "${scenario.trim()}". Map likely contributing factors using their profile context (appearance, presence, social signaling), then give a practical fix path with 3 steps: immediate, this week, this month.`;
+  setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 300);
+}
+
+function askWhatDoYouActuallyWant() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  goTo('screen-intake');
+  document.getElementById('chat-header-title').textContent = 'What do you actually want?';
+  document.getElementById('intake-mode-label').textContent = `${state.modeLabel} mode`;
+  document.getElementById('chat-messages').innerHTML = '';
+  document.getElementById('quick-replies').innerHTML = '';
+  const scoreNum = document.getElementById('chat-score-num');
+  if (scoreNum) scoreNum.textContent = state.profile?.score ?? state.liveScore ?? '—';
+  const seed = `The user has completed ${state.checkins} check-ins. Run a reflection to recalibrate toward what they actually want others to feel when they see them. Ask one sharp question, then provide one concise interpretation and one tactical next move.`;
+  setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 300);
+}
+
+function consecutiveDrops(history) {
+  if (!history || history.length < 2) return 0;
+  let run = 0;
+  for (let i = history.length - 1; i > 0; i--) {
+    const cur = Number(history[i]?.score);
+    const prev = Number(history[i - 1]?.score);
+    if (!Number.isFinite(cur) || !Number.isFinite(prev)) break;
+    if (cur < prev) run++;
+    else break;
+  }
+  return run;
+}
+
+function runInterventionFlow() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  state.interventionSeen = true;
+  saveState();
+  goTo('screen-intake');
+  document.getElementById('chat-header-title').textContent = 'The intervention';
+  document.getElementById('intake-mode-label').textContent = `${state.modeLabel} mode`;
+  document.getElementById('chat-messages').innerHTML = '';
+  document.getElementById('quick-replies').innerHTML = '';
+  const scoreNum = document.getElementById('chat-score-num');
+  if (scoreNum) scoreNum.textContent = state.profile?.score ?? state.liveScore ?? '—';
+  const dropRun = consecutiveDrops(state.scoreHistory || []);
+  const seed = `Break character and deliver an intervention. Context: the user's score has dropped for ${dropRun} consecutive updates. In 3 compact paragraphs: name the likely pattern, call out one uncomfortable truth, then give a reset protocol for the next 72 hours.`;
+  setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 300);
+}
+
 function toggleQuickWinMode() {
   state.quickWinOnly = !state.quickWinOnly;
   saveState();
@@ -4546,7 +5041,7 @@ function populateDashboard() {
 
   // ── home
   document.getElementById('home-name').textContent    = state.name || '';
-  document.getElementById('home-mode-pill').textContent = state.modeLabel;
+  document.getElementById('home-mode-pill').textContent = state.modeLabel + ' ↗';
   document.getElementById('score-num').textContent    = p.score;
   const ring = document.getElementById('score-ring');
   if (ring) ring.setAttribute('stroke-dashoffset', scoreToOffset(p.score));
@@ -4653,19 +5148,29 @@ function populateDashboard() {
   const dnaEl = document.getElementById('style-dna-words');
   if (dnaEl) dnaEl.textContent = dnaWords.join(' · ');
   const dnaSub = document.getElementById('style-dna-sub');
-  if (dnaSub) dnaSub.textContent = `${split.appearance >= split.presence ? 'Appearance' : 'Presence'} is currently carrying more of your score.`;
+  if (dnaSub) dnaSub.textContent = p.styleDNA?.summary || `${split.appearance >= split.presence ? 'Appearance' : 'Presence'} is currently carrying more of your score.`;
   const notYetEl = document.getElementById('not-yet-list');
   if (notYetEl) notYetEl.innerHTML = notYet.map(item => `<div class="tiny-pill">${item}</div>`).join('');
   const voiceToneSub = document.getElementById('voice-tone-sub');
   if (voiceToneSub) voiceToneSub.textContent = getVoiceToneLabel();
   const focusCatSub = document.getElementById('focus-cat-sub');
   if (focusCatSub) focusCatSub.textContent = getFocusCategoryLabel();
+  const nemesisSub = document.getElementById('nemesis-sub');
+  if (nemesisSub) nemesisSub.textContent = state.nemesisTarget || 'Not set';
   updateApiPreview();
   // Update profile sub-labels
   const intakeSub = document.getElementById('intake-row-sub');
   if (intakeSub) intakeSub.textContent = state.chatHistory.length ? `${state.checkins} session${state.checkins !== 1 ? 's' : ''} recorded` : 'No sessions yet';
   const photosSub = document.getElementById('photos-row-sub');
-  if (photosSub) { const n = (state.photos || []).length; photosSub.textContent = n ? `${n} photo${n !== 1 ? 's' : ''} uploaded` : 'No photos yet'; }
+  const photosCtaSub = document.getElementById('photos-cta-sub');
+  if (photosSub) {
+    const n = (state.photos || []).length;
+    photosSub.textContent = n ? `${n} photo${n !== 1 ? 's' : ''} ready to analyze` : 'Upload and analyze photos';
+  }
+  if (photosCtaSub) {
+    const n = (state.photos || []).length;
+    photosCtaSub.textContent = n ? `${n} photo${n !== 1 ? 's' : ''} ready to analyze` : 'Upload and analyze your look';
+  }
   const histSub = document.getElementById('score-hist-row-sub');
   if (histSub) {
     const hist = state.scoreHistory || [];
@@ -4692,6 +5197,30 @@ function populateDashboard() {
     changeSub.textContent = latest ? `Latest: ${latest.slice(0, 34)}${latest.length > 34 ? '...' : ''}` : 'Add context for your next score';
   }
 
+  const desireUnlocked = state.checkins >= 3;
+  const interventionReady = !state.interventionSeen && consecutiveDrops(history) >= 3;
+  const advancedRow = document.getElementById('advanced-cta-row');
+  const desireCta = document.getElementById('desire-cta');
+  const interventionCta = document.getElementById('intervention-cta');
+  const desireSub = document.getElementById('desire-cta-sub');
+  const interventionSub = document.getElementById('intervention-cta-sub');
+  if (desireSub) {
+    const needed = Math.max(0, 3 - state.checkins);
+    desireSub.textContent = desireUnlocked ? 'Sharpen your direction' : `Unlocks in ${needed} more check-in${needed !== 1 ? 's' : ''}`;
+  }
+  if (interventionSub) {
+    const drops = consecutiveDrops(history);
+    interventionSub.textContent = interventionReady ? `Triggered — ${drops} consecutive drops` : 'Shows when your score drops 3× in a row';
+  }
+  // desire CTA always visible; dim when locked
+  if (desireCta) {
+    desireCta.style.display = 'block';
+    desireCta.style.opacity = desireUnlocked ? '1' : '0.45';
+    desireCta.style.pointerEvents = desireUnlocked ? '' : 'none';
+  }
+  if (interventionCta) interventionCta.style.display = interventionReady ? 'block' : 'none';
+  if (advancedRow) advancedRow.style.display = 'flex';
+
   // ── checkin gain estimate
   const gainEl = document.getElementById('checkin-gain');
   const gainTxtEl = document.getElementById('checkin-gain-text');
@@ -4710,15 +5239,11 @@ function populateDashboard() {
   if (checkinSub && state.scoreHistory && state.scoreHistory.length) {
     const lastDate = new Date(state.scoreHistory[state.scoreHistory.length - 1].date);
     const diffDays = Math.floor((Date.now() - lastDate) / 86400000);
-    checkinSub.textContent = diffDays <= 0 ? 'Session done today' : diffDays === 1 ? 'Last session was yesterday' : `Last session was ${diffDays} days ago`;
+    const dayText = diffDays <= 0 ? 'last done today' : diffDays === 1 ? 'last done yesterday' : `last done ${diffDays} days ago`;
+    checkinSub.textContent = `Rebuilds your full score & roadmap · ${dayText}`;
   }
 
-  // ── micro banner visibility
-  const microBanner = document.getElementById('micro-banner');
-  if (microBanner) {
-    const today = new Date().toISOString().slice(0, 10);
-    microBanner.style.display = (!!state.profile && state.lastMicroDate !== today) ? 'flex' : 'none';
-  }
+  // Quick check-in banner stays permanently visible on Home.
 
   // ── todo CTA sub
   const todoCtaSub = document.getElementById('todo-cta-sub');
@@ -4836,6 +5361,15 @@ function renderScoreHistoryScreen() {
 
 // ─── PHOTOS ───────────────────────────────────────────────────────
 function openPhotosModal() {
+  if (!Array.isArray(state.photos)) state.photos = [];
+  if (state.photos.length) {
+    if (!Number.isInteger(window.photoVisionIndex) || window.photoVisionIndex < 0 || window.photoVisionIndex >= state.photos.length) {
+      window.photoVisionIndex = state.photos.length - 1;
+    }
+  } else {
+    window.photoVisionIndex = -1;
+  }
+  window.photoVisionBusy = false;
   renderPhotoGrid();
   const modal = document.getElementById('photos-modal');
   modal.classList.add('show');
@@ -4853,11 +5387,15 @@ function renderPhotoGrid() {
   const grid = document.getElementById('photo-grid');
   if (!grid) return;
   const photos = state.photos || [];
+  if (!photos.length) window.photoVisionIndex = -1;
+  if (photos.length && (!Number.isInteger(window.photoVisionIndex) || window.photoVisionIndex < 0 || window.photoVisionIndex >= photos.length)) {
+    window.photoVisionIndex = photos.length - 1;
+  }
   const thumbsHTML = photos.map((p, i) =>
-    `<div class="photo-thumb">
+    `<div class="photo-thumb${i === window.photoVisionIndex ? ' selected' : ''}" onclick="selectPhotoForVision(${i})">
       <img src="${p.data}" alt="Photo ${i+1}" loading="lazy">
       ${p.score !== null ? `<div class="photo-thumb-score">${p.score}</div>` : ''}
-      <button class="photo-thumb-del" onclick="deletePhoto(${i})" aria-label="Delete photo">×</button>
+      <button class="photo-thumb-del" onclick="event.stopPropagation();deletePhoto(${i})" aria-label="Delete photo">×</button>
     </div>`
   ).join('');
   const uploadBtn = `<button class="photo-upload-btn" onclick="document.getElementById('photo-file-input').click()" aria-label="Add photo">
@@ -4873,9 +5411,100 @@ function renderPhotoGrid() {
   } else {
     compareSection.style.display = 'none';
   }
-  // Update profile row label
+  // Update photo labels on profile/home CTAs
   const sub = document.getElementById('photos-row-sub');
-  if (sub) sub.textContent = photos.length ? `${photos.length} photo${photos.length !== 1 ? 's' : ''} uploaded` : 'No photos yet';
+  const ctaSub = document.getElementById('photos-cta-sub');
+  if (sub) sub.textContent = photos.length ? `${photos.length} photo${photos.length !== 1 ? 's' : ''} ready to analyze` : 'Upload and analyze photos';
+  if (ctaSub) ctaSub.textContent = photos.length ? `${photos.length} photo${photos.length !== 1 ? 's' : ''} ready to analyze` : 'Upload and analyze your look';
+  renderPhotoVisionPanel();
+}
+
+function selectPhotoForVision(index) {
+  window.photoVisionIndex = index;
+  renderPhotoGrid();
+}
+
+function renderPhotoVisionPanel() {
+  const section = document.getElementById('photo-vision-section');
+  const summary = document.getElementById('photo-vision-summary');
+  const strengths = document.getElementById('photo-vision-strengths');
+  const improvements = document.getElementById('photo-vision-improvements');
+  const meta = document.getElementById('photo-vision-meta');
+  const btn = document.getElementById('photo-vision-btn');
+  if (!section || !summary || !strengths || !improvements || !meta || !btn) return;
+
+  const photos = state.photos || [];
+  if (!photos.length || window.photoVisionIndex < 0 || window.photoVisionIndex >= photos.length) {
+    section.style.display = 'none';
+    return;
+  }
+  section.style.display = 'block';
+
+  const p = photos[window.photoVisionIndex];
+  btn.disabled = !!window.photoVisionBusy;
+  btn.textContent = window.photoVisionBusy ? 'Analyzing...' : 'Analyze selected photo';
+
+  if (!p.vision) {
+    summary.textContent = 'No analysis yet for this photo. Run AI analysis to get strengths and fixes.';
+    strengths.innerHTML = '';
+    improvements.innerHTML = '';
+    meta.textContent = '';
+    return;
+  }
+
+  summary.textContent = p.vision.summary || 'Analysis complete.';
+  strengths.innerHTML = (p.vision.strengths || []).slice(0, 3).map(item => `<li>Strength: ${item}</li>`).join('');
+  improvements.innerHTML = (p.vision.improvements || []).slice(0, 4).map(item => `<li>Fix: ${item}</li>`).join('') + (p.vision.nextShot ? `<li>Next photo: ${p.vision.nextShot}</li>` : '');
+  const when = p.vision.analyzedAt ? new Date(p.vision.analyzedAt).toLocaleString() : '';
+  const conf = Number.isFinite(Number(p.vision.confidence)) ? ` · confidence ${p.vision.confidence}%` : '';
+  meta.textContent = `Analyzed ${when}${conf}`.trim();
+}
+
+async function analyzeSelectedPhotoVision() {
+  const idx = window.photoVisionIndex;
+  const photos = state.photos || [];
+  if (!photos.length || idx < 0 || idx >= photos.length) return;
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  const photo = photos[idx];
+
+  const sys = `You are a style and presence image analyst inside Designer. Be precise, constructive, and practical. Do not identify the person or guess sensitive traits.`;
+  const prompt = `Analyze this photo for style/presence coaching.
+Return ONLY valid JSON:
+{
+  "summary":"<1 sentence>",
+  "strengths":["<up to 3>","<...>"],
+  "improvements":["<up to 4 concrete fixes>","<...>"],
+  "nextShot":"<how to take a better next photo>",
+  "confidence":<0-100 integer>
+}
+
+Context:
+- User vibe: ${state.vibe}
+- Audience: ${state.audience}
+- Mode: ${state.mode}
+- Style DNA: ${state.profile?.styleDNA?.keywords?.join(', ') || 'unknown'}
+- Goal: Improve their own style identity, not force a new aesthetic.`;
+
+  window.photoVisionBusy = true;
+  renderPhotoVisionPanel();
+  try {
+    const raw = await callVisionAnalysis(photo.data, prompt, sys);
+    const parsed = extractJSON(raw);
+    photo.vision = {
+      summary: String(parsed?.summary || 'Photo reviewed.').trim(),
+      strengths: Array.isArray(parsed?.strengths) ? parsed.strengths.map(x => String(x || '').trim()).filter(Boolean).slice(0, 3) : [],
+      improvements: Array.isArray(parsed?.improvements) ? parsed.improvements.map(x => String(x || '').trim()).filter(Boolean).slice(0, 4) : [],
+      nextShot: String(parsed?.nextShot || '').trim(),
+      confidence: Math.max(0, Math.min(100, Math.round(Number(parsed?.confidence) || 0))),
+      analyzedAt: new Date().toISOString()
+    };
+    saveState();
+    renderPhotoVisionPanel();
+  } catch (err) {
+    alert(`Photo vision analysis failed: ${err.message}`);
+  }
+  window.photoVisionBusy = false;
+  renderPhotoVisionPanel();
 }
 
 function renderPhotoCompare(photos) {
@@ -4898,6 +5527,7 @@ function renderPhotoCompare(photos) {
 function deletePhoto(index) {
   if (!confirm('Remove this photo?')) return;
   state.photos.splice(index, 1);
+  if (window.photoVisionIndex >= state.photos.length) window.photoVisionIndex = state.photos.length - 1;
   saveState();
   renderPhotoGrid();
 }
@@ -4913,7 +5543,8 @@ function handlePhotoUpload(input) {
   const reader = new FileReader();
   reader.onload = e => {
     if (!state.photos) state.photos = [];
-    state.photos.push({ data: e.target.result, date: new Date().toISOString(), score: state.profile?.score ?? null });
+    state.photos.push({ data: e.target.result, date: new Date().toISOString(), score: state.profile?.score ?? null, vision: null });
+    window.photoVisionIndex = state.photos.length - 1;
     saveState();
     renderPhotoGrid();
   };
