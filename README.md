@@ -158,6 +158,18 @@ These are intentionally moved out of `designer-deferred.html` so the active defe
 - Prism Roast to check-in import
 - Prism Social to score share
 
+### Product Features (Post-MVP)
+
+- Score battles (viral mode): two-user Beast-mode category comparison with winner card for sharing.
+- Designer wrapped: monthly/yearly recap card (journey, improvements, best week, worst week, dominant mode).
+- Glow-up verified badge: journey-based badge for meaningful improvement threshold (for example, +20 from start).
+- Friend audit: anonymous friend photo audit with strong safety framing and consent language.
+- Accountability partner: paired accountability sharing roadmap completion only (not scores), anonymous by default until mutual reveal.
+- Designer certified annual certificate: yearly certificate for consistent check-ins plus meaningful improvement.
+- Waitlist aura prelaunch flow: prelaunch waitlist with one-line vibe submission and AI one-line reaction.
+- My Designer told me quote cards: save sharp AI lines as shareable quote cards with score and mode badge.
+- Improvement leaderboard (opt-in): rank users by gain from baseline with weekly reset and privacy control.
+
 ### Monetisation (Not Wired)
 
 - Paywall / upgrade flow

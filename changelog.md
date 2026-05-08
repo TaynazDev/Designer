@@ -2,6 +2,26 @@
 
 All notable changes to this project are documented in this file.
 
+## 0.0.1
+
+### Added
+
+- Unified quick check-in path so daily micro prompt and chat quick-check use the same flow
+- Per-prompt live score movement in chat/check-ins (score can go up or down after each user prompt)
+
+### Changed
+
+- Sign-in/import routing now lands directly in the app when account data is present
+- Mode changes no longer force users into a new intake chat if a profile already exists
+- Deferred tracker organization updated: version-name section moved to the bottom
+- Post-MVP feature items moved out of deferred tracker into README backlog section
+
+### Fixed
+
+- Transfer/import flow no longer auto-overwrites pasted transfer docs on modal open
+- Import no longer falls back to stale local identity fields when restoring account data
+- Remaining mojibake/symbol rendering issues in app UI text were corrected
+
 ## Prismatic 0.0.0
 
 Status: still a prototype, but now a usable prototype.
