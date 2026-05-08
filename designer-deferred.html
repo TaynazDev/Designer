@@ -153,6 +153,39 @@ h1 {
 .tag.needs-design { color: var(--pink); border-color: rgba(232,130,154,0.3); background: rgba(232,130,154,0.07); }
 .tag.needs-data { color: var(--green); border-color: rgba(109,201,138,0.3); background: rgba(109,201,138,0.08); }
 .tag.complex { color: rgba(179,157,192,1); border-color: rgba(179,157,192,0.3); background: rgba(179,157,192,0.07); }
+.tag.done {
+  color: var(--green);
+  border-color: rgba(109,201,138,0.35);
+  background: rgba(109,201,138,0.1);
+}
+.done-dropdown {
+  border: 0.5px solid var(--border2);
+  border-radius: 16px;
+  background: var(--surface);
+  overflow: hidden;
+}
+.done-dropdown > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 14px 18px;
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+  border-bottom: 0.5px solid transparent;
+}
+.done-dropdown[open] > summary {
+  border-bottom-color: var(--border);
+}
+.done-inner { padding: 12px; }
+.done-empty {
+  padding: 10px 8px;
+  font-size: 13px;
+  color: var(--text3);
+  text-align: center;
+}
 .note {
   margin-top: 40px;
   padding: 16px 20px;
@@ -180,6 +213,18 @@ h1 {
   <div class="hero-badge">Deferred features</div>
   <h1>Not in the<br><span class="grad">prototype yet.</span></h1>
   <p class="lead">Everything below is planned, documented, or required for the real product — but not yet built into the interactive prototype. Tracked here so nothing gets lost.</p>
+
+  <!-- DONE DROPDOWN -->
+  <div class="section">
+    <details class="done-dropdown" open>
+      <summary id="done-summary">Done</summary>
+      <div class="done-inner">
+        <div class="items" id="done-items">
+          <div class="done-empty" id="done-empty">No completed items moved yet.</div>
+        </div>
+      </div>
+    </details>
+  </div>
 
   <!-- SCREENS NOT BUILT -->
   <div class="section">
@@ -260,14 +305,14 @@ h1 {
           <div class="item-title">Vibe search / inspo panel</div>
           <div class="item-desc">From vibe selection, let users request "show me what this looks like" and surface concrete references (AI-curated image direction and links) for the exact aesthetic they are chasing.</div>
         </div>
-        <div class="tag needs-design">Needs design</div>
+        <div class="tag done">Done</div>
       </div>
       <div class="item">
         <div>
           <div class="item-title">Free-form AI chat tab</div>
           <div class="item-desc">A persistent "Ask Designer anything" chat mode using stored profile context for questions like outfit checks, haircut decisions, and quick style calls between check-ins.</div>
         </div>
-        <div class="tag needs-design">Needs design</div>
+        <div class="tag done">Done</div>
       </div>
     </div>
   </div>
@@ -299,27 +344,6 @@ h1 {
       </div>
       <div class="item">
         <div>
-          <div class="item-title">Profile persistence (Supabase)</div>
-          <div class="item-desc">profiles, scores, check_ins, photo_analyses tables. Profile JSON stored and passed with every check-in prompt. Score history tracked row by row.</div>
-        </div>
-        <div class="tag needs-data">Needs backend</div>
-      </div>
-      <div class="item">
-        <div>
-          <div class="item-title">Prism ID auth</div>
-          <div class="item-desc">Sign in / sign up shared across all Prism apps. No separate account per app. SSO-style within the suite. Supabase Auth or dedicated service TBD.</div>
-        </div>
-        <div class="tag needs-data">Needs backend</div>
-      </div>
-      <div class="item">
-        <div>
-          <div class="item-title">Rate limiting (Upstash Redis)</div>
-          <div class="item-desc">Free tier: 3 AI sessions/day. Pro: unlimited. Vision calls tracked separately — counted and cost-monitored. Limits shown in UI when approaching cap.</div>
-        </div>
-        <div class="tag needs-data">Needs backend</div>
-      </div>
-      <div class="item">
-        <div>
           <div class="item-title">Mode-change re-score logic</div>
           <div class="item-desc">Switching modes adjusts the difficulty weighting of historical scores retroactively or flags next check-in as a re-baseline. Behaviour needs definition.</div>
         </div>
@@ -330,7 +354,7 @@ h1 {
           <div class="item-title">Streak system (pause, not reset)</div>
           <div class="item-desc">Track daily check-in streaks visibly on Home (for example "8 day streak"). Missing a day should pause a streak instead of hard reset, aligned with Prism Grind philosophy.</div>
         </div>
-        <div class="tag complex">Complex</div>
+        <div class="tag done">Done</div>
       </div>
       <div class="item">
         <div>
@@ -344,7 +368,7 @@ h1 {
           <div class="item-title">Score milestone share trigger</div>
           <div class="item-desc">Wire logic that automatically offers a stylised share card when new score milestones are reached (for example "I hit 72 in Beast mode") while preserving Prism visual identity.</div>
         </div>
-        <div class="tag complex">Complex</div>
+        <div class="tag done">Done</div>
       </div>
       <div class="item">
         <div>
@@ -438,13 +462,6 @@ h1 {
       </div>
       <div class="item">
         <div>
-          <div class="item-title">Roast-to-fix pipeline (Prism Roast to Designer)</div>
-          <div class="item-desc">One-tap import from Prism Roast into Designer social category scoring and roadmap updates. High-value suite integration.</div>
-        </div>
-        <div class="tag post-mvp">Post-MVP</div>
-      </div>
-      <div class="item">
-        <div>
           <div class="item-title">What would a 90 look like for me</div>
           <div class="item-desc">On-demand AI-generated personal 90-score vision in the user's vibe, focused on concrete life/style/presence outcomes.</div>
         </div>
@@ -455,7 +472,7 @@ h1 {
           <div class="item-title">Weekly drop</div>
           <div class="item-desc">Weekly single-focus recommendation (example: this week fix haircut) shown on app open or sent as reminder for rhythm without overwhelm.</div>
         </div>
-        <div class="tag complex">Complex</div>
+        <div class="tag done">Done</div>
       </div>
 
     <!-- NEW STANDALONE IDEAS (batch added) -->
@@ -467,7 +484,7 @@ h1 {
             <div class="item-title">Who are you dressing for?</div>
             <div class="item-desc">Onboarding prompt or profile question: "Who is the primary audience for how you present yourself?" (yourself, a partner, peers, strangers, professional context). AI tailors coaching framing based on answer.</div>
           </div>
-          <div class="tag needs-design">Needs design</div>
+          <div class="tag done">Done</div>
         </div>
         <div class="item">
           <div>
@@ -488,21 +505,21 @@ h1 {
             <div class="item-title">Morning brief</div>
             <div class="item-desc">On app open before noon, show a single-sentence coaching nudge based on the most pressing open roadmap item. No action required. Dismissed by scrolling past.</div>
           </div>
-          <div class="tag needs-design">Needs design</div>
+          <div class="tag done">Done</div>
         </div>
         <div class="item">
           <div>
             <div class="item-title">What changed log</div>
             <div class="item-desc">Freeform user notes attached to check-ins: "I got the haircut", "started working out again". Shown in score history alongside the score delta to give context to numbers.</div>
           </div>
-          <div class="tag needs-design">Needs design</div>
+          <div class="tag done">Done</div>
         </div>
         <div class="item">
           <div>
             <div class="item-title">Style weather</div>
             <div class="item-desc">Micro "weather" indicator on home screen: current trajectory shown as a weather metaphor (☀️ Hot streak, 🌥 Stalled, 🌧 Sliding). Based on last 3 sessions' score movement.</div>
           </div>
-          <div class="tag needs-design">Needs design</div>
+          <div class="tag done">Done</div>
         </div>
         <div class="item">
           <div>
@@ -523,42 +540,42 @@ h1 {
             <div class="item-title">The switch</div>
             <div class="item-desc">One-tap "flip the energy" prompt: AI reframes the user's biggest weakness as their biggest opportunity in 2 sentences. Positive but not saccharine. Designed for low-motivation days.</div>
           </div>
-          <div class="tag needs-design">Needs design</div>
+          <div class="tag done">Done</div>
         </div>
         <div class="item">
           <div>
             <div class="item-title">Legacy score</div>
             <div class="item-desc">A separate "all-time best" score shown on profile that never goes down. Separate from current score. Creates an aspirational anchor and prevents discouragement from check-in variance.</div>
           </div>
-          <div class="tag needs-design">Needs design</div>
+          <div class="tag done">Done</div>
         </div>
         <div class="item">
           <div>
             <div class="item-title">Task streaks per category</div>
             <div class="item-desc">In the To-Do screen, track consecutive days a category had at least one task completed. Show streak chip per category group (e.g. "Grooming 🔥 4 days"). Reset if no task checked in category for 48h.</div>
           </div>
-          <div class="tag complex">Complex</div>
+          <div class="tag done">Done</div>
         </div>
         <div class="item">
           <div>
             <div class="item-title">"I did something not on the list"</div>
             <div class="item-desc">Button in To-Do screen to log a self-directed action that wasn't on the roadmap. AI acknowledges it in one sentence and optionally adds it as a completed roadmap item. Rewards self-initiative.</div>
           </div>
-          <div class="tag needs-design">Needs design</div>
+          <div class="tag done">Done</div>
         </div>
         <div class="item">
           <div>
             <div class="item-title">Difficulty rating on tasks</div>
             <div class="item-desc">Each roadmap/to-do item has a difficulty indicator (Easy / Moderate / Hard) shown as a subtle dot or label. Helps users pick where to start and sets realistic expectations on effort.</div>
           </div>
-          <div class="tag needs-design">Needs design</div>
+          <div class="tag done">Done</div>
         </div>
         <div class="item">
           <div>
             <div class="item-title">Quick win mode</div>
             <div class="item-desc">One-tap filter in To-Do screen that shows only "Do Now" tier tasks with no spend required. For days the user is overwhelmed or low energy — gives them one achievable thing to do right now.</div>
           </div>
-          <div class="tag needs-design">Needs design</div>
+          <div class="tag done">Done</div>
         </div>
       </div>
     </div>
@@ -773,5 +790,36 @@ h1 {
   </div>
 
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const doneItemsHost = document.getElementById('done-items');
+  const doneEmpty = document.getElementById('done-empty');
+  const doneSummary = document.getElementById('done-summary');
+  if (!doneItemsHost || !doneSummary) return;
+
+  const allItems = Array.from(document.querySelectorAll('.item'));
+  const moved = [];
+
+  allItems.forEach(item => {
+    const tag = item.querySelector('.tag');
+    if (!tag) return;
+    const label = (tag.textContent || '').trim().toLowerCase();
+    const isDone = label === 'done';
+    if (!isDone) return;
+
+    // Force coherent green done style everywhere.
+    tag.classList.remove('post-mvp', 'needs-design', 'needs-data', 'complex');
+    tag.classList.add('done');
+    tag.removeAttribute('style');
+
+    moved.push(item);
+  });
+
+  moved.forEach(item => doneItemsHost.appendChild(item));
+
+  if (doneEmpty) doneEmpty.style.display = moved.length ? 'none' : 'block';
+  doneSummary.textContent = `Done (${moved.length})`;
+});
+</script>
 </body>
 </html>

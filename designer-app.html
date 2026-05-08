@@ -1964,6 +1964,24 @@ html, body {
 
 /* â”€â”€â”€ CHECKIN GAIN ESTIMATE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .checkin-gain { display: flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: #6DC98A; margin-top: 3px; }
+
+/* extra deferred idea UI */
+.audience-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.audience-chip { padding: 7px 11px; border-radius: 999px; border: 0.5px solid var(--border2); font-size: 12px; color: var(--text2); cursor: pointer; }
+.audience-chip.selected { color: var(--text); border-color: rgba(122,174,204,0.45); background: rgba(122,174,204,0.1); }
+.signal-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.signal-chip { font-size: 11px; color: var(--text2); border: 0.5px solid var(--border2); border-radius: 999px; padding: 4px 10px; }
+.brief-card { padding: 12px 14px; border-radius: 14px; border: 0.5px solid var(--border); background: var(--surface); }
+.brief-title { font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--text3); margin-bottom: 5px; font-family: 'Syne', sans-serif; }
+.brief-body { font-size: 12px; color: var(--text2); line-height: 1.5; }
+.brief-actions { margin-top: 8px; display: flex; gap: 8px; }
+.mini-btn { background: transparent; border: 0.5px solid var(--border2); border-radius: 999px; color: var(--text2); font-size: 11px; padding: 4px 10px; cursor: pointer; }
+.mini-btn:hover { color: var(--text); border-color: var(--border3); }
+.todo-controls { display: flex; gap: 8px; margin-top: 4px; }
+.todo-control-btn { border: 0.5px solid var(--border2); border-radius: 999px; background: transparent; color: var(--text2); font-size: 11px; padding: 6px 10px; cursor: pointer; }
+.todo-control-btn.active { color: var(--blue); border-color: rgba(122,174,204,0.45); background: rgba(122,174,204,0.1); }
+.todo-diff { font-size: 10px; color: var(--text3); margin-top: 4px; }
+.legacy-line { margin-top: 10px; font-size: 12px; color: var(--text2); border: 0.5px solid var(--border2); border-radius: 999px; padding: 6px 10px; display: inline-flex; gap: 8px; align-items: center; }
 </style>
 </head>
 <body>
@@ -2167,6 +2185,13 @@ html, body {
             placeholder="Or describe your own vibeâ€¦"
             oninput="clearVibeChips()"
           />
+          <div class="vibe-section-label" style="margin-top:14px;">Who are you dressing for?</div>
+          <div class="audience-chips">
+            <div class="audience-chip selected" data-audience="Myself" onclick="setAudience(this)">Myself</div>
+            <div class="audience-chip" data-audience="Dating" onclick="setAudience(this)">Dating</div>
+            <div class="audience-chip" data-audience="Professional" onclick="setAudience(this)">Professional</div>
+            <div class="audience-chip" data-audience="Social circles" onclick="setAudience(this)">Social circles</div>
+          </div>
         </div>
       </div>
     </div>
@@ -2332,6 +2357,26 @@ html, body {
         <div class="home-mode-pill" id="home-mode-pill">Real</div>
       </div>
 
+      <div class="signal-row">
+        <div class="signal-chip" id="style-weather-chip">Weather: --</div>
+        <div class="signal-chip" id="streak-chip-home">Streak: --</div>
+        <div class="signal-chip" id="audience-chip-home">For: Myself</div>
+      </div>
+
+      <div class="brief-card">
+        <div class="brief-title">Morning brief</div>
+        <div class="brief-body" id="morning-brief-text">Your next high-impact action appears here.</div>
+        <div class="brief-actions">
+          <button class="mini-btn" onclick="askSwitchReframe()">The switch</button>
+          <button class="mini-btn" onclick="openVibeInspo()">Vibe inspo</button>
+        </div>
+      </div>
+
+      <div class="brief-card">
+        <div class="brief-title">Weekly drop</div>
+        <div class="brief-body" id="weekly-drop-text">Your weekly focus appears here.</div>
+      </div>
+
       <!-- Score card -->
       <div>
         <div class="section-label">Your score</div>
@@ -2492,6 +2537,18 @@ html, body {
           <div class="home-cta-sub">Your personal target vision</div>
         </div>
       </div>
+      <div class="home-cta-row">
+        <div class="home-cta" onclick="startFreeChat()">
+          <div class="home-cta-icon">ðŸ’¬</div>
+          <div class="home-cta-title">Ask Designer anything</div>
+          <div class="home-cta-sub">Free-form chat with profile context</div>
+        </div>
+        <div class="home-cta" onclick="logWhatChanged()">
+          <div class="home-cta-icon">âœï¸</div>
+          <div class="home-cta-title">What changed today?</div>
+          <div class="home-cta-sub" id="change-log-sub">Add context for your next score</div>
+        </div>
+      </div>
 
     </div>
     <!-- Bottom nav injected here -->
@@ -2647,6 +2704,7 @@ html, body {
           <div class="pstat-label">Total gain</div>
         </div>
       </div>
+      <div class="legacy-line" id="legacy-line">Legacy score: --</div>
 
       <div class="profile-mode-section">
         <div class="section-label">Active mode</div>
@@ -2718,7 +2776,7 @@ html, body {
         <div class="profile-row" onclick="openTransferModal()" style="cursor:pointer;">
           <div class="profile-row-left">
             <div class="profile-row-label">Transfer document</div>
-            <div class="profile-row-sub">Export/import your full profile and chat for another device</div>
+            <div class="profile-row-sub">Export/import your full local account snapshot for another device</div>
           </div>
           <div class="profile-row-right">
             Open
@@ -2929,7 +2987,7 @@ html, body {
     <div class="transfer-top">
       <div>
         <div class="transfer-title" id="transfer-title">Transfer document</div>
-        <div class="transfer-sub">Generate an AI-formatted document on this device, then paste it into the same screen on another device and tap import.</div>
+        <div class="transfer-sub">Generate a portable document that includes your local profile, score history, chats, photos, reminders, tasks, and recent progress state. Paste it into this same screen on another device and tap import.</div>
       </div>
       <button class="cat-modal-close" onclick="closeTransferModal()" aria-label="Close transfer modal">Ã—</button>
     </div>
@@ -2941,7 +2999,7 @@ html, body {
       <button class="transfer-btn" onclick="clearTransferDoc()">Clear</button>
     </div>
 
-    <textarea id="transfer-text" class="transfer-text" placeholder="Your transfer document appears hereâ€¦"></textarea>
+    <textarea id="transfer-text" class="transfer-text" placeholder="Your full account transfer document appears hereâ€¦"></textarea>
   </div>
 </div>
 
@@ -2991,6 +3049,10 @@ html, body {
     </button>
     <div class="todo-header-title">Your tasks</div>
     <div class="todo-done-count" id="todo-done-count"></div>
+  </div>
+  <div class="todo-controls" style="padding: 0 20px 10px;">
+    <button class="todo-control-btn" id="quick-win-btn" onclick="toggleQuickWinMode()">Quick win mode</button>
+    <button class="todo-control-btn" onclick="logOffListAction()">I did something not on the list</button>
   </div>
   <div class="todo-scroll scroll-area" id="todo-scroll-area">
     <!-- injected by renderTodoList() -->
@@ -3116,7 +3178,13 @@ let state = {
   scoreHistory: [],   // [{score, mode, modeLabel, date: ISO}]
   reminderSettings: { daily: false, weekly: false, streak: false },
   todoChecked: {},    // { [taskKey]: true } â€” checked roadmap items
-  lastMicroDate: null // 'YYYY-MM-DD' â€” last daily micro-prompt date
+  lastMicroDate: null, // 'YYYY-MM-DD' â€” last daily micro-prompt date
+  audience: 'Myself',
+  legacyScore: null,
+  whatChangedLog: [],
+  todoEvents: [],
+  quickWinOnly: false,
+  weeklyDrop: { text: '', date: '' }
 };
 
 // â”€â”€â”€ LOCAL STORAGE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -3141,6 +3209,13 @@ function saveState() {
   localStorage.setItem('ds_todo_checked', JSON.stringify(state.todoChecked || {}));
   if (state.lastMicroDate) localStorage.setItem('ds_last_micro', state.lastMicroDate);
   else localStorage.removeItem('ds_last_micro');
+  localStorage.setItem('ds_audience', state.audience || 'Myself');
+  if (state.legacyScore !== null) localStorage.setItem('ds_legacy_score', String(state.legacyScore));
+  else localStorage.removeItem('ds_legacy_score');
+  localStorage.setItem('ds_changed_log', JSON.stringify(state.whatChangedLog || []));
+  localStorage.setItem('ds_todo_events', JSON.stringify(state.todoEvents || []));
+  localStorage.setItem('ds_quick_win', state.quickWinOnly ? '1' : '0');
+  localStorage.setItem('ds_weekly_drop', JSON.stringify(state.weeklyDrop || { text: '', date: '' }));
 }
 
 function loadState() {
@@ -3170,6 +3245,16 @@ function loadState() {
   const tc = localStorage.getItem('ds_todo_checked');
   if (tc) { try { state.todoChecked = JSON.parse(tc); } catch(e) { state.todoChecked = {}; } }
   state.lastMicroDate = localStorage.getItem('ds_last_micro') || null;
+  state.audience = localStorage.getItem('ds_audience') || 'Myself';
+  const ls = localStorage.getItem('ds_legacy_score');
+  state.legacyScore = ls !== null ? parseInt(ls) : null;
+  const cl = localStorage.getItem('ds_changed_log');
+  if (cl) { try { state.whatChangedLog = JSON.parse(cl); } catch(e) { state.whatChangedLog = []; } }
+  const te = localStorage.getItem('ds_todo_events');
+  if (te) { try { state.todoEvents = JSON.parse(te); } catch(e) { state.todoEvents = []; } }
+  state.quickWinOnly = localStorage.getItem('ds_quick_win') === '1';
+  const wd = localStorage.getItem('ds_weekly_drop');
+  if (wd) { try { state.weeklyDrop = JSON.parse(wd); } catch(e) { state.weeklyDrop = { text: '', date: '' }; } }
 }
 
 function resetProfile() {
@@ -3284,12 +3369,14 @@ async function callGemini(messages, systemPrompt) {
 async function generateProfile() {
   const convo = state.chatHistory.map(m => `${m.role === 'user' ? 'User' : 'Designer'}: ${m.content}`).join('\n');
   const prevNote = state.profile ? `Previous score was ${state.profile.score}. This is a check-in session.` : 'This is the first intake.';
+  const changeNote = state.whatChangedLog?.[0]?.text ? `Latest self-reported change: ${state.whatChangedLog[0].text}` : 'No self-reported change note.';
   const prompt = `Based on this conversation, generate a JSON profile object. Return ONLY valid JSON â€” no markdown, no explanation.
 
 Conversation:
 ${convo}
 
 ${prevNote}
+${changeNote}
 Mode: ${state.mode} (affects scoring harshness)
 
 Required JSON structure:
@@ -3410,9 +3497,17 @@ function clearVibeChips() {
   document.querySelectorAll('.vibe-chip').forEach(c => c.classList.remove('selected'));
 }
 
+function setAudience(chip) {
+  document.querySelectorAll('.audience-chip').forEach(c => c.classList.remove('selected'));
+  chip.classList.add('selected');
+  state.audience = chip.dataset.audience || 'Myself';
+}
+
 function saveAndContinue() {
   // collect selected goals
   state.goals = Array.from(document.querySelectorAll('.goal-card.selected')).map(c => c.dataset.goal);
+  const selAudience = document.querySelector('.audience-chip.selected');
+  if (selAudience) state.audience = selAudience.dataset.audience || 'Myself';
   // vibe: custom input overrides chip selection
   const customVibe = document.getElementById('vibe-custom').value.trim();
   if (customVibe) state.vibe = customVibe;
@@ -3618,9 +3713,10 @@ async function buildProfile() {
     state.profile = { ...profileData, prevScore };
     state.checkins++;
     if (state.scoreStart === null) state.scoreStart = profileData.score;
+    if (state.legacyScore === null || profileData.score > state.legacyScore) state.legacyScore = profileData.score;
     // Record score history entry
     if (!state.scoreHistory) state.scoreHistory = [];
-    state.scoreHistory.push({ score: profileData.score, mode: state.mode, modeLabel: state.modeLabel, date: new Date().toISOString() });
+    state.scoreHistory.push({ score: profileData.score, mode: state.mode, modeLabel: state.modeLabel, date: new Date().toISOString(), note: state.whatChangedLog?.[0]?.text || '' });
     saveState();
     addMsg('ai', `Done. Your score is ${profileData.score}. Heading to your dashboard now.`);
     setTimeout(() => {
@@ -3788,7 +3884,7 @@ function clearTransferDoc() {
 
 function getPortableState() {
   return {
-    version: 1,
+    version: 2,
     exportedAt: new Date().toISOString(),
     data: {
       apiKey: state.apiKey,
@@ -3803,7 +3899,18 @@ function getPortableState() {
       checkins: state.checkins,
       scoreStart: state.scoreStart,
       chatType: state.chatType,
-      chatHistory: state.chatHistory
+      chatHistory: state.chatHistory,
+      photos: state.photos,
+      scoreHistory: state.scoreHistory,
+      reminderSettings: state.reminderSettings,
+      todoChecked: state.todoChecked,
+      lastMicroDate: state.lastMicroDate,
+      audience: state.audience,
+      legacyScore: state.legacyScore,
+      whatChangedLog: state.whatChangedLog,
+      todoEvents: state.todoEvents,
+      quickWinOnly: state.quickWinOnly,
+      weeklyDrop: state.weeklyDrop
     }
   };
 }
@@ -3911,6 +4018,17 @@ function importTransferDoc() {
   state.scoreStart = (d.scoreStart === null || d.scoreStart === undefined) ? null : parseInt(d.scoreStart);
   state.chatType = d.chatType || 'chat';
   state.chatHistory = Array.isArray(d.chatHistory) ? d.chatHistory : [];
+  state.photos = Array.isArray(d.photos) ? d.photos : [];
+  state.scoreHistory = Array.isArray(d.scoreHistory) ? d.scoreHistory : [];
+  state.reminderSettings = d.reminderSettings && typeof d.reminderSettings === 'object' ? d.reminderSettings : { daily: false, weekly: false, streak: false };
+  state.todoChecked = d.todoChecked && typeof d.todoChecked === 'object' ? d.todoChecked : {};
+  state.lastMicroDate = d.lastMicroDate || null;
+  state.audience = d.audience || 'Myself';
+  state.legacyScore = (d.legacyScore === null || d.legacyScore === undefined || Number.isNaN(parseInt(d.legacyScore))) ? null : parseInt(d.legacyScore);
+  state.whatChangedLog = Array.isArray(d.whatChangedLog) ? d.whatChangedLog : [];
+  state.todoEvents = Array.isArray(d.todoEvents) ? d.todoEvents : [];
+  state.quickWinOnly = !!d.quickWinOnly;
+  state.weeklyDrop = d.weeklyDrop && typeof d.weeklyDrop === 'object' ? d.weeklyDrop : { text: '', date: '' };
 
   saveState();
   if (state.name) updateNameUI();
@@ -3921,6 +4039,145 @@ function importTransferDoc() {
   else if (state.apiKey) goTo('screen-splash');
   else goTo('screen-api-setup');
   closeTransferModal();
+}
+
+function toISODate(d) {
+  return new Date(d).toISOString().slice(0, 10);
+}
+
+function computeStreakStatus() {
+  const hist = (state.scoreHistory || []).map(h => toISODate(h.date));
+  const uniq = [...new Set(hist)].sort();
+  if (!uniq.length) return { label: 'No streak yet', days: 0, paused: 0 };
+  let run = 1;
+  for (let i = uniq.length - 1; i > 0; i--) {
+    const a = new Date(uniq[i]);
+    const b = new Date(uniq[i - 1]);
+    const diff = Math.round((a - b) / 86400000);
+    if (diff === 1) run++;
+    else break;
+  }
+  const last = new Date(uniq[uniq.length - 1]);
+  const paused = Math.max(0, Math.floor((Date.now() - last.getTime()) / 86400000) - 1);
+  return { label: paused > 0 ? `${run} day streak (paused ${paused}d)` : `${run} day streak`, days: run, paused };
+}
+
+function computeStyleWeather() {
+  const hist = state.scoreHistory || [];
+  if (hist.length < 3) return 'Weather: warming up';
+  const d1 = hist[hist.length - 1].score - hist[hist.length - 2].score;
+  const d2 = hist[hist.length - 2].score - hist[hist.length - 3].score;
+  const sum = d1 + d2;
+  if (sum >= 4) return 'Weather: hot streak';
+  if (sum <= -3) return 'Weather: sliding';
+  return 'Weather: steady';
+}
+
+function difficultyLabel(item) {
+  const txt = `${item.tier || ''} ${item.action || ''}`.toLowerCase();
+  if ((item.tier || '') === 'time' || /months|transform|overhaul|build/i.test(txt)) return 'Hard';
+  if ((item.tier || '') === 'effort' || /routine|upgrade|consistent|buy|invest/i.test(txt)) return 'Moderate';
+  return 'Easy';
+}
+
+function buildWeeklyDrop() {
+  const week = `${new Date().getUTCFullYear()}-${Math.ceil((new Date().getUTCDate() + 6 - new Date().getUTCDay()) / 7)}`;
+  if (state.weeklyDrop?.date === week && state.weeklyDrop?.text) return state.weeklyDrop.text;
+  const top = state.profile?.roadmap?.[0]?.action || 'Do one intentional style move and report it in your next check-in.';
+  state.weeklyDrop = { text: top, date: week };
+  saveState();
+  return top;
+}
+
+function startFreeChat() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  goTo('screen-intake');
+  state.chatType = 'free';
+  document.getElementById('chat-header-title').textContent = 'Ask Designer anything';
+  document.getElementById('intake-mode-label').textContent = `${state.modeLabel} mode · free chat`;
+  document.getElementById('chat-messages').innerHTML = '';
+  document.getElementById('quick-replies').innerHTML = '';
+  const scoreNum = document.getElementById('chat-score-num');
+  if (scoreNum) scoreNum.textContent = state.profile?.score ?? '—';
+  const seed = `The user wants free-form advice right now. Use their profile context if relevant. Keep answers practical and concise. Start with: "What do you want help with right now?"`;
+  setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 250);
+}
+
+function openVibeInspo() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  goTo('screen-intake');
+  document.getElementById('chat-header-title').textContent = 'Vibe inspo';
+  document.getElementById('intake-mode-label').textContent = state.modeLabel + ' mode';
+  document.getElementById('chat-messages').innerHTML = '';
+  document.getElementById('quick-replies').innerHTML = '';
+  const seed = `The user vibe is "${state.vibe}" and audience is "${state.audience}". Give 5 concrete vibe references (outfit directions), each with a one-line explanation and one Pinterest markdown link.`;
+  setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 250);
+}
+
+function askSwitchReframe() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  goTo('screen-intake');
+  document.getElementById('chat-header-title').textContent = 'The switch';
+  document.getElementById('intake-mode-label').textContent = state.modeLabel + ' mode';
+  document.getElementById('chat-messages').innerHTML = '';
+  document.getElementById('quick-replies').innerHTML = '';
+  const weak = state.profile?.weaknesses?.[0] || 'inconsistency';
+  const seed = `In 2 concise sentences, reframe the user's biggest weakness ("${weak}") into their biggest leverage opportunity. Finish with one tiny action they can do today.`;
+  setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 250);
+}
+
+function logWhatChanged() {
+  const text = prompt('What changed recently? (example: haircut, skincare, posture, gym, confidence move)');
+  if (!text || !text.trim()) return;
+  if (!state.whatChangedLog) state.whatChangedLog = [];
+  state.whatChangedLog.unshift({ text: text.trim(), date: new Date().toISOString() });
+  state.whatChangedLog = state.whatChangedLog.slice(0, 30);
+  saveState();
+  const sub = document.getElementById('change-log-sub');
+  if (sub) sub.textContent = `Latest: ${text.trim().slice(0, 34)}${text.trim().length > 34 ? '...' : ''}`;
+}
+
+function toggleQuickWinMode() {
+  state.quickWinOnly = !state.quickWinOnly;
+  saveState();
+  const btn = document.getElementById('quick-win-btn');
+  if (btn) btn.classList.toggle('active', !!state.quickWinOnly);
+  renderTodoList();
+}
+
+function logOffListAction() {
+  const text = prompt('What did you do that was not on the list?');
+  if (!text || !text.trim()) return;
+  if (!state.whatChangedLog) state.whatChangedLog = [];
+  state.whatChangedLog.unshift({ text: `[Off-list] ${text.trim()}`, date: new Date().toISOString() });
+  state.whatChangedLog = state.whatChangedLog.slice(0, 30);
+  saveState();
+  alert('Logged. Nice initiative. This will be considered in your next check-in.');
+}
+
+function computeCategoryStreakMap() {
+  const events = (state.todoEvents || []).filter(e => e.done && e.category);
+  const byCat = {};
+  events.forEach(e => {
+    const day = toISODate(e.date);
+    if (!byCat[e.category]) byCat[e.category] = new Set();
+    byCat[e.category].add(day);
+  });
+  const out = {};
+  Object.keys(byCat).forEach(cat => {
+    const days = [...byCat[cat]].sort();
+    if (!days.length) { out[cat] = 0; return; }
+    let run = 1;
+    for (let i = days.length - 1; i > 0; i--) {
+      const a = new Date(days[i]);
+      const b = new Date(days[i - 1]);
+      const diff = Math.round((a - b) / 86400000);
+      if (diff === 1) run++;
+      else break;
+    }
+    out[cat] = run;
+  });
+  return out;
 }
 
 function populateDashboard() {
@@ -4011,6 +4268,11 @@ function populateDashboard() {
     const gain = state.scoreStart !== null ? p.score - state.scoreStart : 0;
     pstats[2].textContent = (gain >= 0 ? '+' : '') + gain;
   }
+  const legacyLine = document.getElementById('legacy-line');
+  if (legacyLine) {
+    const legacy = state.legacyScore !== null ? state.legacyScore : p.score;
+    legacyLine.textContent = `Legacy score: ${legacy}`;
+  }
   updateApiPreview();
   // Update profile sub-labels
   const intakeSub = document.getElementById('intake-row-sub');
@@ -4023,6 +4285,22 @@ function populateDashboard() {
     histSub.textContent = hist.length ? `${hist[0].score} â†’ ${hist[hist.length-1].score} over ${hist.length} session${hist.length !== 1 ? 's' : ''}` : 'No sessions yet';
   }
   updateReminderRowSub();
+
+  const audienceChip = document.getElementById('audience-chip-home');
+  if (audienceChip) audienceChip.textContent = `For: ${state.audience || 'Myself'}`;
+  const weatherChip = document.getElementById('style-weather-chip');
+  if (weatherChip) weatherChip.textContent = computeStyleWeather();
+  const streakChip = document.getElementById('streak-chip-home');
+  if (streakChip) streakChip.textContent = computeStreakStatus().label;
+  const brief = document.getElementById('morning-brief-text');
+  if (brief) brief.textContent = p.roadmap?.[0]?.action || 'Do one small thing that improves presence today.';
+  const weeklyDrop = document.getElementById('weekly-drop-text');
+  if (weeklyDrop) weeklyDrop.textContent = buildWeeklyDrop();
+  const changeSub = document.getElementById('change-log-sub');
+  if (changeSub) {
+    const latest = state.whatChangedLog?.[0]?.text;
+    changeSub.textContent = latest ? `Latest: ${latest.slice(0, 34)}${latest.length > 34 ? '...' : ''}` : 'Add context for your next score';
+  }
 
   // â”€â”€ checkin gain estimate
   const gainEl = document.getElementById('checkin-gain');
@@ -4067,6 +4345,9 @@ document.addEventListener('DOMContentLoaded', () => {
   loadState();
   updateNameGenderContinueState();
   loadReminderToggles();
+  document.querySelectorAll('.audience-chip').forEach(c => c.classList.toggle('selected', (c.dataset.audience || '') === (state.audience || 'Myself')));
+  const quickBtn = document.getElementById('quick-win-btn');
+  if (quickBtn) quickBtn.classList.toggle('active', !!state.quickWinOnly);
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
@@ -4302,6 +4583,7 @@ function checkAndShowUnlock(newScore, prevScore) {
     if (newScore >= t.score && prevScore < t.score) {
       const tier = getTier(newScore);
       setTimeout(() => showUnlockOverlay(newScore, tier.name, t.badge, t.sub), 800);
+      setTimeout(() => openShareModal(), 2600);
       return;
     }
   }
@@ -4364,9 +4646,11 @@ function todoKey(text) {
 function renderTodoList() {
   const container = document.getElementById('todo-scroll-area');
   const countEl   = document.getElementById('todo-done-count');
+  const quickBtn  = document.getElementById('quick-win-btn');
   if (!container) return;
+  if (quickBtn) quickBtn.classList.toggle('active', !!state.quickWinOnly);
 
-  const roadmap = state.profile?.roadmap;
+  let roadmap = state.profile?.roadmap;
   if (!roadmap || !roadmap.length) {
     container.innerHTML = '<div class="todo-empty">Complete your intake to unlock your personal task list.</div>';
     if (countEl) countEl.textContent = '';
@@ -4377,19 +4661,22 @@ function renderTodoList() {
   const TIER_ORDER = ['now', 'effort', 'time'];
   const TIER_LABELS = { now: 'Do Now â€” free & instant', effort: 'Some Effort', time: 'Takes Time' };
   const normalise = item => ({ ...item, tier: item.tier || (item.priority === 'high' ? 'time' : item.priority === 'medium' ? 'effort' : 'now') });
+  roadmap = roadmap.map(normalise);
+  if (state.quickWinOnly) roadmap = roadmap.filter(item => item.tier === 'now');
   const grouped = {};
-  roadmap.map(normalise).forEach(item => {
+  roadmap.forEach(item => {
     if (!grouped[item.tier]) grouped[item.tier] = [];
     grouped[item.tier].push(item);
   });
 
-  const allItems = roadmap.map(normalise);
+  const allItems = roadmap;
+  const streakMap = computeCategoryStreakMap();
   let doneCount = 0;
   let html = '';
 
   TIER_ORDER.forEach(tier => {
     if (!grouped[tier]) return;
-    html += `<div class="todo-tier-group"><div class="todo-tier-label">${TIER_LABELS[tier] || tier}</div>`;
+    html += `<div class="todo-tier-group"><div class="todo-tier-label">${TIER_LABELS[tier] || tier}${state.quickWinOnly ? ' · filtered' : ''}</div>`;
     grouped[tier].forEach(item => {
       const key  = todoKey(item.action);
       const done = !!state.todoChecked[key];
@@ -4397,6 +4684,8 @@ function renderTodoList() {
       // Generate a "why" line from score impact
       const catPretty = { style: 'Style', grooming: 'Grooming', personality: 'Personality', fitness: 'Fitness', social: 'Social presence' };
       const catName = catPretty[item.category] || item.category || '';
+      const streakText = item.category && streakMap[item.category] ? ` · ${streakMap[item.category]}d` : '';
+      const diff = difficultyLabel(item);
       const why = item.impact ? item.impact : catName ? `Impacts your ${catName} score` : 'Part of your roadmap';
       const checkIcon = done ? 'âœ“' : '';
       html += `<div class="todo-item${done ? ' done' : ''}" id="todo-item-${key.slice(0,20)}">
@@ -4404,8 +4693,9 @@ function renderTodoList() {
         <div class="todo-item-body">
           <div class="todo-item-text">${item.action}</div>
           <div class="todo-item-why">${why}</div>
+          <div class="todo-diff">Difficulty: ${diff}</div>
         </div>
-        <div class="todo-item-cat">${catName}</div>
+        <div class="todo-item-cat">${catName}${streakText}</div>
       </div>`;
     });
     html += '</div>';
@@ -4422,6 +4712,10 @@ function toggleTodoItem(key) {
   if (!state.todoChecked) state.todoChecked = {};
   state.todoChecked[key] = !state.todoChecked[key];
   if (!state.todoChecked[key]) delete state.todoChecked[key];
+  const item = state.profile?.roadmap?.find(r => todoKey(r.action) === key);
+  if (!state.todoEvents) state.todoEvents = [];
+  state.todoEvents.push({ key, category: item?.category || '', done: !!state.todoChecked[key], date: new Date().toISOString() });
+  state.todoEvents = state.todoEvents.slice(-300);
   saveState();
   renderTodoList();
   // Keep home CTA in sync if visible

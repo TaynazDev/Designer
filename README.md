@@ -79,9 +79,49 @@ The AI can fully restructure the roadmap each session based on what is strongest
 - ds_gender
 - ds_vibe
 - ds_goals
+- ds_chat_history
+- ds_chat_type
 - ds_checkins
 - ds_score_start
 - ds_profile
+- ds_photos
+- ds_score_history
+- ds_remind
+- ds_todo_checked
+- ds_last_micro
+- ds_audience
+- ds_legacy_score
+- ds_changed_log
+- ds_todo_events
+- ds_quick_win
+- ds_weekly_drop
+
+## Transfer document / sign-in import
+
+Designer currently supports device-to-device account transfer through a portable transfer document. In the prototype, this acts as the app's sign-in/import path for moving an account between devices without a backend.
+
+What the transfer document includes:
+
+- API key and provider type
+- Name, gender, mode, vibe, audience, and goals
+- Current profile JSON
+- Check-in count and starting score
+- Chat type and chat history
+- Photos
+- Score history
+- Reminder settings
+- To-do checked state and to-do events
+- Last micro-prompt date
+- Legacy score
+- What changed log
+- Quick win mode state
+- Weekly drop state
+
+Notes:
+
+- This is a full local account snapshot, not just a profile summary.
+- Because photos are embedded in the document, large accounts can produce very large transfer text.
+- This is a local prototype portability feature, not a secure cloud sign-in system.
 
 ## Files
 
@@ -103,6 +143,13 @@ Open designer-app.html directly in a browser, or serve the folder with any stati
 ## Parked Backlog (Hidden From Deferred Tracker)
 
 These are intentionally moved out of `designer-deferred.html` so the active deferred list stays focused.
+
+### Backend And Ecosystem (Moved From Deferred)
+
+- Profile persistence (Supabase): profiles, scores, check_ins, photo_analyses tables, profile JSON persistence, and row-level score history.
+- Prism ID auth: shared sign-in and sign-up across Prism apps (suite-level identity).
+- Rate limiting (Upstash Redis): free/pro session caps and separate tracking for vision calls.
+- Roast-to-fix pipeline (Prism Roast to Designer): one-tap import from Prism Roast into Designer scoring and roadmap updates.
 
 ### Prism Suite Integrations (Post-MVP)
 
