@@ -2,6 +2,26 @@
 
 All notable changes to this project are documented in this file.
 
+## 1.0.0 Prismatism
+
+Status: MVP release. Core loop is usable, but the product is not finished yet.
+
+### Added
+
+- Stable end-to-end MVP loop across onboarding, mode selection, chat/check-ins, audit, profile, photos, and to-do execution
+- Vision-first coaching baseline with in-app capture/upload and structured photo analysis outputs
+- Advanced coaching lanes from deferred implementation pass (for example reality check, accountability reset, digital presence, environmental and cold-approach audits)
+
+### Changed
+
+- Product framing moved from prototype-only milestone language to MVP release language
+- Scoring pipeline now includes deterministic blending over AI output for more consistent score outcomes
+- Mode metadata is persisted and surfaced across history/photos for clearer difficulty context
+
+### Notes
+
+- This `1.0.0` marks MVP readiness, not feature completion. Post-MVP and polish items remain intentionally deferred.
+
 ## 0.0.2
 
 ### Added
