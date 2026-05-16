@@ -1965,6 +1965,7 @@ html, body {
 .photo-thumb.selected { border-color: rgba(122,174,204,0.65); box-shadow: 0 0 0 1px rgba(122,174,204,0.35) inset; }
 .photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .photo-thumb-score { position: absolute; bottom: 5px; right: 5px; background: rgba(12,12,14,0.8); border-radius: 999px; font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700; color: var(--text); padding: 2px 7px; }
+.photo-thumb-mode { position: absolute; top: 5px; left: 5px; background: rgba(12,12,14,0.78); border-radius: 999px; font-family: 'Syne', sans-serif; font-size: 9px; font-weight: 700; color: var(--text2); padding: 2px 6px; letter-spacing: 0.02em; }
 .photo-thumb-del { position: absolute; top: 4px; right: 4px; width: 20px; height: 20px; border-radius: 50%; background: rgba(12,12,14,0.75); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; line-height: 1; color: var(--text2); }
 .photo-upload-btn { aspect-ratio: 1; border-radius: 12px; background: var(--surface2); border: 1px dashed var(--border2); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer; transition: border-color 0.2s; border: none; }
 .photo-upload-btn:hover { border-color: var(--border3); }
@@ -2150,7 +2151,7 @@ html, body {
           </defs>
           <!-- D letterform / diamond prism -->
           <path d="M9 6 L9 28 L19 28 C25.627 28 31 22.627 31 16 C31 9.373 25.627 4 19 4 L9 4 Z" stroke="url(#iconGrad)" stroke-width="2" fill="none" stroke-linejoin="round"/>
-          <path d="M14 10 L19 10 C22.866 10 26 13.134 26 17 C26 20.866 22.866 24 19 24 L14 24 Z" fill="url(#iconGrad)" opacity="0.4"/>
+          <path d="M14 10 L19 10 C22.866 10 26 13.134 26 17 C26 20.866 22.866 24 19 24 L14 24 Z" fill="url(#iconGrad)"/>
         </svg>
       </div>
       <div>
@@ -2716,12 +2717,12 @@ html, body {
       <div class="home-cta-row" id="advanced-cta-row">
         <div class="home-cta" id="desire-cta" onclick="askWhatDoYouActuallyWant()">
           <div class="home-cta-icon">🧭</div>
-          <div class="home-cta-title">What do you actually want?</div>
+          <div class="home-cta-title">What do you want next?</div>
           <div class="home-cta-sub" id="desire-cta-sub">Unlocks after 3 check-ins</div>
         </div>
         <div class="home-cta" id="intervention-cta" onclick="runInterventionFlow()" style="display:none;">
           <div class="home-cta-icon">🧱</div>
-          <div class="home-cta-title">The intervention</div>
+          <div class="home-cta-title">Intervention</div>
           <div class="home-cta-sub" id="intervention-cta-sub">Available when your trend drops</div>
         </div>
       </div>
@@ -3020,6 +3021,83 @@ html, body {
           </div>
           <div class="profile-row-right">Run</div>
         </div>
+        <div class="profile-row" onclick="askRealityCheck()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Reality check</div>
+            <div class="profile-row-sub" id="reality-check-sub">One-time direct snapshot</div>
+          </div>
+          <div class="profile-row-right">Run</div>
+        </div>
+        <div class="profile-row" onclick="askExcuseFlow()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Missed week check</div>
+            <div class="profile-row-sub">Fast accountability reset</div>
+          </div>
+          <div class="profile-row-right">Open</div>
+        </div>
+        <div class="profile-row" onclick="askDigitalPresenceAudit()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Digital presence</div>
+            <div class="profile-row-sub">Photos, bio, grid, and first impression</div>
+          </div>
+          <div class="profile-row-right">Run</div>
+        </div>
+        <div class="profile-row" onclick="askEnvironmentalAudit()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Environmental audit</div>
+            <div class="profile-row-sub">Score your real-life context</div>
+          </div>
+          <div class="profile-row-right">Run</div>
+        </div>
+        <div class="profile-row" onclick="askColdApproachAudit()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Cold approach audit</div>
+            <div class="profile-row-sub">Scenario-specific social scoring</div>
+          </div>
+          <div class="profile-row-right">Run</div>
+        </div>
+        <div class="profile-row" onclick="askUnaskedAudit()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Unexpected audit</div>
+            <div class="profile-row-sub" id="unasked-audit-sub">Unlocks after check-ins</div>
+          </div>
+          <div class="profile-row-right">Run</div>
+        </div>
+        <div class="profile-row" onclick="askEraRecap()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Era recap</div>
+            <div class="profile-row-sub">Quarter-by-quarter reflection</div>
+          </div>
+          <div class="profile-row-right">Open</div>
+        </div>
+        <div class="profile-row" onclick="askIdentityAudit()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Identity audit</div>
+            <div class="profile-row-sub">6-month then-vs-now check</div>
+          </div>
+          <div class="profile-row-right">Open</div>
+        </div>
+        <div class="profile-row" onclick="setBestSelfStatement()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Best-self anchor</div>
+            <div class="profile-row-sub" id="best-self-sub">Set your anchor identity</div>
+          </div>
+          <div class="profile-row-right">Edit</div>
+        </div>
+        <div class="profile-row" onclick="toggleVillainEra()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Villain era</div>
+            <div class="profile-row-sub" id="villain-era-sub">Off</div>
+          </div>
+          <div class="profile-row-right">Toggle</div>
+        </div>
+        <div class="profile-row" onclick="toggleBlindAudit()" style="cursor:pointer;">
+          <div class="profile-row-left">
+            <div class="profile-row-label">Blind audit</div>
+            <div class="profile-row-sub" id="blind-audit-sub">Off</div>
+          </div>
+          <div class="profile-row-right">Toggle</div>
+        </div>
       </div>
 
       <div class="profile-section-card">
@@ -3242,6 +3320,7 @@ html, body {
     <div class="photo-capture-actions">
       <button class="photo-upload-primary" onclick="document.getElementById('photo-file-input').click()">Upload photo</button>
       <button class="photo-upload-primary ghost" onclick="openPhotoCamera()">Take photo</button>
+      <button class="photo-upload-primary ghost" onclick="openRateMyFitQuickMode()">Rate my fit</button>
     </div>
     <div id="photo-camera-wrap" class="photo-camera-wrap" style="display:none;">
       <video id="photo-camera-video" class="photo-camera-video" autoplay playsinline muted></video>
@@ -3450,6 +3529,42 @@ function getLatestVision() {
   return null;
 }
 
+function isVillainEraActive() {
+  if (!state.villainEraUntil) return false;
+  const t = new Date(state.villainEraUntil).getTime();
+  return Number.isFinite(t) && Date.now() < t;
+}
+
+function isBlindAuditActive() {
+  if (!state.blindAuditUntil) return false;
+  const t = new Date(state.blindAuditUntil).getTime();
+  return Number.isFinite(t) && Date.now() < t;
+}
+
+function formatDaysRemaining(isoDate) {
+  const t = new Date(isoDate).getTime();
+  if (!Number.isFinite(t)) return '--';
+  return Math.max(1, Math.ceil((t - Date.now()) / 86400000));
+}
+
+function openSpecialSession(title, seedPrompt) {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  state.chatType = 'special';
+  state.chatHistory = [];
+  state.isProcessing = false;
+  document.getElementById('chat-header-title').textContent = title;
+  document.getElementById('intake-mode-label').textContent = state.modeLabel + ' mode';
+  document.getElementById('chat-messages').innerHTML = '';
+  document.getElementById('quick-replies').innerHTML = '';
+  const scoreNum = document.getElementById('chat-score-num');
+  if (scoreNum) {
+    const hidden = isBlindAuditActive() && (state.mode === 'beast' || state.mode === 'brutal');
+    scoreNum.textContent = hidden ? 'Hidden' : (state.profile?.score ?? state.liveScore ?? '—');
+  }
+  goTo('screen-intake');
+  setTimeout(() => aiRespond([{ role: 'user', content: seedPrompt }], true), 240);
+}
+
 const TOPIC_GUIDE = `
 You must cover ALL of these topics during the conversation, in roughly this order. Spend 1–2 exchanges per topic then move on:
 1. Current style / clothing — what they actually wear day to day
@@ -3515,7 +3630,12 @@ let state = {
   confidenceHistory: [],
   nemesisTarget: '',
   interventionSeen: false,
-  quickCheckLastUserCount: 0
+  quickCheckLastUserCount: 0,
+  villainEraUntil: null,
+  blindAuditUntil: null,
+  realityCheckUsed: false,
+  bestSelfStatement: '',
+  auditUnaskedLastAt: null
 };
 
 // ─── LOCAL STORAGE ────────────────────────────────────────────────
@@ -3556,6 +3676,15 @@ function saveState() {
   if (state.nemesisTarget) localStorage.setItem('ds_nemesis_target', state.nemesisTarget);
   else localStorage.removeItem('ds_nemesis_target');
   localStorage.setItem('ds_intervention_seen', state.interventionSeen ? '1' : '0');
+  if (state.villainEraUntil) localStorage.setItem('ds_villain_until', state.villainEraUntil);
+  else localStorage.removeItem('ds_villain_until');
+  if (state.blindAuditUntil) localStorage.setItem('ds_blind_audit_until', state.blindAuditUntil);
+  else localStorage.removeItem('ds_blind_audit_until');
+  localStorage.setItem('ds_reality_check_used', state.realityCheckUsed ? '1' : '0');
+  if (state.bestSelfStatement) localStorage.setItem('ds_best_self_statement', state.bestSelfStatement);
+  else localStorage.removeItem('ds_best_self_statement');
+  if (state.auditUnaskedLastAt) localStorage.setItem('ds_unasked_audit_last', state.auditUnaskedLastAt);
+  else localStorage.removeItem('ds_unasked_audit_last');
 }
 
 function loadState() {
@@ -3603,6 +3732,11 @@ function loadState() {
   if (chx) { try { state.confidenceHistory = JSON.parse(chx); } catch(e) { state.confidenceHistory = []; } }
   state.nemesisTarget = localStorage.getItem('ds_nemesis_target') || '';
   state.interventionSeen = localStorage.getItem('ds_intervention_seen') === '1';
+  state.villainEraUntil = localStorage.getItem('ds_villain_until') || null;
+  state.blindAuditUntil = localStorage.getItem('ds_blind_audit_until') || null;
+  state.realityCheckUsed = localStorage.getItem('ds_reality_check_used') === '1';
+  state.bestSelfStatement = localStorage.getItem('ds_best_self_statement') || '';
+  state.auditUnaskedLastAt = localStorage.getItem('ds_unasked_audit_last') || null;
 }
 
 function resetProfile() {
@@ -3614,6 +3748,11 @@ function resetProfile() {
   state.chatType = 'chat';
   state.confidenceHistory = [];
   state.interventionSeen = false;
+  state.villainEraUntil = null;
+  state.blindAuditUntil = null;
+  state.realityCheckUsed = false;
+  state.bestSelfStatement = '';
+  state.auditUnaskedLastAt = null;
 }
 
 // ─── API KEY SETUP ────────────────────────────────────────────────
@@ -3702,11 +3841,14 @@ function getPromptAdjustments() {
   const trendPrompt = `When style direction is unclear, bias suggestions toward current wearable trends while staying realistic for the user. Hair trend pool: ${trendPack.hair.join(', ')}. Outfit trend pool: ${trendPack.outfits.join(', ')}. Suggest 2-3 concrete look formulas instead of vague style words.`;
   const latestVision = getLatestVision();
   const forceVisionPrompt = `VISION V2 IS ALWAYS ON: anchor all coaching in visual analysis (hair, body presentation, silhouette, key pieces). If the user mentions an older or out-of-fashion aesthetic (e.g. outdated goth variants), do not just validate it; redirect toward modern versions with concrete alternatives.`;
+  const villainPrompt = isVillainEraActive()
+    ? `Villain era is active for this user. Raise standards, keep phrasing sharp and urgent, and challenge excuses. Do not be abusive.`
+    : '';
   const visionPrompt = latestVision
     ? `Latest photo vision context: hair=${latestVision.hair?.status || 'unknown'}; body composition read=${latestVision.body?.bodyFatBand || 'unknown'}; style silhouette=${latestVision.style?.silhouette || 'unknown'}; strongest fix opportunities=${(latestVision.improvements || []).slice(0, 2).join('; ') || 'none'}.
 Use this visual context to tailor advice.`
     : 'No recent photo vision data yet. Ask for a photo upload/capture early, then give provisional advice until Vision V2 data exists.';
-  return `${tonePrompt} ${focusPrompt} ${nemesisPrompt} ${dnaPrompt} ${trendPrompt} ${forceVisionPrompt} ${visionPrompt}`;
+  return `${tonePrompt} ${focusPrompt} ${nemesisPrompt} ${dnaPrompt} ${trendPrompt} ${forceVisionPrompt} ${villainPrompt} ${visionPrompt}`;
 }
 
 function computeModeScoreSplit(score) {
@@ -3753,6 +3895,27 @@ function deriveStyleDNA(profile) {
   if (topCat) words.push(catWordMap[topCat]);
   words.push(profile?.score >= 80 ? 'elevated' : profile?.score >= 65 ? 'sharpening' : 'forming');
   return words.slice(0, 3).map(word => (word || '').replace(/[^a-zA-Z-]/g, '')).filter(Boolean);
+}
+
+function calculateDeterministicScore(profileData) {
+  const categories = profileData?.categories || {};
+  const categoryAverage = avg([
+    Number(categories.style) || 0,
+    Number(categories.grooming) || 0,
+    Number(categories.fitness) || 0,
+    Number(categories.personality) || 0,
+    Number(categories.social) || 0
+  ]);
+  const aiScore = Number.isFinite(Number(profileData?.score)) ? Number(profileData.score) : categoryAverage;
+  const blended = Math.round((aiScore * 0.65) + (categoryAverage * 0.35));
+  const modeOffset = MODE_SCORE_OFFSETS[state.mode] || 0;
+  return {
+    categoryAverage,
+    aiScore: Math.round(aiScore),
+    blended,
+    finalScore: clamp(Math.round(blended + modeOffset), 0, 100),
+    modeOffset
+  };
 }
 
 function normalizeStyleDNA(profile) {
@@ -4115,9 +4278,20 @@ function updateNameUI() {
 
 // ─── MODE SELECT ─────────────────────────────────────────────────
 function selectMode(card) {
+  const nextMode = card.dataset.mode;
+  const score = Number(state.profile?.score ?? state.liveScore ?? 0);
+  if (state.profile && nextMode === 'beast' && score < 55) {
+    alert('Beast mode unlocks at 55+. Build consistency first.');
+    return;
+  }
+  if (state.profile && nextMode === 'brutal' && score < 70) {
+    alert('Brutal mode unlocks at 70+. Reach that line first.');
+    return;
+  }
   document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
   card.classList.add('selected');
-  state.mode = card.dataset.mode;
+  state.lastModeBeforeChange = state.mode;
+  state.mode = nextMode;
   state.modeLabel = modeLabels[state.mode];
 }
 
@@ -4129,9 +4303,35 @@ function handleBrutalCardClick(card) {
 }
 
 function goToIntake() {
+  const modeDelta = {
+    relaxed: 6,
+    real: 0,
+    locked: -4,
+    beast: -8,
+    brutal: -12
+  };
   state.modeLabel = modeLabels[state.mode];
   document.getElementById('home-mode-pill').textContent   = state.modeLabel;
   document.getElementById('profile-mode-name').textContent = state.modeLabel;
+
+  if (state.profile && state.lastModeBeforeChange && state.lastModeBeforeChange !== state.mode) {
+    const prev = Number(state.profile.score || 0);
+    const adjusted = Math.max(0, Math.min(100, prev + (modeDelta[state.mode] || 0) - (modeDelta[state.lastModeBeforeChange] || 0)));
+    state.profile.prevScore = prev;
+    state.profile.score = adjusted;
+    state.liveScore = adjusted;
+    if (!state.scoreHistory) state.scoreHistory = [];
+    state.scoreHistory.push({
+      score: adjusted,
+      mode: state.mode,
+      modeLabel: state.modeLabel,
+      date: new Date().toISOString(),
+      note: `Mode re-baseline from ${modeLabels[state.lastModeBeforeChange] || state.lastModeBeforeChange}`,
+      source: 'mode-rebaseline'
+    });
+    state.scoreHistory = state.scoreHistory.slice(-600);
+  }
+
   saveState();
 
   // Returning users should not be forced into a fresh intake when changing mode.
@@ -4244,7 +4444,10 @@ function startQuickCheckIn(fromDailyPrompt) {
   document.getElementById('chat-header-title').textContent = 'Quick check-in';
   document.getElementById('intake-mode-label').textContent = state.modeLabel + ' mode';
   const scoreNum = document.getElementById('chat-score-num');
-  if (scoreNum) scoreNum.textContent = state.profile?.score ?? state.liveScore ?? '—';
+  if (scoreNum) {
+    const hidden = isBlindAuditActive() && (state.mode === 'beast' || state.mode === 'brutal');
+    scoreNum.textContent = hidden ? 'Hidden' : (state.profile?.score ?? state.liveScore ?? '—');
+  }
   goTo('screen-intake');
 
   const seed = `The user (${state.name || 'User'}) is doing a quick check-in. Ask ONE question about what changed today. After they answer, give one tight observation and one small next action. Keep it concise and practical.`;
@@ -4309,10 +4512,28 @@ function startChat(isFirstIntake) {
   const vibeNote = state.vibe
     ? `Their stated style direction is: "${state.vibe}". Evaluate whether it suits their real life and personality; if it is dated, pivot them to modern alternatives. Include Pinterest links when suggesting specific directions.`
     : 'They have not defined a style direction yet. In the first part of intake, ask what look they are aiming for and then refine it toward modern wearable directions.';
+  const completedTasks = (state.profile?.roadmap || [])
+    .filter(item => state.todoChecked?.[todoKey(item.action)])
+    .map(item => item.action)
+    .slice(0, 8);
+  const doneNote = completedTasks.length
+    ? `Completed roadmap actions since last audit: ${completedTasks.join('; ')}. Credit execution when scoring.`
+    : '';
+  let missedWeekNote = '';
+  if (!isFirstIntake && state.mode === 'brutal' && (state.scoreHistory || []).length) {
+    const lastDate = new Date(state.scoreHistory[state.scoreHistory.length - 1].date);
+    const days = Math.floor((Date.now() - lastDate) / 86400000);
+    if (days >= 7) {
+      missedWeekNote = `They missed ${days} days. Start with a short accountability question before normal check-in.`;
+    }
+  }
+  const bestSelfReveal = state.bestSelfStatement && Number(state.profile?.score || 0) >= 80
+    ? `User reached 80+. Compare their current state against their stored best-self anchor: "${state.bestSelfStatement}".`
+    : '';
 
   const seed = isFirstIntake
     ? `This is a first intake with a new user named ${state.name} in ${state.mode} mode. ${genderNote} ${vibeNote} ${goalsNote} ${focusNote} ${dnaNote} Greet them in one sentence as Designer, then immediately ask: "How can I help you improve right now?" Start with their current style (what they actually wear day to day, not what they want). Work through all required topics one at a time, and give at least one practical exercise in every reply.`
-    : `This is a check-in with ${state.name} in ${state.mode} mode. ${genderNote} Their current score is ${state.profile?.score ?? '?'}. Previous roadmap priorities: ${state.profile?.roadmap?.slice(0,2).map(r => r.action).join('; ') ?? 'none'}. ${vibeNote} ${goalsNote} ${focusNote} ${dnaNote} Welcome them back in one sentence, then ask: "How can I help you improve today?" Work through all required topics to update their profile, and include at least one concrete exercise in every reply.`;
+    : `This is a check-in with ${state.name} in ${state.mode} mode. ${genderNote} Their current score is ${state.profile?.score ?? '?'}. Previous roadmap priorities: ${state.profile?.roadmap?.slice(0,2).map(r => r.action).join('; ') ?? 'none'}. ${vibeNote} ${goalsNote} ${focusNote} ${dnaNote} ${doneNote} ${missedWeekNote} ${bestSelfReveal} Welcome them back in one sentence, then ask: "How can I help you improve today?" Work through all required topics to update their profile, and include at least one concrete exercise in every reply.`;
 
   setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 450);
 }
@@ -4467,17 +4688,28 @@ async function buildProfile() {
   const typingEl = addMsg('ai', null, true);
   try {
     const profileData = normalizeStyleDNA(await generateProfile());
+    const scoreCalc = calculateDeterministicScore(profileData);
     typingEl.remove();
     const prevScore = state.profile?.score ?? null;
-    state.profile = { ...profileData, prevScore };
+    state.profile = {
+      ...profileData,
+      prevScore,
+      score: scoreCalc.finalScore,
+      scoreEngine: scoreCalc,
+      scoreMode: modeMeta().mode,
+      scoreModeLabel: modeMeta().modeLabel
+    };
     state.checkins++;
-    if (state.scoreStart === null) state.scoreStart = profileData.score;
-    if (state.legacyScore === null || profileData.score > state.legacyScore) state.legacyScore = profileData.score;
+    if (state.scoreStart === null) state.scoreStart = scoreCalc.finalScore;
+    if (state.legacyScore === null || scoreCalc.finalScore > state.legacyScore) state.legacyScore = scoreCalc.finalScore;
     // Record score history entry
     if (!state.scoreHistory) state.scoreHistory = [];
-    state.scoreHistory.push({ score: profileData.score, mode: state.mode, modeLabel: state.modeLabel, date: new Date().toISOString(), note: state.whatChangedLog?.[0]?.text || '' });
+    state.scoreHistory.push({ score: scoreCalc.finalScore, mode: state.mode, modeLabel: state.modeLabel, date: new Date().toISOString(), note: state.whatChangedLog?.[0]?.text || '', engine: scoreCalc });
     saveState();
-    addMsg('ai', `Done. Your score is ${profileData.score}. Heading to your dashboard now.`);
+    const shouldHide = isBlindAuditActive() && (state.mode === 'beast' || state.mode === 'brutal');
+    addMsg('ai', shouldHide
+      ? 'Done. Blind audit is active, so your score is hidden for now. Heading to your dashboard now.'
+      : `Done. Your score is ${scoreCalc.finalScore}. Heading to your dashboard now.`);
     setTimeout(() => {
       populateDashboard();
       goTo('screen-home');
@@ -4552,7 +4784,7 @@ async function sendChatWithPhoto(dataUrl, caption) {
 
   if (!state.photos) state.photos = [];
   const photoIdx = state.photos.length;
-  state.photos.push({ data: dataUrl, date: new Date().toISOString(), score: state.profile?.score ?? null, vision: null });
+  state.photos.push({ data: dataUrl, date: new Date().toISOString(), score: state.profile?.score ?? null, mode: state.mode, modeLabel: state.modeLabel, vision: null });
 
   state.isProcessing = true;
   const typingEl = addMsg('ai', null, true);
@@ -4798,6 +5030,13 @@ function fallbackTransferDoc(payload) {
     JSON.stringify(payload),
     'END DESIGNER TRANSFER JSON'
   ].join('\n');
+}
+
+function modeMeta(mode = state.mode) {
+  return {
+    mode,
+    modeLabel: modeLabels[mode] || 'Real'
+  };
 }
 
 async function generateTransferDoc() {
@@ -5143,28 +5382,136 @@ function askRejectionAnalysis() {
   if (!state.apiKey) { goTo('screen-api-setup'); return; }
   const scenario = prompt('Describe the rejection scenario in one line (party, date, social, interview, etc).');
   if (!scenario || !scenario.trim()) return;
-  goTo('screen-intake');
-  document.getElementById('chat-header-title').textContent = 'Rejection analysis';
-  document.getElementById('intake-mode-label').textContent = `${state.modeLabel} mode`;
-  document.getElementById('chat-messages').innerHTML = '';
-  document.getElementById('quick-replies').innerHTML = '';
-  const scoreNum = document.getElementById('chat-score-num');
-  if (scoreNum) scoreNum.textContent = state.profile?.score ?? state.liveScore ?? '—';
   const seed = `The user wants a direct rejection analysis. Scenario: "${scenario.trim()}". Map likely contributing factors using their profile context (appearance, presence, social signaling), then give a practical fix path with 3 steps: immediate, this week, this month.`;
-  setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 300);
+  openSpecialSession('Rejection analysis', seed);
+}
+
+function askRealityCheck() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  if (state.mode !== 'brutal') {
+    alert('Reality check is Brutal-exclusive. Switch to Brutal mode first.');
+    return;
+  }
+  if (state.realityCheckUsed) {
+    alert('Reality check already used. It is intentionally one-time only.');
+    return;
+  }
+  const ok = confirm('This is one-time, unfiltered, and has no encouragement or roadmap. Continue?');
+  if (!ok) return;
+  state.realityCheckUsed = true;
+  saveState();
+  const seed = `Run a one-time reality check. Be clinical, concise, and direct. No encouragement. No roadmap. No motivational framing. Focus on current reality only across style, grooming, body presentation, and social presence.`;
+  openSpecialSession('Reality check', seed);
+}
+
+function askExcuseFlow() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  const reason = prompt('Why did you miss the week? (one line)');
+  if (!reason || !reason.trim()) return;
+  const style = state.mode === 'brutal' ? 'challenge weak logic hard' : 'be firm but constructive';
+  const seed = `Run an accountability reset. User reason: "${reason.trim()}". First validate what is genuinely valid, then ${style}, then give a 72-hour re-entry plan with one non-negotiable action.`;
+  openSpecialSession('Accountability reset', seed);
+}
+
+function askDigitalPresenceAudit() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  const platform = prompt('Primary platform to audit? (Instagram, LinkedIn, TikTok, dating app, etc)') || 'Instagram';
+  const seed = `Run a digital presence audit for ${platform}. Separate this from in-person presentation. Score profile photo quality, visual consistency, bio language, and feed narrative. Give top 3 highest-impact fixes.`;
+  openSpecialSession('Digital presence', seed);
+}
+
+function askEnvironmentalAudit() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  const env = prompt('Main environment to optimize? (office, gym, nightlife, campus, etc)');
+  if (!env || !env.trim()) return;
+  const seed = `Run an environmental audit for "${env.trim()}". Score fit-to-context, confidence signaling, and social readability in that environment. Give 3 specific improvements for that context.`;
+  openSpecialSession('Environmental audit', seed);
+}
+
+function askColdApproachAudit() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  const scene = prompt('Scenario to audit? (party, first date, interview, networking, etc)');
+  if (!scene || !scene.trim()) return;
+  const seed = `Run a cold-approach audit for "${scene.trim()}". Evaluate first 30-second impression: appearance, body language, conversational opener, and vibe match. Give one "stop doing", one "start doing", and one drill.`;
+  openSpecialSession('Cold approach audit', seed);
+}
+
+function askUnaskedAudit() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  if ((state.checkins || 0) < 5) {
+    alert(`Unlocks after 5 check-ins. You are at ${state.checkins || 0}.`);
+    return;
+  }
+  state.auditUnaskedLastAt = new Date().toISOString();
+  saveState();
+  const seed = `Give an unexpected audit: identify one blind spot pattern from prior coaching context that the user avoids (for example voice, posture, camera presence, inconsistency). Keep it specific and constructive with one immediate fix.`;
+  openSpecialSession('Unexpected audit', seed);
+}
+
+function askEraRecap() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  const history = state.scoreHistory || [];
+  if (history.length < 3) {
+    alert('Need at least 3 sessions for an era recap.');
+    return;
+  }
+  const seed = `Create a short era recap from score history and known profile context. Split into: then, now, and next era. Keep it practical and visual.`;
+  openSpecialSession('Era recap', seed);
+}
+
+function askIdentityAudit() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  const history = state.scoreHistory || [];
+  if (history.length < 2) {
+    alert('Need at least 2 sessions for identity audit.');
+    return;
+  }
+  const seed = `Run a 6-month identity audit style check using available history. Compare initial direction vs current output in style, behavior, confidence, and social signal. Give mismatch notes and a recalibration plan.`;
+  openSpecialSession('Identity audit', seed);
+}
+
+function setBestSelfStatement() {
+  const current = state.bestSelfStatement ? `Current: ${state.bestSelfStatement}\n\n` : '';
+  const val = prompt(`${current}Write one sentence describing the version of you that already exists.`);
+  if (val === null) return;
+  state.bestSelfStatement = val.trim();
+  saveState();
+  if (state.profile) populateDashboard();
+}
+
+function toggleVillainEra() {
+  if (isVillainEraActive()) {
+    state.villainEraUntil = null;
+    alert('Villain era ended.');
+  } else {
+    const until = new Date(Date.now() + 7 * 86400000);
+    state.villainEraUntil = until.toISOString();
+    alert('Villain era activated for 7 days.');
+  }
+  saveState();
+  if (state.profile) populateDashboard();
+}
+
+function toggleBlindAudit() {
+  if (!(state.mode === 'beast' || state.mode === 'brutal')) {
+    alert('Blind audit mode is available in Beast or Brutal only.');
+    return;
+  }
+  if (isBlindAuditActive()) {
+    state.blindAuditUntil = null;
+    alert('Blind audit mode turned off.');
+  } else {
+    state.blindAuditUntil = new Date(Date.now() + 48 * 3600000).toISOString();
+    alert('Blind audit active for 48 hours.');
+  }
+  saveState();
+  if (state.profile) populateDashboard();
 }
 
 function askWhatDoYouActuallyWant() {
   if (!state.apiKey) { goTo('screen-api-setup'); return; }
-  goTo('screen-intake');
-  document.getElementById('chat-header-title').textContent = 'What do you actually want?';
-  document.getElementById('intake-mode-label').textContent = `${state.modeLabel} mode`;
-  document.getElementById('chat-messages').innerHTML = '';
-  document.getElementById('quick-replies').innerHTML = '';
-  const scoreNum = document.getElementById('chat-score-num');
-  if (scoreNum) scoreNum.textContent = state.profile?.score ?? state.liveScore ?? '—';
   const seed = `The user has completed ${state.checkins} check-ins. Run a reflection to recalibrate toward what they actually want others to feel when they see them. Ask one sharp question, then provide one concise interpretation and one tactical next move.`;
-  setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 300);
+  openSpecialSession('What do you actually want?', seed);
 }
 
 function consecutiveDrops(history) {
@@ -5184,16 +5531,9 @@ function runInterventionFlow() {
   if (!state.apiKey) { goTo('screen-api-setup'); return; }
   state.interventionSeen = true;
   saveState();
-  goTo('screen-intake');
-  document.getElementById('chat-header-title').textContent = 'The intervention';
-  document.getElementById('intake-mode-label').textContent = `${state.modeLabel} mode`;
-  document.getElementById('chat-messages').innerHTML = '';
-  document.getElementById('quick-replies').innerHTML = '';
-  const scoreNum = document.getElementById('chat-score-num');
-  if (scoreNum) scoreNum.textContent = state.profile?.score ?? state.liveScore ?? '—';
   const dropRun = consecutiveDrops(state.scoreHistory || []);
   const seed = `Break character and deliver an intervention. Context: the user's score has dropped for ${dropRun} consecutive updates. In 3 compact paragraphs: name the likely pattern, call out one uncomfortable truth, then give a reset protocol for the next 72 hours.`;
-  setTimeout(() => aiRespond([{ role: 'user', content: seed }], true), 300);
+  openSpecialSession('Intervention', seed);
 }
 
 function toggleQuickWinMode() {
@@ -5242,6 +5582,8 @@ function computeCategoryStreakMap() {
 function populateDashboard() {
   const p = state.profile;
   if (!p) return;
+  const scoreHidden = isBlindAuditActive() && (state.mode === 'beast' || state.mode === 'brutal');
+  const shownScore = scoreHidden ? 'Hidden' : p.score;
   const tier = getTier(p.score);
   const history = state.scoreHistory || [];
   const modeSplit = computeModeScoreSplit(p.score);
@@ -5253,7 +5595,7 @@ function populateDashboard() {
   // ── home
   document.getElementById('home-name').textContent    = state.name || '';
   document.getElementById('home-mode-pill').textContent = state.modeLabel + ' ↗';
-  document.getElementById('score-num').textContent    = p.score;
+  document.getElementById('score-num').textContent    = shownScore;
   const ring = document.getElementById('score-ring');
   if (ring) ring.setAttribute('stroke-dashoffset', scoreToOffset(p.score));
   const tn = document.querySelector('#screen-home .score-tier-name');
@@ -5309,7 +5651,7 @@ function populateDashboard() {
 
   // ── audit
   const auditScoreNum = document.querySelector('#screen-audit .score-big');
-  if (auditScoreNum) auditScoreNum.textContent = p.score;
+  if (auditScoreNum) auditScoreNum.textContent = shownScore;
   document.querySelectorAll('#screen-audit circle[stroke-linecap]').forEach(c =>
     c.setAttribute('stroke-dashoffset', scoreToOffset(p.score))
   );
@@ -5345,7 +5687,7 @@ function populateDashboard() {
   const mn = document.querySelector('#screen-profile .current-mode-label');
   if (mn) mn.textContent = 'Mode ' + (modeNums[state.mode] || '02');
   const pstats = document.querySelectorAll('#screen-profile .pstat-val');
-  if (pstats[0]) pstats[0].textContent = p.score;
+  if (pstats[0]) pstats[0].textContent = shownScore;
   if (pstats[1]) pstats[1].textContent = state.checkins;
   if (pstats[2]) {
     const gain = state.scoreStart !== null ? p.score - state.scoreStart : 0;
@@ -5368,6 +5710,19 @@ function populateDashboard() {
   if (focusCatSub) focusCatSub.textContent = getFocusCategoryLabel();
   const nemesisSub = document.getElementById('nemesis-sub');
   if (nemesisSub) nemesisSub.textContent = state.nemesisTarget || 'Not set';
+  const realitySub = document.getElementById('reality-check-sub');
+  if (realitySub) realitySub.textContent = state.realityCheckUsed ? 'Completed (one-time)' : 'One-time brutal snapshot';
+  const villainSub = document.getElementById('villain-era-sub');
+  if (villainSub) villainSub.textContent = isVillainEraActive() ? `${formatDaysRemaining(state.villainEraUntil)} day${formatDaysRemaining(state.villainEraUntil) !== 1 ? 's' : ''} left` : 'Off';
+  const blindSub = document.getElementById('blind-audit-sub');
+  if (blindSub) blindSub.textContent = isBlindAuditActive() ? `${formatDaysRemaining(state.blindAuditUntil)} day${formatDaysRemaining(state.blindAuditUntil) !== 1 ? 's' : ''} left` : 'Off';
+  const bestSelfSub = document.getElementById('best-self-sub');
+  if (bestSelfSub) bestSelfSub.textContent = state.bestSelfStatement ? `${state.bestSelfStatement.slice(0, 48)}${state.bestSelfStatement.length > 48 ? '...' : ''}` : 'Set your anchor identity';
+  const unaskedSub = document.getElementById('unasked-audit-sub');
+  if (unaskedSub) {
+    const remaining = Math.max(0, 5 - (state.checkins || 0));
+    unaskedSub.textContent = remaining === 0 ? 'Unlocked now' : `Unlocks in ${remaining} check-in${remaining !== 1 ? 's' : ''}`;
+  }
   updateApiPreview();
   // Update profile sub-labels
   const intakeSub = document.getElementById('intake-row-sub');
@@ -5431,6 +5786,11 @@ function populateDashboard() {
   }
   if (interventionCta) interventionCta.style.display = interventionReady ? 'block' : 'none';
   if (advancedRow) advancedRow.style.display = 'flex';
+
+  if (scoreHidden) {
+    const scoreDelta = document.querySelector('#screen-home .score-delta');
+    if (scoreDelta) scoreDelta.textContent = `Blind audit active • ${formatDaysRemaining(state.blindAuditUntil)} day reveal countdown`;
+  }
 
   // ── checkin gain estimate
   const gainEl = document.getElementById('checkin-gain');
@@ -5567,7 +5927,7 @@ function renderScoreHistoryScreen() {
       <div class="score-hist-num">${h.score}</div>
       <div class="score-hist-info">
         <div class="score-hist-date">${dateStr} · Session ${i+1}</div>
-        <div class="score-hist-mode">${h.modeLabel || h.mode} mode</div>
+        <div class="score-hist-mode">${h.modeLabel || h.mode} mode${h.engine ? ` · engine ${h.engine.finalScore ?? h.score}` : ''}</div>
       </div>
       <div class="score-hist-delta ${cls}">${txt}</div>
     </div>`;
@@ -5576,6 +5936,7 @@ function renderScoreHistoryScreen() {
 
 // ─── PHOTOS ───────────────────────────────────────────────────────
 function openPhotosModal() {
+  window.photoFitQuickMode = false;
   if (!Array.isArray(state.photos)) state.photos = [];
   if (state.photos.length) {
     if (!Number.isInteger(window.photoVisionIndex) || window.photoVisionIndex < 0 || window.photoVisionIndex >= state.photos.length) {
@@ -5591,10 +5952,20 @@ function openPhotosModal() {
   modal.setAttribute('aria-hidden', 'false');
 }
 
+function openRateMyFitQuickMode() {
+  if (!state.apiKey) { goTo('screen-api-setup'); return; }
+  openPhotosModal();
+  window.photoFitQuickMode = true;
+  renderPhotoGrid();
+  const summary = document.getElementById('photo-vision-summary');
+  if (summary) summary.textContent = 'Upload one outfit photo, then run a quick fit check for that look only.';
+}
+
 function closePhotosModal() {
   const modal = document.getElementById('photos-modal');
   if (!modal) return;
   stopPhotoCamera();
+  window.photoFitQuickMode = false;
   modal.classList.remove('show');
   modal.setAttribute('aria-hidden', 'true');
 }
@@ -5643,7 +6014,7 @@ function capturePhotoFromCamera() {
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
   const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
   if (!state.photos) state.photos = [];
-  state.photos.push({ data: dataUrl, date: new Date().toISOString(), score: state.profile?.score ?? null, vision: null });
+  state.photos.push({ data: dataUrl, date: new Date().toISOString(), score: state.profile?.score ?? null, mode: state.mode, modeLabel: state.modeLabel, vision: null });
   window.photoVisionIndex = state.photos.length - 1;
   saveState();
   stopPhotoCamera();
@@ -5726,6 +6097,7 @@ function renderPhotoGrid() {
   const thumbsHTML = photos.map((p, i) =>
     `<div class="photo-thumb${i === window.photoVisionIndex ? ' selected' : ''}" onclick="selectPhotoForVision(${i})">
       <img src="${p.data}" alt="Photo ${i+1}" loading="lazy">
+      ${p.modeLabel ? `<div class="photo-thumb-mode">${p.modeLabel}</div>` : ''}
       ${p.score !== null ? `<div class="photo-thumb-score">${p.score}</div>` : ''}
       <button class="photo-thumb-del" onclick="event.stopPropagation();deletePhoto(${i})" aria-label="Delete photo">×</button>
     </div>`
@@ -5774,10 +6146,12 @@ function renderPhotoVisionPanel() {
 
   const p = photos[window.photoVisionIndex];
   btn.disabled = !!window.photoVisionBusy;
-  btn.textContent = window.photoVisionBusy ? 'Analyzing...' : 'Analyze selected photo';
+  btn.textContent = window.photoVisionBusy ? 'Analyzing...' : (window.photoFitQuickMode ? 'Rate my fit' : 'Analyze selected photo');
 
   if (!p.vision) {
-    summary.textContent = 'No analysis yet for this photo. Run AI analysis to get strengths and fixes.';
+    summary.textContent = window.photoFitQuickMode
+      ? 'This mode is for one outfit photo. Run a quick fit check to score the look only.'
+      : 'No analysis yet for this photo. Run AI analysis to get strengths and fixes.';
     strengths.innerHTML = '';
     improvements.innerHTML = '';
     meta.textContent = '';
@@ -5806,7 +6180,9 @@ function renderPhotoVisionPanel() {
     (p.vision.body?.advice || []).slice(0, 2).map(item => `<li>Body/fitness: ${item}</li>`).join('');
   const when = p.vision.analyzedAt ? new Date(p.vision.analyzedAt).toLocaleString() : '';
   const confBand = p.vision?.body?.confidence ? ` · body confidence ${p.vision.body.confidence}` : '';
-  meta.textContent = `Analyzed ${when}${confBand}`.trim();
+  const modeBand = p.modeLabel ? ` · ${p.modeLabel} mode` : '';
+  const quickBand = window.photoFitQuickMode ? ' · quick fit check' : '';
+  meta.textContent = `Analyzed ${when}${modeBand}${quickBand}${confBand}`.trim();
 }
 
 async function analyzeSelectedPhotoVision() {
@@ -5819,9 +6195,17 @@ async function analyzeSelectedPhotoVision() {
   window.photoVisionBusy = true;
   renderPhotoVisionPanel();
   try {
-    photo.vision = await analyzePhotoVisionV2(photo.data, 'Selected from photo gallery modal');
+    const extraContext = window.photoFitQuickMode
+      ? 'Rate my fit quick mode. Focus on outfit only: silhouette, proportions, fit, color harmony, footwear, and whether the look reads intentional. Keep it short and practical.'
+      : 'Selected from photo gallery modal';
+    photo.vision = await analyzePhotoVisionV2(photo.data, extraContext);
     saveState();
     renderPhotoVisionPanel();
+    if (window.photoFitQuickMode && !window.photoVisionBusy) {
+      setTimeout(() => {
+        if (confirm('Open share card for this fit?')) openShareModal();
+      }, 0);
+    }
   } catch (err) {
     alert(`Photo vision analysis failed: ${err.message}`);
   }
@@ -5865,7 +6249,7 @@ function handlePhotoUpload(input) {
   const reader = new FileReader();
   reader.onload = e => {
     if (!state.photos) state.photos = [];
-    state.photos.push({ data: e.target.result, date: new Date().toISOString(), score: state.profile?.score ?? null, vision: null });
+    state.photos.push({ data: e.target.result, date: new Date().toISOString(), score: state.profile?.score ?? null, mode: state.mode, modeLabel: state.modeLabel, vision: null });
     window.photoVisionIndex = state.photos.length - 1;
     saveState();
     renderPhotoGrid();
